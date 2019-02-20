@@ -94,7 +94,7 @@ public class HighlandsBiomes {
 		if(Config.adirondackGenerate.getBoolean(true))
 		{
 			adirondack = registerBiome(event, new BiomeGenAdirondacks(HighlandsBiomeProperties.ADIRONDACKS), "adirondack");
-			adirondackFoothills = registerBiome(event, new BiomeGenAdirondacks(HighlandsBiomeProperties.ADIRONDACKS_FOOTHILLS), "adirondack_foothills")
+			adirondackFoothills = registerBiome(event, new BiomeGenAdirondacks(HighlandsBiomeProperties.ADIRONDACKS_FOOTHILLS), "adirondack_foothills");
 		}
 		if(Config.alpsGenerate.getBoolean(true))
 		{
