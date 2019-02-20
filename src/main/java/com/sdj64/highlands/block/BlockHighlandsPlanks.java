@@ -1,8 +1,8 @@
 package com.sdj64.highlands.block;
 
+import com.sdj64.highlands.init.HighlandsBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.creativetab.CreativeTabs;
 
 public class BlockHighlandsPlanks extends Block
 {

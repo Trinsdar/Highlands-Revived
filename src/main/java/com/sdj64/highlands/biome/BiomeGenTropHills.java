@@ -1,35 +1,22 @@
 package com.sdj64.highlands.biome;
 
-import java.util.Random;
-
-import com.sdj64.highlands.HighlandsMod;
 import com.sdj64.highlands.generator.HighlandsGenerators;
-
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.biome.BiomeDecorator;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
-import net.minecraft.world.gen.feature.WorldGenTallGrass;
-import net.minecraft.world.gen.feature.WorldGenTrees;
-import net.minecraft.world.gen.feature.WorldGenVines;
-import net.minecraft.world.gen.feature.WorldGenerator;
+
+import java.util.Random;
 
 public class BiomeGenTropHills extends BiomeGenBaseHighlands
 {
 
-	public BiomeGenTropHills(int par1)
+	public BiomeGenTropHills()
     {
-        super(par1);
+        super(HighlandsBiomeProperties.TROPICAL_HILLS);
         
-        theBiomeDecorator.treesPerChunk = 12;
-        theBiomeDecorator.grassPerChunk = 10;
-        theBiomeDecorator.flowersPerChunk = 1;
-	    
-        this.minHeight = 0.4F;
-        this.maxHeight = 0.5F;
-        this.temperature = 0.95F;
-        this.rainfall = 0.7F;
+        decorator.treesPerChunk = 12;
+        decorator.grassPerChunk = 10;
+        decorator.flowersPerChunk = 1;
         
         plants.add(HighlandsGenerators.mcOrchid);
         plants.add(HighlandsGenerators.greenLeaf);
@@ -47,6 +34,6 @@ public class BiomeGenTropHills extends BiomeGenBaseHighlands
     {
         super.decorate(world, random, pos);
         
-        genStandardOre(theBiomeDecorator.chunkProviderSettings.coalCount/2, theBiomeDecorator.coalGen, theBiomeDecorator.chunkProviderSettings.coalMinHeight, theBiomeDecorator.chunkProviderSettings.coalMaxHeight, world, random, pos);
+        genStandardOre(decorator.chunkProviderSettings.coalCount/2, decorator.coalGen, decorator.chunkProviderSettings.coalMinHeight, decorator.chunkProviderSettings.coalMaxHeight, world, random, pos);
     }
 }

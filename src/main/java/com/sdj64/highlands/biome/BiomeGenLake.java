@@ -1,30 +1,20 @@
 package com.sdj64.highlands.biome;
 
-import java.util.Random;
-
-import com.sdj64.highlands.HighlandsMod;
 import com.sdj64.highlands.generator.HighlandsGenerators;
-
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
-import net.minecraft.world.gen.feature.WorldGenerator;
+
+import java.util.Random;
 
 public class BiomeGenLake extends BiomeGenBaseHighlands
 {
 
-	public BiomeGenLake(int par1)
+	public BiomeGenLake()
     {
-		super(par1);
+		super(HighlandsBiomeProperties.LAKE);
 		
-        theBiomeDecorator.treesPerChunk = 3;
-        theBiomeDecorator.grassPerChunk = 12;
-        theBiomeDecorator.flowersPerChunk = 0;
-    	
-	    this.minHeight = -0.7F;
-	    this.maxHeight = 0.01F;
-        this.temperature = 0.8F;
-        this.rainfall = 0.8F;
+        decorator.treesPerChunk = 3;
+        decorator.grassPerChunk = 12;
+        decorator.flowersPerChunk = 0;
 	    
         this.spawnableCreatureList.clear();
     }

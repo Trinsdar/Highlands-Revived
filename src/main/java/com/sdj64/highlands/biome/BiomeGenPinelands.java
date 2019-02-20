@@ -1,36 +1,24 @@
 package com.sdj64.highlands.biome;
 
-import java.util.Random;
-
-import com.sdj64.highlands.HighlandsMod;
 import com.sdj64.highlands.generator.HighlandsGenerators;
-
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.biome.BiomeDecorator;
-import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenTaiga2;
-import net.minecraft.world.gen.feature.WorldGenTallGrass;
-import net.minecraft.world.gen.feature.WorldGenerator;
+
+import java.util.Random;
 
 public class BiomeGenPinelands extends BiomeGenBaseHighlands
 {
 
-	public BiomeGenPinelands(int par1)
+	public BiomeGenPinelands()
     {
-        super(par1);
+        super(HighlandsBiomeProperties.PINELANDS);
         
-        theBiomeDecorator.treesPerChunk = 3;
-        theBiomeDecorator.grassPerChunk = 6;
-        theBiomeDecorator.flowersPerChunk = 0;
-	    
-        maxHeight = 0.6F;
-        minHeight = 0.4F;
-        temperature = 0.5F;
-        rainfall = 0.6F;
+        decorator.treesPerChunk = 3;
+        decorator.grassPerChunk = 6;
+        decorator.flowersPerChunk = 0;
         
         plants.add(HighlandsGenerators.thornbush);
         plants.add(HighlandsGenerators.blueberryBush);
@@ -49,7 +37,7 @@ public class BiomeGenPinelands extends BiomeGenBaseHighlands
     {
         super.decorate(world, random, pos);
         
-        genStandardOre(theBiomeDecorator.chunkProviderSettings.ironCount/2, theBiomeDecorator.ironGen, theBiomeDecorator.chunkProviderSettings.ironMinHeight, theBiomeDecorator.chunkProviderSettings.ironMaxHeight, world, random, pos);
+        genStandardOre(decorator.chunkProviderSettings.ironCount/2, decorator.ironGen, decorator.chunkProviderSettings.ironMinHeight, decorator.chunkProviderSettings.ironMaxHeight, world, random, pos);
         
         int i = 3 + random.nextInt(6);
         int j;
@@ -63,9 +51,9 @@ public class BiomeGenPinelands extends BiomeGenBaseHighlands
             int i1 = random.nextInt(16);
             BlockPos blockpos1 = pos.add(k, l, i1);
 
-            if (world.getBlockState(blockpos1).getBlock().isReplaceableOreGen(world, blockpos1, net.minecraft.block.state.pattern.BlockHelper.forBlock(Blocks.stone)))
+            if (world.getBlockState(blockpos1).getBlock().isReplaceableOreGen(world.getBlockState(blockpos1), world, blockpos1, net.minecraft.block.state.pattern.BlockMatcher.forBlock(Blocks.STONE)))
             {
-                world.setBlockState(blockpos1, Blocks.emerald_ore.getDefaultState(), 2);
+                world.setBlockState(blockpos1, Blocks.EMERALD_ORE.getDefaultState(), 2);
             }
         }
     }

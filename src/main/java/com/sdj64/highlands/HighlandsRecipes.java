@@ -1,6 +1,6 @@
 package com.sdj64.highlands;
 
-import com.sdj64.highlands.block.HighlandsBlocks;
+import com.sdj64.highlands.init.HighlandsBlocks;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;

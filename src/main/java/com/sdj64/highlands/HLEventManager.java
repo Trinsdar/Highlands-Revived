@@ -4,20 +4,16 @@ import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.BlockSapling;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.ChunkProviderGenerate;
-import net.minecraft.world.gen.feature.WorldGenBigTree;
 import net.minecraftforge.event.terraingen.ChunkProviderEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
 import net.minecraftforge.event.terraingen.WorldTypeEvent.BiomeSize;
 import net.minecraftforge.event.terraingen.WorldTypeEvent.InitBiomeGens;
-import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import com.sdj64.highlands.biome.ChunkProviderHighlands;
 import com.sdj64.highlands.generator.HighlandsGenerators;
 import com.sdj64.highlands.generator.layer.GenLayerHighlands;
 

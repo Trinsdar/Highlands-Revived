@@ -11,7 +11,7 @@ import net.minecraft.world.gen.feature.WorldGenMegaPineTree;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
 import com.sdj64.highlands.HighlandsSettings;
-import com.sdj64.highlands.biome.HighlandsBiomes;
+import com.sdj64.highlands.init.HighlandsBiomes;
 
 public class GenerateTrees implements IWorldGenerator
 {

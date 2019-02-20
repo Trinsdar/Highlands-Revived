@@ -11,21 +11,23 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraftforge.common.BiomeDictionary;
 
-public abstract class BiomeGenBaseHighlands extends BiomeGenBase
+public abstract class BiomeGenBaseHighlands extends Biome
 {
+	public static int minTreeHeight = 4;
 	
-	public ArrayList<BiomeGenBase> subBiomes;
+	public ArrayList<Biome> subBiomes;
 	public ArrayList<WorldGenPlants> plants;
 	public int plantsPerChunk;
 
-	public BiomeGenBaseHighlands(int a){
-		super(a);
-		subBiomes = new ArrayList<BiomeGenBase>();
+	public BiomeGenBaseHighlands(Properties properties){
+		super(properties.biomeProperties);
+		subBiomes = new ArrayList<Biome>();
 		plants = new ArrayList<WorldGenPlants>();
 		plantsPerChunk = 0;
 	}
@@ -75,7 +77,6 @@ public abstract class BiomeGenBaseHighlands extends BiomeGenBase
     
     /**
      * Adds a creature to spawn in a certain biome.  Not compatible with DrZhark's CustomMobSpawner.
-     * @param biome the biome to add the creature to.  Only works with these biomes, not vanilla or other mods' biomes.
      * @param creature the creature to add
      */
     public void addCreature(EntityCreature creature){
@@ -107,4 +108,20 @@ public abstract class BiomeGenBaseHighlands extends BiomeGenBase
 				waterCreatureList
 				);
     }
+
+    public static class Properties {
+		public BiomeProperties biomeProperties;
+
+		public Properties(String name, float baseHeight, float heightVariation, float temperature, float rainfall, boolean snowEnabled) {
+			biomeProperties = new BiomeProperties(name)
+					.setBaseHeight(baseHeight)
+					.setHeightVariation(heightVariation)
+					.setTemperature(temperature)
+					.setRainfall(rainfall);
+			if (snowEnabled){
+				biomeProperties.setSnowEnabled();
+			}
+
+		}
+	}
 }

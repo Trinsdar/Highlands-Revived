@@ -5,6 +5,7 @@ import java.util.Random;
 import com.sdj64.highlands.References;
 import com.sdj64.highlands.generator.WorldGenPlants;
 
+import com.sdj64.highlands.init.HighlandsBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.IGrowable;

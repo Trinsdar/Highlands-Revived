@@ -2,18 +2,14 @@ package com.sdj64.highlands.generator;
 
 import java.util.Random;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.world.gen.feature.WorldGenBigTree;
-import net.minecraft.world.gen.feature.WorldGenMegaPineTree;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
 import com.sdj64.highlands.HighlandsSettings;
 import com.sdj64.highlands.biome.BiomeGenBaseHighlands;
-import com.sdj64.highlands.biome.HighlandsBiomes;
 
 public class GeneratePlants implements IWorldGenerator
 {

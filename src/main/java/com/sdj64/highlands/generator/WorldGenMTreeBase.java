@@ -2,9 +2,7 @@ package com.sdj64.highlands.generator;
 
 import java.util.Random;
 
-import com.sdj64.highlands.block.BlockHighlandsLeaves;
 import com.sdj64.highlands.block.BlockHighlandsSapling;
-import com.sdj64.highlands.block.HighlandsBlocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;

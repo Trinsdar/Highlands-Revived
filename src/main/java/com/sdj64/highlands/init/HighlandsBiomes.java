@@ -250,7 +250,7 @@ private static String biomePrefix = "";
 			BiomeGenBase.extremeHills.minHeight = 1.0F;
 			BiomeGenBase.swampland.minHeight = -0.1F;
 			BiomeGenBase.savannaPlateau.minHeight = 1.0F;
-			BiomeGenBase.stoneBeach.maxHeight = 0.5F;
+			BiomeGenBase.STONEBeach.maxHeight = 0.5F;
 			BiomeGenBase.river.minHeight = -0.8F;
 			BiomeGenBase.river.maxHeight = 0.0F;
 		}

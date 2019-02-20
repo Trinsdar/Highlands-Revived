@@ -2,13 +2,12 @@ package com.sdj64.highlands;
 
 import java.io.File;
 
-import com.sdj64.highlands.biome.HighlandsBiomes;
-import com.sdj64.highlands.block.HighlandsBlocks;
+import com.sdj64.highlands.init.HighlandsBiomes;
+import com.sdj64.highlands.init.HighlandsBlocks;
 import com.sdj64.highlands.generator.GeneratePlants;
 import com.sdj64.highlands.generator.GenerateRiverRapids;
 import com.sdj64.highlands.generator.GenerateTrees;
 
-import net.minecraft.world.WorldType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod;
@@ -27,9 +26,6 @@ public class HighlandsMod {
 	GeneratePlants genPlants = new GeneratePlants();
 	GenerateRiverRapids genRRapids = new GenerateRiverRapids();
 	
-	public static WorldType worldTypeHighlands;
-	public static WorldType worldTypeHighlandsLB;
-	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
@@ -47,8 +43,6 @@ public class HighlandsMod {
 	@EventHandler
 	public void init(FMLInitializationEvent event)
 	{
-		worldTypeHighlands = new WorldTypeHighlands("Highlands");
-		worldTypeHighlandsLB = new WorldTypeHighlands("Highlands LB");
 		
 		GameRegistry.registerWorldGenerator(genTrees, 10);
 		GameRegistry.registerWorldGenerator(genPlants, 10);
