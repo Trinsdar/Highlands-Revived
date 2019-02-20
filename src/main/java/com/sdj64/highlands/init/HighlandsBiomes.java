@@ -2,11 +2,13 @@ package com.sdj64.highlands.init;
 
 import com.sdj64.highlands.Config;
 import com.sdj64.highlands.HighlandsSettings;
+import com.sdj64.highlands.References;
 import com.sdj64.highlands.biome.BiomeGenAdirondacks;
 import com.sdj64.highlands.biome.BiomeGenAlps;
 import com.sdj64.highlands.biome.BiomeGenBadlands;
 import com.sdj64.highlands.biome.BiomeGenBaldHill;
 import com.sdj64.highlands.biome.BiomeGenBambooForest;
+import com.sdj64.highlands.biome.BiomeGenBaseHighlands;
 import com.sdj64.highlands.biome.BiomeGenDryForest;
 import com.sdj64.highlands.biome.BiomeGenDunes;
 import com.sdj64.highlands.biome.BiomeGenGreyMountains;
@@ -20,10 +22,13 @@ import com.sdj64.highlands.biome.BiomeGenPoplarHills;
 import com.sdj64.highlands.biome.BiomeGenRedwoodForest;
 import com.sdj64.highlands.biome.BiomeGenTropHills;
 import com.sdj64.highlands.biome.BiomeGenTropicalIslands;
+import com.sdj64.highlands.biome.HighlandsBiomeProperties;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.BiomeManager.BiomeEntry;
 import net.minecraftforge.common.BiomeManager.BiomeType;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -38,30 +43,35 @@ import java.util.ArrayList;
 public class HighlandsBiomes {
 
 	//main biomes
-    public static Biome highlandsBiome;
-    public static Biome pinelands;
-    public static Biome autumnForest;
-    public static Biome alps;
-    public static Biome meadow;
+	public static Biome adirondack;
+	public static Biome alps;
+	public static Biome badlands;
+	public static Biome bambooForest;
+	public static Biome dryForest;
+	public static Biome dunes;
+	public static Biome greyMtns;
+	public static Biome highlandsBiome;
+	public static Biome lowlands;
+	public static Biome meadow;
+	public static Biome mojave;
+	public static Biome pinelands;
+	public static Biome poplarHills;
+	public static Biome redwoodForest;
+	public static Biome tropHills;
+
+	//Sub Biomes
+	public static Biome adirondackFoothills;
+	public static Biome alpsFoothills;
+	public static Biome badlandsFoothills;
+	public static Biome baldHill;
+	public static Biome greyMtnsFoothills;
+	public static Biome lake;
+	public static Biome tropicalIslands;
+
+	//unused variables, not sure if sdj64 intended to implement them.
+	public static Biome autumnForest;
     public static Biome tropicDryForest;
-    public static Biome redwoodForest;
-    public static Biome lowlands;
-    public static Biome mojave;
-    public static Biome poplarHills;
-    public static Biome badlands;
-    public static Biome greyMtns;
-    public static Biome tropHills;
-    public static Biome dryForest;
-    public static Biome adirondack;
-    public static Biome bambooForest;
-    public static Biome dunes;
-    
-    //Sub Biomes
-    public static Biome lake;
-    public static Biome baldHill;
-    public static Biome tropicalIslands;
-    
-    
+
     //ArrayList of biomes for the Highlands worldtype
     public static ArrayList<Biome> biomesForHighlands = new ArrayList<Biome>();
     
@@ -75,147 +85,133 @@ public class HighlandsBiomes {
     //ArrayList of biomes that have foothills, not that are foothills.
     public static ArrayList<Biome> foothillsBiomes = new ArrayList<Biome>();
     
-    
-private static String biomePrefix = "";
-	
-	public static void constructBiomes()
+
+	@SubscribeEvent
+	public static void registerBiomes(RegistryEvent.Register<Biome> event)
 	{
 		
-		biomePrefix = Config.biomePrefix.getBoolean(false) ? "Highlands_" : "";
-		
 		//main biomes
-		
+		if(Config.adirondackGenerate.getBoolean(true))
+		{
+			adirondack = registerBiome(event, new BiomeGenAdirondacks(HighlandsBiomeProperties.ADIRONDACKS), "adirondack");
+			adirondackFoothills = registerBiome(event, new BiomeGenAdirondacks(HighlandsBiomeProperties.ADIRONDACKS_FOOTHILLS), "adirondack_foothills")
+		}
 		if(Config.alpsGenerate.getBoolean(true))
 		{
-			alps = new BiomeGenAlps(Config.alpsID.getInt()).setBiomeName(biomePrefix+"Alps");
-			biomesForHighlands.add(alps);
-			createFoothills(alps);
+			alps = registerBiome(event, new BiomeGenAlps(HighlandsBiomeProperties.ALPS), "alps");
+			alpsFoothills = registerBiome(event, new BiomeGenAlps(HighlandsBiomeProperties.ALPS_FOOTHILLS), "alps_foothills");
 		}
 		if(Config.badlandsGenerate.getBoolean(true))
 		{
-			badlands = new BiomeGenBadlands().setBiomeName(biomePrefix+"Badlands");
-			biomesForHighlands.add(badlands);
-			createFoothills(badlands);
-		}
-		if(Config.poplarHillsGenerate.getBoolean(true))
-		{
-			poplarHills = new BiomeGenPoplarHills(Config.poplarHillsID.getInt()).setBiomeName(biomePrefix+"Poplar Hills");
-			biomesForHighlands.add(poplarHills);
-		}
-		if(Config.highlandsbGenerate.getBoolean(true))
-		{
-			highlandsBiome = new BiomeGenHighlands(Config.highlandsbID.getInt()).setBiomeName(biomePrefix+"Highlands");
-			biomesForHighlands.add(highlandsBiome);
-		}
-		if(Config.lowlandsGenerate.getBoolean(true))
-		{
-			lowlands = new BiomeGenLowlands(Config.lowlandsID.getInt()).setBiomeName(biomePrefix+"Lowlands");
-			biomesForHighlands.add(lowlands);
-		}
-		if(Config.meadowGenerate.getBoolean(true))
-		{
-			meadow = new BiomeGenMeadow(Config.meadowID.getInt()).setBiomeName(biomePrefix+"Meadow");
-			biomesForHighlands.add(meadow);
-		}
-		if(Config.pinelandsGenerate.getBoolean(true))
-		{
-			pinelands = new BiomeGenPinelands(Config.pinelandsID.getInt()).setBiomeName(biomePrefix+"Pinelands");
-			biomesForHighlands.add(pinelands);
-		}
-		if(Config.redwoodForestGenerate.getBoolean(true))
-		{
-			redwoodForest = new BiomeGenRedwoodForest(Config.redwoodForestID.getInt()).setBiomeName(biomePrefix+"Redwood Forest");
-			biomesForHighlands.add(redwoodForest);
-		}
-		if(Config.mojaveGenerate.getBoolean(true))
-		{
-			mojave = new BiomeGenMojave(Config.mojaveID.getInt()).setBiomeName(biomePrefix+"Mojave");
-			biomesForHighlands.add(mojave);
-		}
-		if(Config.greyMtnsGenerate.getBoolean(true))
-		{
-			greyMtns = new BiomeGenGreyMountains(Config.greyMtnsID.getInt()).setBiomeName(biomePrefix+"Grey Mountains");
-			biomesForHighlands.add(greyMtns);
-			createFoothills(greyMtns);
-		}
-		if(Config.tropHillsGenerate.getBoolean(true))
-		{
-			tropHills = new BiomeGenTropHills(Config.tropHillsID.getInt()).setBiomeName(biomePrefix+"Tropical Hills");
-			biomesForHighlands.add(tropHills);
-		}
-		if(Config.dryForestGenerate.getBoolean(true))
-		{
-			dryForest = new BiomeGenDryForest(Config.dryForestID.getInt()).setBiomeName(biomePrefix+"Dry Forest");
-			biomesForHighlands.add(dryForest);
-		}
-		if(Config.adirondackGenerate.getBoolean(true))
-		{
-			adirondack = new BiomeGenAdirondacks(Config.adirondackID.getInt()).setBiomeName(biomePrefix+"Adirondacks");
-			biomesForHighlands.add(adirondack);
-			createFoothills(adirondack);
+			badlands = registerBiome(event, new BiomeGenBadlands(HighlandsBiomeProperties.BADLANDS), "badlands");
+			badlandsFoothills = registerBiome(event, new BiomeGenBadlands(HighlandsBiomeProperties.BADLANDS_FOOTHILLS), "badlands_foothills");
+
 		}
 		if(Config.bambooForestGenerate.getBoolean(true))
 		{
-			bambooForest = new BiomeGenBambooForest(Config.bambooForestID.getInt()).setBiomeName(biomePrefix+"Bamboo Forest");
-			biomesForHighlands.add(bambooForest);
+			bambooForest = registerBiome(event, new BiomeGenBambooForest(), "bamboo_forest");
+		}
+		if(Config.dryForestGenerate.getBoolean(true))
+		{
+			dryForest = registerBiome(event, new BiomeGenDryForest(), "dry_forest");
 		}
 		if(Config.dunesGenerate.getBoolean(true))
 		{
-			dunes = new BiomeGenDunes(Config.dunesID.getInt()).setBiomeName(biomePrefix+"Dunes");
-			biomesForHighlands.add(dunes);
+			dunes = registerBiome(event, new BiomeGenDunes(), "dunes");
 		}
-		
-		
-		//sub-biomes
+		if(Config.greyMtnsGenerate.getBoolean(true))
+		{
+			greyMtns = registerBiome(event, new BiomeGenGreyMountains(HighlandsBiomeProperties.GREY_MOUNTAINS), "grey_mountains");
+			greyMtnsFoothills = registerBiome(event, new BiomeGenGreyMountains(HighlandsBiomeProperties.GREY_MOUNTAINS_FOOTHILLS), "grey_mountains_foothills");
+		}
+		if(Config.highlandsbGenerate.getBoolean(true))
+		{
+			highlandsBiome = registerBiome(event, new BiomeGenHighlands(), "highlands");
+		}
 		if(Config.lakeGenerate.getBoolean(true))
 		{
-			lake = new BiomeGenLake(Config.lakeID.getInt()).setBiomeName(biomePrefix+"Lake");
-			subBiomes.add(lake);
+			lake = registerBiome(event, new BiomeGenLake(), "lake");
 		}
+		if(Config.lowlandsGenerate.getBoolean(true))
+		{
+			lowlands = registerBiome(event, new BiomeGenLowlands(), "lowlands");
+		}
+		if(Config.meadowGenerate.getBoolean(true))
+		{
+			meadow = registerBiome(event, new BiomeGenMeadow(), "meadow");
+		}
+		if(Config.mojaveGenerate.getBoolean(true))
+		{
+			mojave = registerBiome(event, new BiomeGenMojave(), "mojave");
+		}
+		if(Config.pinelandsGenerate.getBoolean(true))
+		{
+			pinelands = registerBiome(event, new BiomeGenPinelands(), "pinelands");
+		}
+		if(Config.poplarHillsGenerate.getBoolean(true))
+		{
+			poplarHills = registerBiome(event, new BiomeGenPoplarHills(), "poplar_hills");
+		}
+		if(Config.redwoodForestGenerate.getBoolean(true))
+		{
+			redwoodForest = registerBiome(event, new BiomeGenRedwoodForest(), "redwood_forest");
+		}
+		if(Config.tropHillsGenerate.getBoolean(true))
+		{
+			tropHills = registerBiome(event, new BiomeGenTropHills(), "tropical_hills");
+		}
+		//sub-biomes
+
 		if(Config.baldHillGenerate.getBoolean(true))
 		{
-			baldHill = new BiomeGenBaldHill(Config.baldHillID.getInt()).setBiomeName(biomePrefix+"Bald Hill");
-			subBiomes.add(baldHill);
+			baldHill = registerBiome(event, new BiomeGenBaldHill(), "bald_hill");
 		}
 		if(Config.tropicalIslandsGenerate.getBoolean(true))
 		{
-			tropicalIslands = new BiomeGenTropicalIslands(Config.tropicalIslandsID.getInt()).setBiomeName(biomePrefix+"Tropical Islands");
-			subBiomes.add(tropicalIslands);
+			tropicalIslands = registerBiome(event, new BiomeGenTropicalIslands(), "tropical_islands");
 		}
+	}
+
+	private static Biome registerBiome(RegistryEvent.Register<Biome> event, Biome biome, String name) {
+		biome.setRegistryName(References.MOD_ID, name);
+
+		event.getRegistry().register(biome);
+
+		return biome;
 	}
 	
 	
 	//sets up sub-biome lists after all biomes are initialized.
-	public static void setUpAllSubBiomes()
-	{
-		ArrayList<Biome> enabledBiomes = new ArrayList<Biome>();
-		for(Biome b : biomesForHighlands)enabledBiomes.add(b);
-		for(Biome b : subBiomes)enabledBiomes.add(b);
-		
-		addSubBiome(alps, Biome.frozenRiver, enabledBiomes);
-		addSubBiome(autumnForest, baldHill, enabledBiomes);
-		addSubBiome(autumnForest, lake, enabledBiomes);
-		addSubBiome(poplarHills, meadow, enabledBiomes);
-		addSubBiome(poplarHills, lake, enabledBiomes);
-		addSubBiome(meadow, lake, enabledBiomes);
-		addSubBiome(highlandsBiome, Biome.forest, enabledBiomes);
-		addSubBiome(pinelands, autumnForest, enabledBiomes);
-		addSubBiome(redwoodForest, highlandsBiome, enabledBiomes);
-		addSubBiome(redwoodForest, lake, enabledBiomes);
-		addSubBiome(mojave, Biome.mesa, enabledBiomes);
-		addSubBiome(mojave, Biome.savanna, enabledBiomes);
-		addSubBiome(tropHills, lake, enabledBiomes);
-		addSubBiome(dryForest, Biome.savanna, enabledBiomes);
-	}
-	
+//	public static void setUpAllSubBiomes()
+//	{
+//		ArrayList<Biome> enabledBiomes = new ArrayList<Biome>();
+//		for(Biome b : biomesForHighlands)enabledBiomes.add(b);
+//		for(Biome b : subBiomes)enabledBiomes.add(b);
+//
+//		addSubBiome(alps, Biome.frozenRiver, enabledBiomes);
+//		addSubBiome(autumnForest, baldHill, enabledBiomes);
+//		addSubBiome(autumnForest, lake, enabledBiomes);
+//		addSubBiome(poplarHills, meadow, enabledBiomes);
+//		addSubBiome(poplarHills, lake, enabledBiomes);
+//		addSubBiome(meadow, lake, enabledBiomes);
+//		addSubBiome(highlandsBiome, Biome.forest, enabledBiomes);
+//		addSubBiome(pinelands, autumnForest, enabledBiomes);
+//		addSubBiome(redwoodForest, highlandsBiome, enabledBiomes);
+//		addSubBiome(redwoodForest, lake, enabledBiomes);
+//		addSubBiome(mojave, Biome.mesa, enabledBiomes);
+//		addSubBiome(mojave, Biome.savanna, enabledBiomes);
+//		addSubBiome(tropHills, lake, enabledBiomes);
+//		addSubBiome(dryForest, Biome.savanna, enabledBiomes);
+//	}
+
 	public static void addSubBiome(Biome parent, Biome sub, ArrayList<Biome> list)
 	{
-		if(parent != null && sub != null && list.contains(parent) && list.contains(sub) && parent instanceof BiomeHighlands){
-			((BiomeHighlands)parent).subBiomes.add(sub);
+		if(parent != null && sub != null && list.contains(parent) && list.contains(sub) && parent instanceof BiomeGenBaseHighlands){
+			((BiomeGenBaseHighlands)parent).subBiomes.add(sub);
 		}
 	}
 	
-	public static void setUpBiomeManager()
+	/*public static void setUpBiomeManager()
 	{
 		for(int i = 0; i < biomesForHighlands.size(); i++)
 		{
@@ -223,7 +219,7 @@ private static String biomePrefix = "";
 			if(!(hlb == null))
 			{
 				//System.out.println(hlb.biomeName + " has been added to the biome list.");
-				
+
 				BiomeEntry entry = new BiomeEntry(hlb, 10);
 				BiomeType type = (hlb.temperature < 0.3 ? BiomeType.ICY : hlb.temperature < 0.5 ? BiomeType.COOL
 						: hlb.temperature < 1.0 ? BiomeType.WARM : BiomeType.DESERT);
@@ -238,27 +234,27 @@ private static String biomePrefix = "";
 						|| hlb.equals(lowlands) || hlb.equals(mojave))
 					BiomeManager.addVillageBiome(hlb, true);
 			}
-			
+
 		}
 		if(HighlandsSettings.vanillaBiomeChanges)
 			BiomeManager.addVillageBiome(Biome.icePlains, true);
-		
+
 		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(Biome.desert, 10));
 		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(Biome.savanna, 10));
 		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(Biome.mesaPlateau, 5));
 		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(Biome.mesaPlateau_F, 5));
 		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(Biome.mesa, 5));
-		
+
 		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(Biome.jungle, 10));
-		
+
 		BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(Biome.megaTaiga, 10));
 	}
 	
 	
 	public static void modifyVanillaBiomes(){
-		
+
 		if(HighlandsSettings.vanillaBiomeChanges){
-		
+
 			Biome.extremeHills.minHeight = 1.0F;
 			Biome.swampland.minHeight = -0.1F;
 			Biome.savannaPlateau.minHeight = 1.0F;
@@ -268,11 +264,11 @@ private static String biomePrefix = "";
 		}
 	}
     
-	/**
+	*//**
 	 * Creates a foothills biome, which has half the height of its parent mountain biome.
 	 * @param b1 the mountain biome to create foothills for
 	 * @return
-	 */
+	 *//*
 	public static Biome createFoothills(Biome b1){
 		Class<? extends Biome> biomeClass = b1.getBiomeClass();
 		if(b1.biomeID > 127){
@@ -296,7 +292,7 @@ private static String biomePrefix = "";
 			e.printStackTrace();
 		}
 		return fh;
-	}
+	}*/
 }
 
 
