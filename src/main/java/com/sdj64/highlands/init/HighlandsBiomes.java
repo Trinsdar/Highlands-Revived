@@ -1,20 +1,32 @@
-package com.sdj64.highlands.biome;
-
-import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.List;
+package com.sdj64.highlands.init;
 
 import com.sdj64.highlands.Config;
 import com.sdj64.highlands.HighlandsSettings;
-
-import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
+import com.sdj64.highlands.biome.BiomeGenAdirondacks;
+import com.sdj64.highlands.biome.BiomeGenAlps;
+import com.sdj64.highlands.biome.BiomeGenBadlands;
+import com.sdj64.highlands.biome.BiomeGenBaldHill;
+import com.sdj64.highlands.biome.BiomeGenBambooForest;
+import com.sdj64.highlands.biome.BiomeGenDryForest;
+import com.sdj64.highlands.biome.BiomeGenDunes;
+import com.sdj64.highlands.biome.BiomeGenGreyMountains;
+import com.sdj64.highlands.biome.BiomeGenHighlands;
+import com.sdj64.highlands.biome.BiomeGenLake;
+import com.sdj64.highlands.biome.BiomeGenLowlands;
+import com.sdj64.highlands.biome.BiomeGenMeadow;
+import com.sdj64.highlands.biome.BiomeGenMojave;
+import com.sdj64.highlands.biome.BiomeGenPinelands;
+import com.sdj64.highlands.biome.BiomeGenPoplarHills;
+import com.sdj64.highlands.biome.BiomeGenRedwoodForest;
+import com.sdj64.highlands.biome.BiomeGenTropHills;
+import com.sdj64.highlands.biome.BiomeGenTropicalIslands;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.BiomeManager.BiomeEntry;
 import net.minecraftforge.common.BiomeManager.BiomeType;
+
+import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 
 /*
  * Highlands biomes - Highlands API
@@ -26,42 +38,42 @@ import net.minecraftforge.common.BiomeManager.BiomeType;
 public class HighlandsBiomes {
 
 	//main biomes
-    public static BiomeGenBase highlandsBiome;
-    public static BiomeGenBase pinelands;
-    public static BiomeGenBase autumnForest;
-    public static BiomeGenBase alps;
-    public static BiomeGenBase meadow;
-    public static BiomeGenBase tropicDryForest;
-    public static BiomeGenBase redwoodForest;
-    public static BiomeGenBase lowlands;
-    public static BiomeGenBase mojave;
-    public static BiomeGenBase poplarHills;
-    public static BiomeGenBase badlands;
-    public static BiomeGenBase greyMtns;
-    public static BiomeGenBase tropHills;
-    public static BiomeGenBase dryForest;
-    public static BiomeGenBase adirondack;
-    public static BiomeGenBase bambooForest;
-    public static BiomeGenBase dunes;
+    public static Biome highlandsBiome;
+    public static Biome pinelands;
+    public static Biome autumnForest;
+    public static Biome alps;
+    public static Biome meadow;
+    public static Biome tropicDryForest;
+    public static Biome redwoodForest;
+    public static Biome lowlands;
+    public static Biome mojave;
+    public static Biome poplarHills;
+    public static Biome badlands;
+    public static Biome greyMtns;
+    public static Biome tropHills;
+    public static Biome dryForest;
+    public static Biome adirondack;
+    public static Biome bambooForest;
+    public static Biome dunes;
     
     //Sub Biomes
-    public static BiomeGenBase lake;
-    public static BiomeGenBase baldHill;
-    public static BiomeGenBase tropicalIslands;
+    public static Biome lake;
+    public static Biome baldHill;
+    public static Biome tropicalIslands;
     
     
     //ArrayList of biomes for the Highlands worldtype
-    public static ArrayList<BiomeGenBase> biomesForHighlands = new ArrayList<BiomeGenBase>();
+    public static ArrayList<Biome> biomesForHighlands = new ArrayList<Biome>();
     
     //ArrayList of Highlands biomes not including default ones, these will be added to the default world
     //Currently not used since BiomeManager doesn't really do different biomes for different world types
-    //public static ArrayList<BiomeGenBase> biomesForDefault = new ArrayList<BiomeGenBase>();
+    //public static ArrayList<Biome> biomesForDefault = new ArrayList<Biome>();
     
     //ArrayList of sub-biomes, controls which Highlands biomes generate as sub-biomes (currently used for Lake and Bald Hill)
-    public static ArrayList<BiomeGenBase> subBiomes = new ArrayList<BiomeGenBase>();
+    public static ArrayList<Biome> subBiomes = new ArrayList<Biome>();
     
     //ArrayList of biomes that have foothills, not that are foothills.
-    public static ArrayList<BiomeGenBase> foothillsBiomes = new ArrayList<BiomeGenBase>();
+    public static ArrayList<Biome> foothillsBiomes = new ArrayList<Biome>();
     
     
 private static String biomePrefix = "";
@@ -81,7 +93,7 @@ private static String biomePrefix = "";
 		}
 		if(Config.badlandsGenerate.getBoolean(true))
 		{
-			badlands = new BiomeGenBadlands(Config.badlandsID.getInt()).setBiomeName(biomePrefix+"Badlands");
+			badlands = new BiomeGenBadlands().setBiomeName(biomePrefix+"Badlands");
 			biomesForHighlands.add(badlands);
 			createFoothills(badlands);
 		}
@@ -176,30 +188,30 @@ private static String biomePrefix = "";
 	//sets up sub-biome lists after all biomes are initialized.
 	public static void setUpAllSubBiomes()
 	{
-		ArrayList<BiomeGenBase> enabledBiomes = new ArrayList<BiomeGenBase>();
-		for(BiomeGenBase b : biomesForHighlands)enabledBiomes.add(b);
-		for(BiomeGenBase b : subBiomes)enabledBiomes.add(b);
+		ArrayList<Biome> enabledBiomes = new ArrayList<Biome>();
+		for(Biome b : biomesForHighlands)enabledBiomes.add(b);
+		for(Biome b : subBiomes)enabledBiomes.add(b);
 		
-		addSubBiome(alps, BiomeGenBase.frozenRiver, enabledBiomes);
+		addSubBiome(alps, Biome.frozenRiver, enabledBiomes);
 		addSubBiome(autumnForest, baldHill, enabledBiomes);
 		addSubBiome(autumnForest, lake, enabledBiomes);
 		addSubBiome(poplarHills, meadow, enabledBiomes);
 		addSubBiome(poplarHills, lake, enabledBiomes);
 		addSubBiome(meadow, lake, enabledBiomes);
-		addSubBiome(highlandsBiome, BiomeGenBase.forest, enabledBiomes);
+		addSubBiome(highlandsBiome, Biome.forest, enabledBiomes);
 		addSubBiome(pinelands, autumnForest, enabledBiomes);
 		addSubBiome(redwoodForest, highlandsBiome, enabledBiomes);
 		addSubBiome(redwoodForest, lake, enabledBiomes);
-		addSubBiome(mojave, BiomeGenBase.mesa, enabledBiomes);
-		addSubBiome(mojave, BiomeGenBase.savanna, enabledBiomes);
+		addSubBiome(mojave, Biome.mesa, enabledBiomes);
+		addSubBiome(mojave, Biome.savanna, enabledBiomes);
 		addSubBiome(tropHills, lake, enabledBiomes);
-		addSubBiome(dryForest, BiomeGenBase.savanna, enabledBiomes);
+		addSubBiome(dryForest, Biome.savanna, enabledBiomes);
 	}
 	
-	public static void addSubBiome(BiomeGenBase parent, BiomeGenBase sub, ArrayList<BiomeGenBase> list)
+	public static void addSubBiome(Biome parent, Biome sub, ArrayList<Biome> list)
 	{
-		if(parent != null && sub != null && list.contains(parent) && list.contains(sub) && parent instanceof BiomeGenBaseHighlands){
-			((BiomeGenBaseHighlands)parent).subBiomes.add(sub);
+		if(parent != null && sub != null && list.contains(parent) && list.contains(sub) && parent instanceof BiomeHighlands){
+			((BiomeHighlands)parent).subBiomes.add(sub);
 		}
 	}
 	
@@ -207,7 +219,7 @@ private static String biomePrefix = "";
 	{
 		for(int i = 0; i < biomesForHighlands.size(); i++)
 		{
-			BiomeGenBase hlb = biomesForHighlands.get(i);
+			Biome hlb = biomesForHighlands.get(i);
 			if(!(hlb == null))
 			{
 				//System.out.println(hlb.biomeName + " has been added to the biome list.");
@@ -229,17 +241,17 @@ private static String biomePrefix = "";
 			
 		}
 		if(HighlandsSettings.vanillaBiomeChanges)
-			BiomeManager.addVillageBiome(BiomeGenBase.icePlains, true);
+			BiomeManager.addVillageBiome(Biome.icePlains, true);
 		
-		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(BiomeGenBase.desert, 10));
-		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(BiomeGenBase.savanna, 10));
-		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(BiomeGenBase.mesaPlateau, 5));
-		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(BiomeGenBase.mesaPlateau_F, 5));
-		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(BiomeGenBase.mesa, 5));
+		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(Biome.desert, 10));
+		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(Biome.savanna, 10));
+		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(Biome.mesaPlateau, 5));
+		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(Biome.mesaPlateau_F, 5));
+		BiomeManager.addBiome(BiomeType.DESERT, new BiomeEntry(Biome.mesa, 5));
 		
-		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(BiomeGenBase.jungle, 10));
+		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(Biome.jungle, 10));
 		
-		BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(BiomeGenBase.megaTaiga, 10));
+		BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(Biome.megaTaiga, 10));
 	}
 	
 	
@@ -247,12 +259,12 @@ private static String biomePrefix = "";
 		
 		if(HighlandsSettings.vanillaBiomeChanges){
 		
-			BiomeGenBase.extremeHills.minHeight = 1.0F;
-			BiomeGenBase.swampland.minHeight = -0.1F;
-			BiomeGenBase.savannaPlateau.minHeight = 1.0F;
-			BiomeGenBase.STONEBeach.maxHeight = 0.5F;
-			BiomeGenBase.river.minHeight = -0.8F;
-			BiomeGenBase.river.maxHeight = 0.0F;
+			Biome.extremeHills.minHeight = 1.0F;
+			Biome.swampland.minHeight = -0.1F;
+			Biome.savannaPlateau.minHeight = 1.0F;
+			Biome.STONEBeach.maxHeight = 0.5F;
+			Biome.river.minHeight = -0.8F;
+			Biome.river.maxHeight = 0.0F;
 		}
 	}
     
@@ -261,20 +273,20 @@ private static String biomePrefix = "";
 	 * @param b1 the mountain biome to create foothills for
 	 * @return
 	 */
-	public static BiomeGenBase createFoothills(BiomeGenBase b1){
-		Class<? extends BiomeGenBase> biomeClass = b1.getBiomeClass();
+	public static Biome createFoothills(Biome b1){
+		Class<? extends Biome> biomeClass = b1.getBiomeClass();
 		if(b1.biomeID > 127){
 			System.out.println("Error generating foothills biome- parent ID " + b1.biomeID + " is over 127.");
 			return null;
 		}
-		else if(BiomeGenBase.getBiome(b1.biomeID + 128) != null){
+		else if(Biome.getBiome(b1.biomeID + 128) != null){
 			System.out.println("Error generating foothills biome- foothills ID " + (b1.biomeID+128) + " is taken.");
 			return null;
 		}
-		BiomeGenBase fh = null;
+		Biome fh = null;
 		try{
 			Constructor<?> biomeCons = biomeClass.getConstructor(int.class);
-			fh = (BiomeGenBase) biomeCons.newInstance(b1.biomeID + 128);
+			fh = (Biome) biomeCons.newInstance(b1.biomeID + 128);
 			fh.maxHeight = b1.maxHeight /2;
 			fh.minHeight = b1.minHeight /2;
 			fh.setBiomeName(b1.biomeName + " foothills");

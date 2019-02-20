@@ -1,7 +1,12 @@
-package com.sdj64.highlands.block;
+package com.sdj64.highlands.init;
 
 import com.sdj64.highlands.References;
 
+import com.sdj64.highlands.block.BlockHighlandsLeaves;
+import com.sdj64.highlands.block.BlockHighlandsLog;
+import com.sdj64.highlands.block.BlockHighlandsPlanks;
+import com.sdj64.highlands.block.BlockHighlandsPlant;
+import com.sdj64.highlands.block.BlockHighlandsSapling;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
