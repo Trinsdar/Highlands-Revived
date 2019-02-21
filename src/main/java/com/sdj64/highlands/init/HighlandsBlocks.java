@@ -1,21 +1,20 @@
 package com.sdj64.highlands.init;
 
 import com.sdj64.highlands.References;
-
 import com.sdj64.highlands.block.BlockHighlandsLeaves;
 import com.sdj64.highlands.block.BlockHighlandsLog;
 import com.sdj64.highlands.block.BlockHighlandsPlanks;
 import com.sdj64.highlands.block.BlockHighlandsPlant;
 import com.sdj64.highlands.block.BlockHighlandsSapling;
+import com.sdj64.highlands.block.BlockHighlandsStair;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
@@ -25,32 +24,33 @@ public class HighlandsBlocks {
 	public static final int NUM_TREE_TYPES = 7;
 	public static final int NUM_PLANTS = 9;
 	
-	public static final CreativeTabs tabHighlands = new CreativeTabs("highlands")
-    {
+	public static final CreativeTabs tabHighlands = new CreativeTabs(References.MOD_ID) {
+		@Override
         @SideOnly(Side.CLIENT)
-        public Item getTabIconItem()
-        {
-            return Item.getItemFromBlock(Blocks.sapling);
+        public ItemStack getTabIconItem() {
+            return new ItemStack(Blocks.SAPLING);
         }
     };
 	
     //tree blocks
 	public static Block[] planks;
-	public static Block[] woods;
+	public static Block[] logs;
 	public static Block[] leaves;
 	public static Block[] saplings;
 	
 	//wood products
 	public static Block[] doors;
 	public static Block[] fences;
+	public static Block[] fenceGates;
 	public static Block[] slabs;
 	public static Block[] doubleSlabs;
 	public static Block[] stairs;
 	
 	//plants
 	public static Block[] plants;
-	
-	public static void constructBlocks()
+
+	@SubscribeEvent
+	public static void registerBlocks(RegistryEvent.Register<Block> event)
 	{
 		//initialize EnumType meta lookup
 		EnumTypeTree.ASPEN.setMetaLookup();
@@ -73,11 +73,12 @@ public class HighlandsBlocks {
 		
 		//initialize arrays
 		planks = new Block[NUM_TREE_TYPES];
-		woods = new Block[NUM_TREE_TYPES];
+		logs = new Block[NUM_TREE_TYPES];
 		leaves = new Block[NUM_TREE_TYPES];
 		saplings = new Block[NUM_TREE_TYPES];
 		doors = new Block[NUM_TREE_TYPES];
 		fences = new Block[NUM_TREE_TYPES];
+		fenceGates = new Block[NUM_TREE_TYPES];
 		slabs = new Block[NUM_TREE_TYPES];
 		doubleSlabs = new Block[NUM_TREE_TYPES];
 		stairs = new Block[NUM_TREE_TYPES];
@@ -87,74 +88,46 @@ public class HighlandsBlocks {
 		//initialize blocks within arrays
 		for(int i = 0; i < NUM_TREE_TYPES; i++)
 		{
-			planks[i] = new BlockHighlandsPlanks(EnumTypeTree.META_LOOKUP[i], References.MOD_ID + "_" + EnumTypeTree.META_LOOKUP[i].getName());
-			woods[i] = new BlockHighlandsLog(EnumTypeTree.META_LOOKUP[i], References.MOD_ID + "_" + EnumTypeTree.META_LOOKUP[i].getName());
-			leaves[i] = new BlockHighlandsLeaves(EnumTypeTree.META_LOOKUP[i], References.MOD_ID + "_" + EnumTypeTree.META_LOOKUP[i].getName());
-			saplings[i] = new BlockHighlandsSapling(EnumTypeTree.META_LOOKUP[i], References.MOD_ID + "_" + EnumTypeTree.META_LOOKUP[i].getName());
-			
-			
-			GameRegistry.registerBlock(planks[i], planks[i].getUnlocalizedName().substring(15));
-			GameRegistry.registerBlock(woods[i], woods[i].getUnlocalizedName().substring(15));
-			GameRegistry.registerBlock(leaves[i], leaves[i].getUnlocalizedName().substring(15));
-			GameRegistry.registerBlock(saplings[i], saplings[i].getUnlocalizedName().substring(15));
-			
-			OreDictionary.registerOre("logWood", woods[i]);
+			planks[i] = register(event, new BlockHighlandsPlanks(EnumTypeTree.META_LOOKUP[i]), EnumTypeTree.META_LOOKUP[i].getName() + "_planks");
 			OreDictionary.registerOre("plankWood", planks[i]);
+			Blocks.FIRE.setFireInfo(planks[i], 5, 20);
+		}
+		for(int i = 0; i < NUM_TREE_TYPES; i++){
+			stairs[i] = register(event, new BlockHighlandsStair(EnumTypeTree.META_LOOKUP[i], planks[i]), EnumTypeTree.META_LOOKUP[i].getName() + "_stairs");
+			OreDictionary.registerOre("stairWood", stairs[i]);
+			Blocks.FIRE.setFireInfo(stairs[i], 5, 20);
+		}
+		for(int i = 0; i < NUM_TREE_TYPES; i++){
+			logs[i] = register(event, new BlockHighlandsLog(EnumTypeTree.META_LOOKUP[i]), EnumTypeTree.META_LOOKUP[i].getName() + "_log");
+			OreDictionary.registerOre("logWood", logs[i]);
+			Blocks.FIRE.setFireInfo(logs[i], 5, 5);
+		}
+		for(int i = 0; i < NUM_TREE_TYPES; i++){
+			leaves[i] = register(event, new BlockHighlandsLeaves(EnumTypeTree.META_LOOKUP[i]), EnumTypeTree.META_LOOKUP[i].getName() + "_leaves");
 			OreDictionary.registerOre("treeLeaves", leaves[i]);
+			Blocks.FIRE.setFireInfo(leaves[i], 30, 60);
+		}
+		for(int i = 0; i < NUM_TREE_TYPES; i++){
+			saplings[i] = register(event, new BlockHighlandsSapling(EnumTypeTree.META_LOOKUP[i]), EnumTypeTree.META_LOOKUP[i].getName() + "_saplings");
 			OreDictionary.registerOre("treeSapling", saplings[i]);
-			
-			Blocks.fire.setFireInfo(leaves[i], 30, 60);
-			Blocks.fire.setFireInfo(planks[i], 5, 20);
-			Blocks.fire.setFireInfo(woods[i], 5, 5);
 		}
 
 		for(int i = 0; i < NUM_PLANTS; i++){
-			plants[i] = new BlockHighlandsPlant(EnumTypePlant.META_LOOKUP[i].name);
+			plants[i] = register(event, new BlockHighlandsPlant(), EnumTypePlant.META_LOOKUP[i].name);
 			
-			GameRegistry.registerBlock(plants[i], plants[i].getUnlocalizedName().substring(15));
-			
-			Blocks.fire.setFireInfo(plants[i], 60, 100);
+			Blocks.FIRE.setFireInfo(plants[i], 60, 100);
 		}
 		((BlockHighlandsPlant)plants[EnumTypePlant.THORNBUSH.meta]).thornbush = true;
 	}
-	
-	public static void registerRenders()
-	{
-		for(int i = 0; i < NUM_TREE_TYPES; i++)
-		{
-			registerRender(planks[i]);
-			registerRender(woods[i]);
-			registerRender(leaves[i]);
-			registerRender(saplings[i]);
-		}
-		
-		for(int i = 0; i < NUM_PLANTS; i++){
-			registerRender(plants[i]);
-		}
-	}
-	
-	private static void registerRender(Block block)
-	{
-		Item item = Item.getItemFromBlock(block);
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, 
-				new ModelResourceLocation(References.MOD_ID + ":" + item.getUnlocalizedName().substring(15), "inventory"));
-		/*
-		if(block instanceof BlockHighlandsLeaves){
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, 
-					new ModelResourceLocation(References.MOD_ID + ":" + item.getUnlocalizedName().substring(15), "check_decay=false,decayable=false"));
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, 
-					new ModelResourceLocation(References.MOD_ID + ":" + item.getUnlocalizedName().substring(15), "check_decay=true,decayable=false"));
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, 
-					new ModelResourceLocation(References.MOD_ID + ":" + item.getUnlocalizedName().substring(15), "check_decay=false,decayable=true"));
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, 
-					new ModelResourceLocation(References.MOD_ID + ":" + item.getUnlocalizedName().substring(15), "check_decay=true,decayable=true"));
-		}
-		if(block instanceof BlockHighlandsSapling){
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, 
-					new ModelResourceLocation(References.MOD_ID + ":" + item.getUnlocalizedName().substring(15), "stage=0"));
-		}
-		*/
+
+	private static <T extends Block> T register(RegistryEvent.Register<Block> event, T block, String name) {
+		block.setRegistryName(new ResourceLocation(References.MOD_ID, name));
+		block.setUnlocalizedName(References.MOD_ID + "." + name);
+		block.setCreativeTab(tabHighlands);
+
+		event.getRegistry().register(block);
+
+		return block;
 	}
 	
 	

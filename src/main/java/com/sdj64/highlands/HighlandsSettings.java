@@ -16,9 +16,6 @@ public class HighlandsSettings
 	
 	public static void constructSettings()
 	{
-		
-		HighlandsBiomeSizeDefault = Config.biomeSize.getInt();
-		HighlandsBiomeSizeLB = Config.LBbiomeSize.getInt();
 		useOreGens = Config.genOre.getBoolean();
 		vanillaBiomeChanges = Config.vanillaBiomeChanges.getBoolean();
 		

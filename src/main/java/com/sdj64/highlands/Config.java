@@ -115,17 +115,9 @@ public class Config
 	
 	private static void addSettingsEntries(Configuration config) 
 	{
-		biomePrefix = config.get(config.CATEGORY_GENERAL, "Biome Prefix", false);
-		biomePrefix.comment = "use a prefix of \"Highlands_\" + biome name for all biomes?";
-		biomeSize = config.get(config.CATEGORY_GENERAL, "Biome Size", 4);
-		biomeSize.comment = "Biome size in Highlands worlds - 4 is default (same as Default worldtype)";
-		LBbiomeSize = config.get(config.CATEGORY_GENERAL, "Large Biomes Biome Size", 6);
-		LBbiomeSize.comment = "Biome size in Highlands LB(Large Biome) worlds - 6 is default (same as Large Biomes worldtype)";
-		//genDefault = config.get(config.CATEGORY_GENERAL, "Highands biomes in Default worlds", false);
-		//genDefault.comment = "Should Highlands biomes generate in the Default and Large Biomes worldtype (for compatibilty with other biome and worldgen mods)";
 		genOre = config.get(config.CATEGORY_GENERAL, "Generate Biome-specific Ores", true);
-		genOre.comment = "Set to false to disable extra ores of different types in different biomes.";
+		genOre.setComment("Set to false to disable extra ores of different types in different biomes.");
 		vanillaBiomeChanges = config.get(config.CATEGORY_GENERAL, "Add modifications to vanilla biomes", true);
-		vanillaBiomeChanges.comment = "Set to false to disable Highlands trees and small plants in vanilla biomes.";
+		vanillaBiomeChanges.setComment("Set to false to disable Highlands trees and small plants in vanilla biomes.");
 	}
 }

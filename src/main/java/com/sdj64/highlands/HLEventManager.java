@@ -1,35 +1,30 @@
 package com.sdj64.highlands;
 
+import com.sdj64.highlands.generator.HighlandsGenerators;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.BlockSapling;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.ChunkProviderGenerate;
-import net.minecraftforge.event.terraingen.ChunkProviderEvent;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
-import net.minecraftforge.event.terraingen.WorldTypeEvent.BiomeSize;
-import net.minecraftforge.event.terraingen.WorldTypeEvent.InitBiomeGens;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import com.sdj64.highlands.generator.HighlandsGenerators;
-import com.sdj64.highlands.generator.layer.GenLayerHighlands;
 
 public class HLEventManager {
 	
 	@SubscribeEvent
 	public void onDecorateTree(Decorate e)
 	{
-		if(e.type == Decorate.EventType.TREE){
+		if(e.getType() == Decorate.EventType.TREE){
 			
-			BiomeGenBase biome = e.world.getBiomeGenForCoords(e.pos);
+			Biome biome = e.getWorld().getBiome(e.getPos());
 			
 			/*
 			if(biome.equals(BiomeGenBase.forest) && e.rand.nextInt(18) == 1){
 				e.setResult(Event.Result.DENY);
-				HighlandsGenerators.ashGen.generate(e.world, e.rand, e.pos);
+				HighlandsGenerators.ashGen.generate(e.world, e.rand, e.pos;
 			}
 			*/
 			
@@ -48,26 +43,9 @@ public class HLEventManager {
 				HighlandsGenerators.poplarGen.generate(e.world, e.rand, e.pos);
 			}
 			*/
-			if(biome.equals(BiomeGenBase.savanna) && e.rand.nextInt(3) != 1){
+			if(biome.equals(Biomes.SAVANNA) && e.getRand().nextInt(3) != 1){
 				e.setResult(Event.Result.DENY);
 			}
-		}
-	}
-	
-	@SubscribeEvent
-	public void onGenLayerInitiate(InitBiomeGens e)
-	{
-		e.newBiomeGens = GenLayerHighlands.initializeAllBiomeGenerators(e.seed, e.worldType, "");
-	}
-	
-	@SubscribeEvent
-	public void onBiomeSize(BiomeSize e)
-	{
-		if(e.worldType.equals(HighlandsMod.worldTypeHighlands)){
-			e.newSize = HighlandsSettings.HighlandsBiomeSizeDefault;
-		}
-		if(e.worldType.equals(HighlandsMod.worldTypeHighlandsLB)){
-			e.newSize = HighlandsSettings.HighlandsBiomeSizeLB;
 		}
 	}
 	
@@ -76,42 +54,42 @@ public class HLEventManager {
 	public void onSapling(SaplingGrowTreeEvent e)
 	{
 		boolean flagSquare = false;
-		BlockPos treeGrowPos = e.pos;
+		BlockPos treeGrowPos = e.getPos();
 		
 		//great oak grows on the northwest corner
-		if(((BlockSapling)Blocks.sapling).isTypeAt(e.world, e.pos, BlockPlanks.EnumType.OAK)){
+		if(((BlockSapling)Blocks.SAPLING).isTypeAt(e.getWorld(), e.getPos(), BlockPlanks.EnumType.OAK)){
 			//Sapling is in southwest corner
-			if(((BlockSapling)Blocks.sapling).isTypeAt(e.world, e.pos.north(), BlockPlanks.EnumType.OAK) &&
-					((BlockSapling)Blocks.sapling).isTypeAt(e.world, e.pos.east(), BlockPlanks.EnumType.OAK) &&
-					((BlockSapling)Blocks.sapling).isTypeAt(e.world, e.pos.north().east(), BlockPlanks.EnumType.OAK)){
+			if(((BlockSapling)Blocks.SAPLING).isTypeAt(e.getWorld(), e.getPos().north(), BlockPlanks.EnumType.OAK) &&
+					((BlockSapling)Blocks.SAPLING).isTypeAt(e.getWorld(), e.getPos().east(), BlockPlanks.EnumType.OAK) &&
+					((BlockSapling)Blocks.SAPLING).isTypeAt(e.getWorld(), e.getPos().north().east(), BlockPlanks.EnumType.OAK)){
 				flagSquare = true;
 				treeGrowPos = treeGrowPos.north();
 			}
 			//Sapling is in southeast corner
-			if(((BlockSapling)Blocks.sapling).isTypeAt(e.world, e.pos.north(), BlockPlanks.EnumType.OAK) &&
-					((BlockSapling)Blocks.sapling).isTypeAt(e.world, e.pos.west(), BlockPlanks.EnumType.OAK) &&
-					((BlockSapling)Blocks.sapling).isTypeAt(e.world, e.pos.north().west(), BlockPlanks.EnumType.OAK)){
+			if(((BlockSapling)Blocks.SAPLING).isTypeAt(e.getWorld(), e.getPos().north(), BlockPlanks.EnumType.OAK) &&
+					((BlockSapling)Blocks.SAPLING).isTypeAt(e.getWorld(), e.getPos().west(), BlockPlanks.EnumType.OAK) &&
+					((BlockSapling)Blocks.SAPLING).isTypeAt(e.getWorld(), e.getPos().north().west(), BlockPlanks.EnumType.OAK)){
 				flagSquare = true;
 				treeGrowPos = treeGrowPos.west().north();
 			}
 			//Sapling is in northwest corner
-			if(((BlockSapling)Blocks.sapling).isTypeAt(e.world, e.pos.south(), BlockPlanks.EnumType.OAK) &&
-					((BlockSapling)Blocks.sapling).isTypeAt(e.world, e.pos.east(), BlockPlanks.EnumType.OAK) &&
-					((BlockSapling)Blocks.sapling).isTypeAt(e.world, e.pos.south().east(), BlockPlanks.EnumType.OAK)){
+			if(((BlockSapling)Blocks.SAPLING).isTypeAt(e.getWorld(), e.getPos().south(), BlockPlanks.EnumType.OAK) &&
+					((BlockSapling)Blocks.SAPLING).isTypeAt(e.getWorld(), e.getPos().east(), BlockPlanks.EnumType.OAK) &&
+					((BlockSapling)Blocks.SAPLING).isTypeAt(e.getWorld(), e.getPos().south().east(), BlockPlanks.EnumType.OAK)){
 				flagSquare = true;
 				//treeGrowPos is good
 			}
 			//Sapling is in northeast corner
-			if(((BlockSapling)Blocks.sapling).isTypeAt(e.world, e.pos.south(), BlockPlanks.EnumType.OAK) &&
-					((BlockSapling)Blocks.sapling).isTypeAt(e.world, e.pos.west(), BlockPlanks.EnumType.OAK) &&
-					((BlockSapling)Blocks.sapling).isTypeAt(e.world, e.pos.south().west(), BlockPlanks.EnumType.OAK)){
+			if(((BlockSapling)Blocks.SAPLING).isTypeAt(e.getWorld(), e.getPos().south(), BlockPlanks.EnumType.OAK) &&
+					((BlockSapling)Blocks.SAPLING).isTypeAt(e.getWorld(), e.getPos().west(), BlockPlanks.EnumType.OAK) &&
+					((BlockSapling)Blocks.SAPLING).isTypeAt(e.getWorld(), e.getPos().south().west(), BlockPlanks.EnumType.OAK)){
 				flagSquare = true;
 				treeGrowPos = treeGrowPos.west();
 			}
 			
 			if(flagSquare){
 				e.setResult(Event.Result.DENY);
-				HighlandsGenerators.greatOakSapling.generate(e.world, e.rand, treeGrowPos);
+				HighlandsGenerators.greatOakSapling.generate(e.getWorld(), e.getRand(), treeGrowPos);
 			}
 			
 		}

@@ -1,55 +1,67 @@
 package com.sdj64.highlands.block;
 
 import com.sdj64.highlands.init.HighlandsBlocks;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 
 public class BlockHighlandsLog extends BlockLog
 {
+    protected static final AxisAlignedBB BAMBOO_BOUNDING_BOX = new AxisAlignedBB(0.375F, 0.0F, 0.375F, 0.625F, 1.0F, 0.625F);
 
 	private HighlandsBlocks.EnumTypeTree treeType;
 	
-    public BlockHighlandsLog(HighlandsBlocks.EnumTypeTree type, String treeName)
+    public BlockHighlandsLog(HighlandsBlocks.EnumTypeTree type)
     {
         this.setDefaultState(this.blockState.getBaseState().withProperty(LOG_AXIS, BlockLog.EnumAxis.Y));
         setHardness(2.0F);
     	setResistance(0.5F);
-    	setStepSound(Block.soundTypeWood);
-        setUnlocalizedName(treeName + "_log");
+    	setSoundType(SoundType.WOOD);
         
-        this.setCreativeTab(HighlandsBlocks.tabHighlands);
+
         
         treeType = type;
-        
-        if(type.equals(HighlandsBlocks.EnumTypeTree.BAMBOO)){
-            this.setBlockBounds(0.375F, 0.0F, 0.375F, 0.625F, 1.0F, 0.625F);
-            this.setLightOpacity(1);
-            setHardness(1.0F);
-        }
-        
-        
     }
-    
-    public boolean isOpaqueCube()
+
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
-    	if(treeType == null)return true;
+        if (this.treeType.equals(HighlandsBlocks.EnumTypeTree.BAMBOO)) {
+
+            return BAMBOO_BOUNDING_BOX;
+        }
+
+        return FULL_BLOCK_AABB;
+    }
+
+    @Override
+    public boolean isFullCube(IBlockState state)
+    {
+        if (treeType == null) {
+            return true;
+        }
         return !treeType.equals(HighlandsBlocks.EnumTypeTree.BAMBOO);
     }
 
-    public boolean isFullCube()
+    @Override
+    public boolean isOpaqueCube(IBlockState state)
     {
-    	if(treeType == null)return true;
+        if (treeType == null) {
+            return true;
+        }
         return !treeType.equals(HighlandsBlocks.EnumTypeTree.BAMBOO);
     }
 
     /**
      * Convert the given metadata into a BlockState for this Block
      */
+    @Override
     public IBlockState getStateFromMeta(int meta)
     {
         IBlockState iblockstate = this.getDefaultState();
@@ -75,6 +87,7 @@ public class BlockHighlandsLog extends BlockLog
     /**
      * Convert the BlockState into the correct metadata value
      */
+    @Override
     public int getMetaFromState(IBlockState state)
     {
     	int i = 0;
@@ -94,9 +107,9 @@ public class BlockHighlandsLog extends BlockLog
         return i;
     }
 
-    protected BlockState createBlockState()
-    {
-        return new BlockState(this, new IProperty[] {LOG_AXIS});
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, LOG_AXIS);
     }
 
     protected ItemStack createStackedBlock(IBlockState state)
@@ -107,6 +120,7 @@ public class BlockHighlandsLog extends BlockLog
     /**
      * Get the damage value that this Block should drop
      */
+    @Override
     public int damageDropped(IBlockState state)
     {
         return 0;

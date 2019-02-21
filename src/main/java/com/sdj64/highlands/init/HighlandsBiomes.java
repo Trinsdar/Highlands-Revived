@@ -262,36 +262,6 @@ public class HighlandsBiomes {
 			Biome.river.minHeight = -0.8F;
 			Biome.river.maxHeight = 0.0F;
 		}
-	}
-    
-	*//**
-	 * Creates a foothills biome, which has half the height of its parent mountain biome.
-	 * @param b1 the mountain biome to create foothills for
-	 * @return
-	 *//*
-	public static Biome createFoothills(Biome b1){
-		Class<? extends Biome> biomeClass = b1.getBiomeClass();
-		if(b1.biomeID > 127){
-			System.out.println("Error generating foothills biome- parent ID " + b1.biomeID + " is over 127.");
-			return null;
-		}
-		else if(Biome.getBiome(b1.biomeID + 128) != null){
-			System.out.println("Error generating foothills biome- foothills ID " + (b1.biomeID+128) + " is taken.");
-			return null;
-		}
-		Biome fh = null;
-		try{
-			Constructor<?> biomeCons = biomeClass.getConstructor(int.class);
-			fh = (Biome) biomeCons.newInstance(b1.biomeID + 128);
-			fh.maxHeight = b1.maxHeight /2;
-			fh.minHeight = b1.minHeight /2;
-			fh.setBiomeName(b1.biomeName + " foothills");
-			foothillsBiomes.add(b1);
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
-		return fh;
 	}*/
 }
 

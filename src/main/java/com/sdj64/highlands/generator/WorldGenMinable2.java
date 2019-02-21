@@ -1,16 +1,15 @@
 package com.sdj64.highlands.generator;
 
-import java.util.Random;
-
+import com.google.common.base.Predicate;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.state.pattern.BlockHelper;
+import net.minecraft.block.state.pattern.BlockMatcher;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-import com.google.common.base.Predicate;
+import java.util.Random;
 
 
 /**
@@ -32,14 +31,14 @@ public class WorldGenMinable2 extends WorldGenerator
 
     public WorldGenMinable2(IBlockState blockState, int numBlocks, boolean generateInStone)
     {
-        this(blockState, numBlocks, BlockHelper.forBlock(Blocks.stone));
+        this(blockState, numBlocks, BlockMatcher.forBlock(Blocks.STONE));
         genInStone = generateInStone;
         BSGin = null;
     }
     
     public WorldGenMinable2(IBlockState blockState, int numBlocks, IBlockState blockStateGenerateIn)
     {
-        this(blockState, numBlocks, BlockHelper.forBlock(Blocks.stone));
+        this(blockState, numBlocks, BlockMatcher.forBlock(Blocks.STONE));
         genInStone = false;
         BSGin = blockStateGenerateIn;
     }
@@ -70,12 +69,12 @@ public class WorldGenMinable2 extends WorldGenerator
             double d9 = random.nextDouble() * (double)this.numberOfBlocks / 16.0D;
             double d10 = (double)(MathHelper.sin((float)Math.PI * f1) + 1.0F) * d9 + 1.0D;
             double d11 = (double)(MathHelper.sin((float)Math.PI * f1) + 1.0F) * d9 + 1.0D;
-            int j = MathHelper.floor_double(d6 - d10 / 2.0D);
-            int k = MathHelper.floor_double(d7 - d11 / 2.0D);
-            int l = MathHelper.floor_double(d8 - d10 / 2.0D);
-            int i1 = MathHelper.floor_double(d6 + d10 / 2.0D);
-            int j1 = MathHelper.floor_double(d7 + d11 / 2.0D);
-            int k1 = MathHelper.floor_double(d8 + d10 / 2.0D);
+            int j = MathHelper.floor(d6 - d10 / 2.0D);
+            int k = MathHelper.floor(d7 - d11 / 2.0D);
+            int l = MathHelper.floor(d8 - d10 / 2.0D);
+            int i1 = MathHelper.floor(d6 + d10 / 2.0D);
+            int j1 = MathHelper.floor(d7 + d11 / 2.0D);
+            int k1 = MathHelper.floor(d8 + d10 / 2.0D);
 
             for (int l1 = j; l1 <= i1; ++l1)
             {
@@ -98,7 +97,7 @@ public class WorldGenMinable2 extends WorldGenerator
                                     BlockPos blockpos1 = new BlockPos(l1, i2, j2);
 
                                     if(genInStone){
-	                                    if (world.getBlockState(blockpos1).getBlock().isReplaceableOreGen(world, blockpos1, this.field_175919_c))
+	                                    if (world.getBlockState(blockpos1).getBlock().isReplaceableOreGen(world.getBlockState(blockpos1), world, blockpos1, this.field_175919_c))
 	                                    {
 	                                        world.setBlockState(blockpos1, this.oreBlock, 2);
 	                                    }
@@ -106,8 +105,8 @@ public class WorldGenMinable2 extends WorldGenerator
                                     else if(!(BSGin == null))
                                     {
                                     	if (world.getBlockState(blockpos1).equals(BSGin) || 
-                                    			(BSGin.equals(Blocks.dirt.getDefaultState()) &&
-                                    					world.getBlockState(blockpos1).equals(Blocks.grass.getDefaultState())))
+                                    			(BSGin.equals(Blocks.DIRT.getDefaultState()) &&
+                                    					world.getBlockState(blockpos1).equals(Blocks.GRASS.getDefaultState())))
 	                                    {
 	                                        world.setBlockState(blockpos1, this.oreBlock, 2);
 	                                    }

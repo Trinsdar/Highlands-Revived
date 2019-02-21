@@ -1,12 +1,12 @@
 package com.sdj64.highlands.generator;
 
-import java.util.Random;
-
-import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraftforge.fml.common.IWorldGenerator;
+
+import java.util.Random;
 
 public class GenerateRiverRapids implements IWorldGenerator
 {
@@ -15,7 +15,7 @@ public class GenerateRiverRapids implements IWorldGenerator
 
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world,
-			IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
+						 IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
 		/*
 		if(world.provider.getDimensionId() == 0){
 			
@@ -50,9 +50,9 @@ public class GenerateRiverRapids implements IWorldGenerator
 	}
 
 	
-	public int getNewSeaLevel(BiomeGenBase b1, BiomeGenBase b2){
-		double b1average = b1.minHeight+ b1.maxHeight/2;
-		double b2average = b2.minHeight+ b2.maxHeight/2;
+	public int getNewSeaLevel(Biome b1, Biome b2){
+		double b1average = b1.getBaseHeight() + b1.getHeightVariation()/2;
+		double b2average = b2.getBaseHeight() + b2.getHeightVariation()/2;
 		
 		if(b2average + b1average > 2)	
 			return (int)(SEA_LEVEL + b1average + b2average);

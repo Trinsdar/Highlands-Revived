@@ -1,8 +1,19 @@
 {
     "variants": {
-        "axis=y":  { "model": "highlands:bamboo_log" },
-        "axis=z":   { "model": "highlands:bamboo_log" },
-        "axis=x":   { "model": "highlands:bamboo_log" },
-        "axis=none": { "model": "highlands:bamboo_log" }
+        "axis=x": {
+            "model": "highlands:bamboo_log",
+            "x": 90,
+            "y": 90
+        },
+        "axis=y": {
+            "model": "highlands:bamboo_log"
+        },
+        "axis=z": {
+            "model": "highlands:bamboo_log",
+            "x": 90
+        },
+        "axis=none": {
+            "model": "highlands:bamboo_log"
+        }
     }
 }

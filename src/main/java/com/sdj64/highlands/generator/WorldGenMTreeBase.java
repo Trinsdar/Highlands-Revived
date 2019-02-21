@@ -1,17 +1,16 @@
 package com.sdj64.highlands.generator;
 
-import java.util.Random;
-
 import com.sdj64.highlands.block.BlockHighlandsSapling;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
-import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.IPlantable;
+
+import java.util.Random;
 
 public abstract class WorldGenMTreeBase extends WorldGenAbstractTree
 {
@@ -50,24 +49,22 @@ public abstract class WorldGenMTreeBase extends WorldGenAbstractTree
         notifyFlag = notify;
     }
 
-    public abstract boolean generate(World wor, Random rand, BlockPos pos);
-
     
 	//UTILITY GENERATORS - LEAVES, BRANCHES, TRUNKS
     
     //is the position of the tree dirt or grass?
     public boolean isLegalTreePosition(BlockPos pos, boolean snow, boolean sand){
     	
-    	if(world.getBlockState(pos).getBlock().equals(Blocks.water))return false;
+    	if(world.getBlockState(pos).getBlock().equals(Blocks.WATER))return false;
     	
     	pos = pos.down();
     	
     	//System.out.println("Tree Generating Block: " + world.getBlockState(pos).getBlock().getUnlocalizedName());
     	
     	
-    	return (world.getBlockState(pos).getBlock().canSustainPlant((IBlockAccess)world, pos, EnumFacing.UP, (IPlantable)Blocks.sapling) ||
-    			(world.getBlockState(pos).getBlock().equals(Blocks.sand) && sand) ||
-    			(world.getBlockState(pos).getBlock().equals(Blocks.snow) && snow)
+    	return (world.getBlockState(pos).getBlock().canSustainPlant(world.getBlockState(pos), (IBlockAccess)world, pos, EnumFacing.UP, (IPlantable)Blocks.SAPLING) ||
+    			(world.getBlockState(pos).getBlock().equals(Blocks.SAND) && sand) ||
+    			(world.getBlockState(pos).getBlock().equals(Blocks.SNOW) && snow)
     			);
     }
     
@@ -215,7 +212,7 @@ public abstract class WorldGenMTreeBase extends WorldGenAbstractTree
     
     protected void setBlockLeaf(BlockPos pos){
     	try{
-			if(world.isAirBlock(pos) || world.getBlockState(pos).getBlock().equals(Blocks.tallgrass) || world.getBlockState(pos).equals(Blocks.snow_layer.getDefaultState())){
+			if(world.isAirBlock(pos) || world.getBlockState(pos).getBlock().equals(Blocks.TALLGRASS) || world.getBlockState(pos).equals(Blocks.SNOW_LAYER.getDefaultState())){
 				world.setBlockState(pos, leaves.getStateFromMeta(leafMeta));//getDefaultState().withProperty(BlockHighlandsLeaves.CHECK_DECAY, true).withProperty(BlockHighlandsLeaves.DECAYABLE, true));
 			}
     	}
@@ -256,7 +253,7 @@ public abstract class WorldGenMTreeBase extends WorldGenAbstractTree
     			for(int j = y; j <= y+height; j++){
     				BlockPos pos2 = new BlockPos(i, j, k);
     				
-    				if(!(world.isAirBlock(pos2) || world.getBlockState(pos2).getBlock().isLeaves(world, pos2)))
+    				if(!(world.isAirBlock(pos2) || world.getBlockState(pos2).getBlock().isLeaves(world.getBlockState(pos), world, pos2)))
     					return false;
     			}
     		}

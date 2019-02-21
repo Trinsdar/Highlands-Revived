@@ -11,8 +11,8 @@ public class HighlandsRecipes {
 
 	
 	public static void init(){
-		
-		for(int i = 0; i < HighlandsBlocks.NUM_TREE_TYPES; i++){
+		//commented out for now till I make .json recipes
+		/*for(int i = 0; i < HighlandsBlocks.NUM_TREE_TYPES; i++){
 			if(HighlandsBlocks.planks[i] != null && HighlandsBlocks.woods[i] != null){
 				//Bamboo stem only crafts into one plank
 				if(i == HighlandsBlocks.EnumTypeTree.BAMBOO.getMetadata())
@@ -39,7 +39,7 @@ public class HighlandsRecipes {
 		//GameRegistry.addShapelessRecipe(new ItemStack(Items.dye, 1, 12), new ItemStack(HighlandsBlocks.plants[5]));
 		GameRegistry.addShapelessRecipe(new ItemStack(Items.dye, 1, 5), new ItemStack(HighlandsBlocks.plants[6]));
 		GameRegistry.addShapelessRecipe(new ItemStack(Items.dye, 1, 10), new ItemStack(HighlandsBlocks.plants[7]));
-		//GameRegistry.addShapelessRecipe(new ItemStack(Items.dye, 1, 12), new ItemStack(HighlandsBlocks.plants[8]));
+		//GameRegistry.addShapelessRecipe(new ItemStack(Items.dye, 1, 12), new ItemStack(HighlandsBlocks.plants[8]));*/
 		
 		
 	}

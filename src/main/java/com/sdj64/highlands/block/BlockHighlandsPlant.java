@@ -1,10 +1,6 @@
 package com.sdj64.highlands.block;
 
-import java.util.Random;
-
-import com.sdj64.highlands.References;
 import com.sdj64.highlands.generator.WorldGenPlants;
-
 import com.sdj64.highlands.init.HighlandsBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
@@ -12,18 +8,18 @@ import net.minecraft.block.IGrowable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class BlockHighlandsPlant extends BlockBush implements IGrowable{
 
 	public boolean thornbush = false;
 	
-	public BlockHighlandsPlant(String name){
+	public BlockHighlandsPlant(){
 		super();
-		setUnlocalizedName(References.MOD_ID + "_" + name);
-		this.setCreativeTab(HighlandsBlocks.tabHighlands);
 	}
 
 	@Override
@@ -48,13 +44,13 @@ public class BlockHighlandsPlant extends BlockBush implements IGrowable{
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
     {
 		if(thornbush)
-			entityIn.attackEntityFrom(DamageSource.cactus, 1);
+			entityIn.attackEntityFrom(DamageSource.CACTUS, 1);
     }
 
 	@Override
 	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state) {
 		// TODO Auto-generated method stub
-		return super.canBlockStay(worldIn, pos, state) || state.getBlock().equals(Blocks.sand);
+		return super.canBlockStay(worldIn, pos, state) || state.getBlock().equals(Blocks.SAND);
 	}
 	
 	/**
@@ -62,7 +58,7 @@ public class BlockHighlandsPlant extends BlockBush implements IGrowable{
      */
     protected boolean canPlaceBlockOn(Block ground)
     {
-        return ground == Blocks.grass || ground == Blocks.dirt || ground == Blocks.farmland || ground == Blocks.sand;
+        return ground == Blocks.GRASS || ground == Blocks.DIRT || ground == Blocks.FARMLAND || ground == Blocks.SAND;
     }
 	
 	

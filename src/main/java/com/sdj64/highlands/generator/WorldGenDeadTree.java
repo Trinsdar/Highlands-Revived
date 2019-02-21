@@ -1,18 +1,17 @@
 package com.sdj64.highlands.generator;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-
+import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 
-import com.google.common.collect.Lists;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
 
 public class WorldGenDeadTree extends WorldGenAbstractTree
 {
@@ -125,7 +124,7 @@ public class WorldGenDeadTree extends WorldGenAbstractTree
                     BlockPos blockpos1 = pos.add(j, 0, k);
                     net.minecraft.block.state.IBlockState state = this.world.getBlockState(blockpos1);
 
-                    if (state.getBlock().isAir(this.world, blockpos1) || state.getBlock().isLeaves(this.world, blockpos1))
+                    if (state.getBlock().isAir(state, this.world, blockpos1) || state.getBlock().isLeaves(state, this.world, blockpos1))
                     {
 //                        this.func_175905_a(this.world, blockpos1, leafBlock, leafMeta);
                     	this.setBlockAndNotifyAdequately(this.world, blockpos1, leafBlock.getStateFromMeta(leafMeta));
@@ -148,7 +147,7 @@ public class WorldGenDeadTree extends WorldGenAbstractTree
         {
             float f = (float)this.heightLimit / 2.0F;
             float f1 = f - (float)p_76490_1_;
-            float f2 = MathHelper.sqrt_float(f * f - f1 * f1);
+            float f2 = MathHelper.sqrt(f * f - f1 * f1);
 
             if (f1 == 0.0F)
             {
@@ -195,9 +194,9 @@ public class WorldGenDeadTree extends WorldGenAbstractTree
 
     private int func_175935_b(BlockPos p_175935_1_)
     {
-        int i = MathHelper.abs_int(p_175935_1_.getX());
-        int j = MathHelper.abs_int(p_175935_1_.getY());
-        int k = MathHelper.abs_int(p_175935_1_.getZ());
+        int i = MathHelper.abs(p_175935_1_.getX());
+        int j = MathHelper.abs(p_175935_1_.getY());
+        int k = MathHelper.abs(p_175935_1_.getZ());
         return k > i && k > j ? k : (j > i ? j : i);
     }
 
@@ -346,7 +345,7 @@ public class WorldGenDeadTree extends WorldGenAbstractTree
     {
         BlockPos down = this.blockPosOrigin.down();
         net.minecraft.block.state.IBlockState state = this.world.getBlockState(down);
-        boolean isSoil = state.getBlock().canSustainPlant(this.world, down, net.minecraft.util.EnumFacing.UP, ((net.minecraft.block.BlockSapling)Blocks.sapling));
+        boolean isSoil = state.getBlock().canSustainPlant(state, this.world, down, net.minecraft.util.EnumFacing.UP, ((net.minecraft.block.BlockSapling)Blocks.SAPLING));
 
         if (!isSoil)
         {

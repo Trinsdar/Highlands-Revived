@@ -1,10 +1,10 @@
 package com.sdj64.highlands.generator;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class WorldGenTreeEuca extends WorldGenMTreeBase
 {
@@ -15,6 +15,7 @@ public class WorldGenTreeEuca extends WorldGenMTreeBase
 	}
 
 
+	@Override
     public boolean generate(World wor, Random rand, BlockPos pos)
     {
     	world = wor;

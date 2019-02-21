@@ -19,26 +19,26 @@ public class HighlandsGenerators {
 	 * Redwood: giant pine tree with a circular trunk.
 	 * Bamboo: thin stem that gets more leafy at the top.
 	 */
-	public static final WorldGenAbstractTree aspenGen = new WorldGenTreeAspen(HighlandsBlocks.leaves[0], HighlandsBlocks.woods[0], flmeta(0), 0,  10, 15, false);
-	public static final WorldGenAbstractTree aspenSapling = new WorldGenTreeAspen(HighlandsBlocks.leaves[0], HighlandsBlocks.woods[0], flmeta(0), 0, 10, 15, true);
+	public static final WorldGenAbstractTree aspenGen = new WorldGenTreeAspen(HighlandsBlocks.leaves[0], HighlandsBlocks.logs[0], flmeta(0), 0,  10, 15, false);
+	public static final WorldGenAbstractTree aspenSapling = new WorldGenTreeAspen(HighlandsBlocks.leaves[0], HighlandsBlocks.logs[0], flmeta(0), 0, 10, 15, true);
 	public static final WorldGenAbstractTree greatOakGen = new WorldGenGreatOak(Blocks.LEAVES, Blocks.LOG, 0, 0, 2, 20, false);
 	public static final WorldGenAbstractTree greatOakSapling = new WorldGenGreatOak(Blocks.LEAVES, Blocks.LOG, 0, 0, 2, 20, true);
-	public static final WorldGenAbstractTree poplarGen = new WorldGenTreePoplar(HighlandsBlocks.leaves[1], HighlandsBlocks.woods[1], flmeta(1), 0, 7, 11, false);
-	public static final WorldGenAbstractTree poplarSapling = new WorldGenTreePoplar(HighlandsBlocks.leaves[1], HighlandsBlocks.woods[1], flmeta(1), 0, 7, 11, true);
-	public static final WorldGenAbstractTree eucalyptusGen = new WorldGenTreeEuca(HighlandsBlocks.leaves[2], HighlandsBlocks.woods[2], flmeta(2), 0, 14, 22, false);
-	public static final WorldGenAbstractTree eucalyptusSapling = new WorldGenTreeEuca(HighlandsBlocks.leaves[2], HighlandsBlocks.woods[2], flmeta(2), 0, 14, 22, true);
-	public static final WorldGenAbstractTree palmGen = new WorldGenTreePalm(HighlandsBlocks.leaves[3], HighlandsBlocks.woods[3], flmeta(3), 0, 6, 12, false);
-	public static final WorldGenAbstractTree palmSapling = new WorldGenTreePalm(HighlandsBlocks.leaves[3], HighlandsBlocks.woods[3], flmeta(3), 0, 6, 12, true);
-	public static final WorldGenAbstractTree firGen = new WorldGenTreeFir(HighlandsBlocks.leaves[4], HighlandsBlocks.woods[4], flmeta(4), 0, 9, 20, false);
-	public static final WorldGenAbstractTree firSapling = new WorldGenTreeFir(HighlandsBlocks.leaves[4], HighlandsBlocks.woods[4], flmeta(4), 0, 9, 20, true);
-	public static final WorldGenAbstractTree redwoodGen = new WorldGenTreeRedwood(HighlandsBlocks.leaves[5], HighlandsBlocks.woods[5], flmeta(5), 0, 27, 38, false);
-	public static final WorldGenAbstractTree redwoodSapling = new WorldGenTreeRedwood(HighlandsBlocks.leaves[5], HighlandsBlocks.woods[5], flmeta(5), 0, 27, 38, true);
+	public static final WorldGenAbstractTree poplarGen = new WorldGenTreePoplar(HighlandsBlocks.leaves[1], HighlandsBlocks.logs[1], flmeta(1), 0, 7, 11, false);
+	public static final WorldGenAbstractTree poplarSapling = new WorldGenTreePoplar(HighlandsBlocks.leaves[1], HighlandsBlocks.logs[1], flmeta(1), 0, 7, 11, true);
+	public static final WorldGenAbstractTree eucalyptusGen = new WorldGenTreeEuca(HighlandsBlocks.leaves[2], HighlandsBlocks.logs[2], flmeta(2), 0, 14, 22, false);
+	public static final WorldGenAbstractTree eucalyptusSapling = new WorldGenTreeEuca(HighlandsBlocks.leaves[2], HighlandsBlocks.logs[2], flmeta(2), 0, 14, 22, true);
+	public static final WorldGenAbstractTree palmGen = new WorldGenTreePalm(HighlandsBlocks.leaves[3], HighlandsBlocks.logs[3], flmeta(3), 0, 6, 12, false);
+	public static final WorldGenAbstractTree palmSapling = new WorldGenTreePalm(HighlandsBlocks.leaves[3], HighlandsBlocks.logs[3], flmeta(3), 0, 6, 12, true);
+	public static final WorldGenAbstractTree firGen = new WorldGenTreeFir(HighlandsBlocks.leaves[4], HighlandsBlocks.logs[4], flmeta(4), 0, 9, 20, false);
+	public static final WorldGenAbstractTree firSapling = new WorldGenTreeFir(HighlandsBlocks.leaves[4], HighlandsBlocks.logs[4], flmeta(4), 0, 9, 20, true);
+	public static final WorldGenAbstractTree redwoodGen = new WorldGenTreeRedwood(HighlandsBlocks.leaves[5], HighlandsBlocks.logs[5], flmeta(5), 0, 27, 38, false);
+	public static final WorldGenAbstractTree redwoodSapling = new WorldGenTreeRedwood(HighlandsBlocks.leaves[5], HighlandsBlocks.logs[5], flmeta(5), 0, 27, 38, true);
 	public static final WorldGenAbstractTree shrubGen = new WorldGenHighlandsShrub(Blocks.LEAVES, Blocks.LOG, 1, 1, false);
 	public static final WorldGenAbstractTree shrubSapling = new WorldGenHighlandsShrub(Blocks.LEAVES, Blocks.LOG, 1, 1, true);
 	public static final WorldGenAbstractTree shrub2Gen = new WorldGenHighlandsShrub(Blocks.LEAVES, Blocks.LOG, 0, 0, false);
 	public static final WorldGenAbstractTree shrub2Sapling = new WorldGenHighlandsShrub(Blocks.LEAVES, Blocks.LOG, 0, 0, true);
-	public static final WorldGenAbstractTree bambooGen = new WorldGenTreeBamboo(HighlandsBlocks.leaves[6], HighlandsBlocks.woods[6], flmeta(6), 0, 6, 12, false);
-	public static final WorldGenAbstractTree bambooSapling = new WorldGenTreeBamboo(HighlandsBlocks.leaves[6], HighlandsBlocks.woods[6], flmeta(6), 0, 6, 12, true);
+	public static final WorldGenAbstractTree bambooGen = new WorldGenTreeBamboo(HighlandsBlocks.leaves[6], HighlandsBlocks.logs[6], flmeta(6), 0, 6, 12, false);
+	public static final WorldGenAbstractTree bambooSapling = new WorldGenTreeBamboo(HighlandsBlocks.leaves[6], HighlandsBlocks.logs[6], flmeta(6), 0, 6, 12, true);
 	public static final WorldGenAbstractTree deadTreeGen = new WorldGenDeadTree(Blocks.AIR, Blocks.LOG, 0, 0, 1, 12, false);
 	
 	/*
