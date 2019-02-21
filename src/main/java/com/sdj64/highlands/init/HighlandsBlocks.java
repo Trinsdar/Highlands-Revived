@@ -10,11 +10,15 @@ import com.sdj64.highlands.block.BlockHighlandsSapling;
 import com.sdj64.highlands.block.BlockHighlandsSlab;
 import com.sdj64.highlands.block.BlockHighlandsStair;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockSlab;
+import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -44,8 +48,8 @@ public class HighlandsBlocks {
 	public static Block[] doors;
 	public static Block[] fences;
 	public static Block[] fenceGates;
-	public static Block[] slabs;
-	public static Block[] doubleSlabs;
+	public static BlockSlab[] slabs;
+	public static BlockSlab[] doubleSlabs;
 	public static Block[] stairs;
 	
 	//plants
@@ -81,8 +85,8 @@ public class HighlandsBlocks {
 		doors = new Block[NUM_TREE_TYPES];
 		fences = new Block[NUM_TREE_TYPES];
 		fenceGates = new Block[NUM_TREE_TYPES];
-		slabs = new Block[NUM_TREE_TYPES];
-		doubleSlabs = new Block[NUM_TREE_TYPES];
+		slabs = new BlockSlab[NUM_TREE_TYPES];
+		doubleSlabs = new BlockSlab[NUM_TREE_TYPES];
 		stairs = new Block[NUM_TREE_TYPES];
 		
 		plants = new Block[NUM_PLANTS];
@@ -132,6 +136,15 @@ public class HighlandsBlocks {
 		((BlockHighlandsPlant)plants[EnumTypePlant.THORNBUSH.meta]).thornbush = true;
 	}
 
+	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	public static void registerModels(ModelRegistryEvent event) {
+		for(int i = 0; i < NUM_TREE_TYPES; i++){
+			ModelLoader.setCustomStateMapper(slabs[i], new StateMap.Builder().ignore(BlockHighlandsSlab.VARIANT).build());
+			ModelLoader.setCustomStateMapper(doubleSlabs[i], new StateMap.Builder().ignore(BlockHighlandsSlab.VARIANT).build());
+		}
+	}
+
 	private static <T extends Block> T register(RegistryEvent.Register<Block> event, T block, String name) {
 		block.setRegistryName(new ResourceLocation(References.MOD_ID, name));
 		block.setUnlocalizedName(References.MOD_ID + "." + name);
@@ -154,7 +167,7 @@ public class HighlandsBlocks {
         FIR(4, "fir"),
         REDWOOD(5, "redwood"),
 		BAMBOO(6, "bamboo");
-        private static final EnumTypeTree[] META_LOOKUP = new EnumTypeTree[values().length];
+        public static final EnumTypeTree[] META_LOOKUP = new EnumTypeTree[values().length];
         private final int meta;
         private final String name;
 

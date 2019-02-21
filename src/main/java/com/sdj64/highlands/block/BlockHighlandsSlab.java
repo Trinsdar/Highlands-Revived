@@ -25,6 +25,8 @@ public class BlockHighlandsSlab extends BlockSlab {
         setHardness(2.0F);
         setResistance(0.5F);
         setSoundType(SoundType.WOOD);
+
+        useNeighborBrightness = true;
     }
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {

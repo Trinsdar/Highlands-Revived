@@ -4,6 +4,7 @@ import com.sdj64.highlands.References;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemSlab;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -42,7 +43,7 @@ public class HighlandsItems {
             stairs[i] = register(event, HighlandsBlocks.stairs[i]);
         }
         for(int i = 0; i < HighlandsBlocks.NUM_TREE_TYPES; i++){
-            slabs[i] = register(event, HighlandsBlocks.slabs[i]);
+            slabs[i] = register(event, new ItemSlab(HighlandsBlocks.slabs[i], HighlandsBlocks.slabs[i], HighlandsBlocks.doubleSlabs[i]), HighlandsBlocks.EnumTypeTree.META_LOOKUP[i].getName() + "_slab");
         }
         for(int i = 0; i < HighlandsBlocks.NUM_TREE_TYPES; i++){
             logs[i] = register(event, HighlandsBlocks.logs[i]);
