@@ -5,59 +5,68 @@ import net.minecraftforge.common.config.Property;
 
 public class Config
 {
-	public static String CATEGORY_BIOME_ID = "Biome IDs";
 	public static String CATEGORY_BIOME_GENERATE = "Generate Biomes true/false?";
-	
-	public static String CATEGORY_SUBBIOME_ID = "Sub-biome IDs";
-	public static String CATEGORY_SUBBIOME_GENERATE = "Generate Sub-biomes true/false?";
+	public static String CATEGORY_BIOME_WEIGHT = "Biome Weights";
+
+	public static String CATEGORY_SUBBIOME_GENERATE = "Generate Sub Biomes true/false?";
+	public static String CATEGORY_SUBBIOME_WEIGHT = "Sub Biome Weights";
 	
 	//public static String CATEGORY_VANILLABIOME_GENERATE = "Biomes.Generate Vanilla Biomes true/false?";
 	
 	
-	//Biome ID Properties
-    public static Property highlandsbID;
-    public static Property pinelandsID;
-    public static Property alpsID;
-    public static Property meadowID;
-    public static Property redwoodForestID;
-    public static Property lowlandsID;
-    public static Property mojaveID;
-    public static Property poplarHillsID;
-    public static Property tropicalIslandsID;
-    public static Property badlandsID;
-    public static Property greyMtnsID;
-    public static Property lakeID;
-    public static Property baldHillID;
-    public static Property tropHillsID;
-    public static Property dryForestID;
-    public static Property adirondackID;
-    public static Property bambooForestID;
-    public static Property dunesID;
-    
-    //Biome Generate Properties
-	public static Property highlandsbGenerate;
-	public static Property pinelandsGenerate;
-	public static Property alpsGenerate;
-	public static Property meadowGenerate;
-	public static Property redwoodForestGenerate;
-	public static Property lowlandsGenerate;
-	public static Property mojaveGenerate;
-	public static Property poplarHillsGenerate;
-	public static Property tropicalIslandsGenerate;
-	public static Property badlandsGenerate;
-	public static Property greyMtnsGenerate;
-	public static Property lakeGenerate;
-	public static Property baldHillGenerate;
-	public static Property tropHillsGenerate;
-	public static Property dryForestGenerate;
+	//Biome Weight Properties
+	public static Property adirondackWeight;
+	public static Property alpsWeight;
+	public static Property badlandsWeight;
+	public static Property bambooForestWeight;
+	public static Property dryForestWeight;
+	public static Property dunesWeight;
+	public static Property greyMtnsWeight;
+    public static Property highlandsbWeight;
+	public static Property lowlandsWeight;
+	public static Property meadowWeight;
+	public static Property mojaveWeight;
+    public static Property pinelandsWeight;
+	public static Property poplarHillsWeight;
+    public static Property redwoodForestWeight;
+    public static Property tropicalIslandsWeight;
+
+    // SubBiome Weight Properties
+	public static Property adirondackFoothillsWeight;
+	public static Property alpsFoothillsWeight;
+	public static Property badlandsFoothillsWeight;
+	public static Property baldHillWeight;
+	public static Property greyMtnsFoothillsWeight;
+	public static Property lakeWeight;
+	public static Property tropHillsWeight;
+
+	//Biome Generate Properties
 	public static Property adirondackGenerate;
-    public static Property bambooForestGenerate;
-    public static Property dunesGenerate;
-	
+	public static Property alpsGenerate;
+	public static Property badlandsGenerate;
+	public static Property bambooForestGenerate;
+	public static Property dryForestGenerate;
+	public static Property dunesGenerate;
+	public static Property greyMtnsGenerate;
+	public static Property highlandsbGenerate;
+	public static Property lowlandsGenerate;
+	public static Property meadowGenerate;
+	public static Property mojaveGenerate;
+	public static Property pinelandsGenerate;
+	public static Property poplarHillsGenerate;
+	public static Property redwoodForestGenerate;
+
+	//SubBiome Generate Properties
+	public static Property tropicalIslandsGenerate;
+	public static Property adirondackFoothillsGenerate;
+	public static Property alpsFoothillsGenerate;
+	public static Property badlandsFoothillsGenerate;
+	public static Property baldHillGenerate;
+	public static Property greyMtnsFoothillsGenerate;
+	public static Property lakeGenerate;
+	public static Property tropHillsGenerate;
+
 	//Settings Properties
-	public static Property biomePrefix;
-	public static Property biomeSize;
-	public static Property LBbiomeSize;
 	//public static Property genDefault;
 	public static Property genOre;
 	public static Property vanillaBiomeChanges;
@@ -74,42 +83,53 @@ public class Config
 	
 	private static void addBiomeEntries(Configuration config) 
 	{
-		alpsID = config.get(CATEGORY_BIOME_ID, "Alps ID", 50);
-		alpsGenerate = config.get(CATEGORY_BIOME_GENERATE, "Alps Generate", true);
-		badlandsID = config.get(CATEGORY_BIOME_ID, "Badlands ID", 51);
-		badlandsGenerate = config.get(CATEGORY_BIOME_GENERATE, "Badlands Generate", true);
-		poplarHillsID = config.get(CATEGORY_BIOME_ID, "Poplar Hills ID", 52);
-		poplarHillsGenerate = config.get(CATEGORY_BIOME_GENERATE, "Poplar Hills Generate", true);
-		highlandsbID = config.get(CATEGORY_BIOME_ID, "Highlands ID", 53);
-		highlandsbGenerate = config.get(CATEGORY_BIOME_GENERATE, "Highlands Generate", true);
-		lowlandsID = config.get(CATEGORY_BIOME_ID, "Lowlands ID", 54);
-		lowlandsGenerate = config.get(CATEGORY_BIOME_GENERATE, "Lowlands Generate", true);
-		meadowID = config.get(CATEGORY_BIOME_ID, "Meadow ID", 55);
-		meadowGenerate = config.get(CATEGORY_BIOME_GENERATE, "Meadow Generate", true);
-		pinelandsID = config.get(CATEGORY_BIOME_ID, "Pinelands ID", 56);
-		pinelandsGenerate = config.get(CATEGORY_BIOME_GENERATE, "Pinelands Generate", true);
-		redwoodForestID = config.get(CATEGORY_BIOME_ID, "Redwood Forest ID", 57);
-		redwoodForestGenerate = config.get(CATEGORY_BIOME_GENERATE, "Redwood Forest Generate", true);
-		mojaveID = config.get(CATEGORY_BIOME_ID, "Mojave ID", 58);
-		mojaveGenerate = config.get(CATEGORY_BIOME_GENERATE, "Mojave Generate", true);
-		greyMtnsID = config.get(CATEGORY_BIOME_ID, "Grey Mountains ID", 59);
-		greyMtnsGenerate = config.get(CATEGORY_BIOME_GENERATE, "Grey Mountains Generate", true);
-		tropicalIslandsID = config.get(CATEGORY_BIOME_ID, "Tropical Islands ID", 60);
-		tropicalIslandsGenerate = config.get(CATEGORY_BIOME_GENERATE, "Tropical Islands Generate", true);
-		lakeID = config.get(CATEGORY_SUBBIOME_ID, "Lake ID", 61);
-		lakeGenerate = config.get(CATEGORY_SUBBIOME_GENERATE, "Lake Generate", true);
-		baldHillID = config.get(CATEGORY_SUBBIOME_ID, "Bald Hill ID", 62);
-		baldHillGenerate = config.get(CATEGORY_SUBBIOME_GENERATE, "Bald Hill Generate", true);
-		tropHillsID = config.get(CATEGORY_BIOME_ID, "Tropical Hills ID", 63);
-		tropHillsGenerate = config.get(CATEGORY_BIOME_GENERATE, "Tropical Hills Generate", true);
-		dryForestID = config.get(CATEGORY_BIOME_ID, "Dry Forest ID", 64);
-		dryForestGenerate = config.get(CATEGORY_BIOME_GENERATE, "Dry Forest Generate", true);
-		adirondackID = config.get(CATEGORY_BIOME_ID, "Adirondacks ID", 65);
+		//Biomes
+		adirondackWeight = config.get(CATEGORY_BIOME_WEIGHT, "Adirondacks Weight", 10);
 		adirondackGenerate = config.get(CATEGORY_BIOME_GENERATE, "Adirondacks Generate", true);
-		bambooForestID = config.get(CATEGORY_BIOME_ID, "Bamboo Forest ID", 66);
+		alpsWeight = config.get(CATEGORY_BIOME_WEIGHT, "Alps Weight", 10);
+		alpsGenerate = config.get(CATEGORY_BIOME_GENERATE, "Alps Generate", true);
+		badlandsWeight = config.get(CATEGORY_BIOME_WEIGHT, "Badlands Weight", 10);
+		badlandsGenerate = config.get(CATEGORY_BIOME_GENERATE, "Badlands Generate", true);
+		bambooForestWeight = config.get(CATEGORY_BIOME_WEIGHT, "Bamboo Forest Weight", 10);
 		bambooForestGenerate = config.get(CATEGORY_BIOME_GENERATE, "Bamboo Forest Generate", true);
-		dunesID = config.get(CATEGORY_BIOME_ID, "Dunes ID", 67);
+		dryForestWeight = config.get(CATEGORY_BIOME_WEIGHT, "Dry Forest Weight", 10);
+		dryForestGenerate = config.get(CATEGORY_BIOME_GENERATE, "Dry Forest Generate", true);
+		dunesWeight = config.get(CATEGORY_BIOME_WEIGHT, "Dunes Weight", 10);
 		dunesGenerate = config.get(CATEGORY_BIOME_GENERATE, "Dunes Generate", true);
+		greyMtnsWeight = config.get(CATEGORY_BIOME_WEIGHT, "Grey Mountains Weight", 10);
+		greyMtnsGenerate = config.get(CATEGORY_BIOME_GENERATE, "Grey Mountains Generate", true);
+		highlandsbWeight = config.get(CATEGORY_BIOME_WEIGHT, "Highlands Weight", 10);
+		highlandsbGenerate = config.get(CATEGORY_BIOME_GENERATE, "Highlands Generate", true);
+		lowlandsWeight = config.get(CATEGORY_BIOME_WEIGHT, "Lowlands Weight", 10);
+		lowlandsGenerate = config.get(CATEGORY_BIOME_GENERATE, "Lowlands Generate", true);
+		meadowWeight = config.get(CATEGORY_BIOME_WEIGHT, "Meadow Weight", 10);
+		meadowGenerate = config.get(CATEGORY_BIOME_GENERATE, "Meadow Generate", true);
+		mojaveWeight = config.get(CATEGORY_BIOME_WEIGHT, "Mojave Weight", 10);
+		mojaveGenerate = config.get(CATEGORY_BIOME_GENERATE, "Mojave Generate", true);
+		pinelandsWeight = config.get(CATEGORY_BIOME_WEIGHT, "Pinelands Weight", 10);
+		pinelandsGenerate = config.get(CATEGORY_BIOME_GENERATE, "Pinelands Generate", true);
+		poplarHillsWeight = config.get(CATEGORY_BIOME_WEIGHT, "Poplar Hills Weight", 10);
+		poplarHillsGenerate = config.get(CATEGORY_BIOME_GENERATE, "Poplar Hills Generate", true);
+		redwoodForestWeight = config.get(CATEGORY_BIOME_WEIGHT, "Redwood Forest Weight", 10);
+		redwoodForestGenerate = config.get(CATEGORY_BIOME_GENERATE, "Redwood Forest Generate", true);
+		tropicalIslandsWeight = config.get(CATEGORY_BIOME_WEIGHT, "Tropical Islands Weight", 10);
+		tropicalIslandsGenerate = config.get(CATEGORY_BIOME_GENERATE, "Tropical Islands Generate", true);
+
+		//SubBiomes
+		adirondackFoothillsWeight = config.get(CATEGORY_SUBBIOME_WEIGHT, "Adirondacks Foothills Weight", 10);
+		adirondackFoothillsGenerate = config.get(CATEGORY_SUBBIOME_GENERATE, "Adirondacks Foothills Generate", true);
+		alpsFoothillsWeight = config.get(CATEGORY_SUBBIOME_WEIGHT, "Alps Foothills Weight", 10);
+		alpsFoothillsGenerate = config.get(CATEGORY_SUBBIOME_GENERATE, "Alps Foothills Generate", true);
+		badlandsFoothillsWeight = config.get(CATEGORY_SUBBIOME_WEIGHT, "Badlands Foothills Weight", 10);
+		badlandsFoothillsGenerate = config.get(CATEGORY_SUBBIOME_GENERATE, "Badlands Foothills Generate", true);
+		baldHillWeight = config.get(CATEGORY_SUBBIOME_WEIGHT, "Bald Hill Weight", 10);
+		baldHillGenerate = config.get(CATEGORY_SUBBIOME_GENERATE, "Bald Hill Generate", true);
+		greyMtnsFoothillsWeight = config.get(CATEGORY_SUBBIOME_WEIGHT, "Grey Mountains Foothills Weight", 10);
+		greyMtnsFoothillsGenerate = config.get(CATEGORY_SUBBIOME_GENERATE, "Grey Mountains Foothills Generate", true);
+		lakeWeight = config.get(CATEGORY_SUBBIOME_WEIGHT, "Lake Weight", 10);
+		lakeGenerate = config.get(CATEGORY_SUBBIOME_GENERATE, "Lake Generate", true);
+		tropHillsWeight = config.get(CATEGORY_SUBBIOME_WEIGHT, "Tropical Hills Weight", 10);
+		tropHillsGenerate = config.get(CATEGORY_SUBBIOME_GENERATE, "Tropical Hills Generate", true);
 	}
 
 	

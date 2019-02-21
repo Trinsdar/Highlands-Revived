@@ -36,14 +36,16 @@ public class BiomeGenAdirondacks extends BiomeGenBaseHighlands
         plants.add(HighlandsGenerators.blueberryBush);
     }
 
+
     /**
      * Gets a WorldGen appropriate for this biome.
      */
-    public WorldGenAbstractTree genBigTreeChance(Random par1Random)
-    {
+    @Override
+    public WorldGenAbstractTree getRandomTreeFeature(Random rand) {
         return HighlandsGenerators.shrubGen;
     }
-    
+
+
     public void decorate(World world, Random random, BlockPos pos)
     {
         super.decorate(world, random, pos);

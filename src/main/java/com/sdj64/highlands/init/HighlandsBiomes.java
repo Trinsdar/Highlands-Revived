@@ -89,86 +89,204 @@ public class HighlandsBiomes {
 	@SubscribeEvent
 	public static void registerBiomes(RegistryEvent.Register<Biome> event)
 	{
-		
+		int weight;
 		//main biomes
 		if(Config.adirondackGenerate.getBoolean(true))
 		{
 			adirondack = registerBiome(event, new BiomeGenAdirondacks(HighlandsBiomeProperties.ADIRONDACKS), "adirondack");
-			adirondackFoothills = registerBiome(event, new BiomeGenAdirondacks(HighlandsBiomeProperties.ADIRONDACKS_FOOTHILLS), "adirondack_foothills");
+			weight = Config.adirondackWeight.getInt();
+			if (weight > 0){
+				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(adirondack, weight));
+				BiomeManager.addSpawnBiome(adirondack);
+			}
+
 		}
 		if(Config.alpsGenerate.getBoolean(true))
 		{
 			alps = registerBiome(event, new BiomeGenAlps(HighlandsBiomeProperties.ALPS), "alps");
-			alpsFoothills = registerBiome(event, new BiomeGenAlps(HighlandsBiomeProperties.ALPS_FOOTHILLS), "alps_foothills");
+			weight = Config.alpsWeight.getInt();
+			if (weight > 0){
+				BiomeManager.addBiome(BiomeType.ICY, new BiomeManager.BiomeEntry(alps, weight));
+				BiomeManager.addSpawnBiome(alps);
+			}
 		}
 		if(Config.badlandsGenerate.getBoolean(true))
 		{
 			badlands = registerBiome(event, new BiomeGenBadlands(HighlandsBiomeProperties.BADLANDS), "badlands");
-			badlandsFoothills = registerBiome(event, new BiomeGenBadlands(HighlandsBiomeProperties.BADLANDS_FOOTHILLS), "badlands_foothills");
-
+			weight = Config.badlandsWeight.getInt();
+			if (weight > 0){
+				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(badlands, weight));
+				BiomeManager.addSpawnBiome(badlands);
+			}
 		}
 		if(Config.bambooForestGenerate.getBoolean(true))
 		{
 			bambooForest = registerBiome(event, new BiomeGenBambooForest(), "bamboo_forest");
+			weight = Config.bambooForestWeight.getInt();
+			if (weight > 0){
+				BiomeManager.addBiome(BiomeType.DESERT, new BiomeManager.BiomeEntry(bambooForest, weight));
+				BiomeManager.addSpawnBiome(bambooForest);
+			}
 		}
 		if(Config.dryForestGenerate.getBoolean(true))
 		{
 			dryForest = registerBiome(event, new BiomeGenDryForest(), "dry_forest");
+			weight = Config.dryForestWeight.getInt();
+			if (weight > 0){
+				BiomeManager.addBiome(BiomeType.DESERT, new BiomeManager.BiomeEntry(dryForest, weight));
+				BiomeManager.addSpawnBiome(dryForest);
+			}
 		}
 		if(Config.dunesGenerate.getBoolean(true))
 		{
 			dunes = registerBiome(event, new BiomeGenDunes(), "dunes");
+			weight = Config.dunesWeight.getInt();
+			if (weight > 0){
+				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(dunes, weight));
+				BiomeManager.addSpawnBiome(dunes);
+			}
 		}
 		if(Config.greyMtnsGenerate.getBoolean(true))
 		{
 			greyMtns = registerBiome(event, new BiomeGenGreyMountains(HighlandsBiomeProperties.GREY_MOUNTAINS), "grey_mountains");
-			greyMtnsFoothills = registerBiome(event, new BiomeGenGreyMountains(HighlandsBiomeProperties.GREY_MOUNTAINS_FOOTHILLS), "grey_mountains_foothills");
+			weight = Config.greyMtnsWeight.getInt();
+			if (weight > 0){
+				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(greyMtns, weight));
+				BiomeManager.addSpawnBiome(greyMtns);
+			}
 		}
 		if(Config.highlandsbGenerate.getBoolean(true))
 		{
 			highlandsBiome = registerBiome(event, new BiomeGenHighlands(), "highlands");
-		}
-		if(Config.lakeGenerate.getBoolean(true))
-		{
-			lake = registerBiome(event, new BiomeGenLake(), "lake");
+			weight = Config.highlandsbWeight.getInt();
+			if (weight > 0){
+				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(highlandsBiome, weight));
+				BiomeManager.addSpawnBiome(highlandsBiome);
+			}
 		}
 		if(Config.lowlandsGenerate.getBoolean(true))
 		{
 			lowlands = registerBiome(event, new BiomeGenLowlands(), "lowlands");
+			weight = Config.lowlandsWeight.getInt();
+			if (weight > 0){
+				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(lowlands, weight));
+				BiomeManager.addSpawnBiome(lowlands);
+			}
 		}
 		if(Config.meadowGenerate.getBoolean(true))
 		{
 			meadow = registerBiome(event, new BiomeGenMeadow(), "meadow");
+			weight = Config.meadowWeight.getInt();
+			if (weight > 0){
+				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(meadow, weight));
+				BiomeManager.addSpawnBiome(meadow);
+			}
 		}
 		if(Config.mojaveGenerate.getBoolean(true))
 		{
 			mojave = registerBiome(event, new BiomeGenMojave(), "mojave");
+			weight = Config.mojaveWeight.getInt();
+			if (weight > 0){
+				BiomeManager.addBiome(BiomeType.DESERT, new BiomeManager.BiomeEntry(mojave, weight));
+				BiomeManager.addSpawnBiome(mojave);
+			}
 		}
 		if(Config.pinelandsGenerate.getBoolean(true))
 		{
 			pinelands = registerBiome(event, new BiomeGenPinelands(), "pinelands");
+			weight = Config.pinelandsWeight.getInt();
+			if (weight > 0){
+				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(pinelands, weight));
+				BiomeManager.addSpawnBiome(pinelands);
+			}
 		}
 		if(Config.poplarHillsGenerate.getBoolean(true))
 		{
 			poplarHills = registerBiome(event, new BiomeGenPoplarHills(), "poplar_hills");
+			weight = Config.poplarHillsWeight.getInt();
+			if (weight > 0){
+				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(poplarHills, weight));
+				BiomeManager.addSpawnBiome(poplarHills);
+			}
 		}
 		if(Config.redwoodForestGenerate.getBoolean(true))
 		{
 			redwoodForest = registerBiome(event, new BiomeGenRedwoodForest(), "redwood_forest");
+			weight = Config.redwoodForestWeight.getInt();
+			if (weight > 0){
+				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(redwoodForest, weight));
+				BiomeManager.addSpawnBiome(redwoodForest);
+			}
 		}
 		if(Config.tropHillsGenerate.getBoolean(true))
 		{
 			tropHills = registerBiome(event, new BiomeGenTropHills(), "tropical_hills");
+			weight = Config.tropHillsWeight.getInt();
+			if (weight > 0){
+				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(tropHills, weight));
+				BiomeManager.addSpawnBiome(tropHills);
+			}
 		}
-		//sub-biomes
 
+		//sub-biomes
+		if (Config.adirondackFoothillsGenerate.getBoolean(true)){
+			adirondackFoothills = registerBiome(event, new BiomeGenAdirondacks(HighlandsBiomeProperties.ADIRONDACKS_FOOTHILLS), "adirondack_foothills");
+			weight = Config.adirondackFoothillsWeight.getInt();
+			if (weight > 0){
+				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(adirondackFoothills, weight));
+				BiomeManager.addSpawnBiome(adirondackFoothills);
+			}
+		}
+		if (Config.alpsFoothillsGenerate.getBoolean(true)){
+			alpsFoothills = registerBiome(event, new BiomeGenAlps(HighlandsBiomeProperties.ALPS_FOOTHILLS), "alps_foothills");
+			weight = Config.alpsFoothillsWeight.getInt();
+			if (weight > 0){
+				BiomeManager.addBiome(BiomeType.ICY, new BiomeManager.BiomeEntry(alpsFoothills, weight));
+				BiomeManager.addSpawnBiome(alpsFoothills);
+			}
+		}
+		if (Config.badlandsFoothillsGenerate.getBoolean(true)){
+			badlandsFoothills = registerBiome(event, new BiomeGenBadlands(HighlandsBiomeProperties.BADLANDS_FOOTHILLS), "badlands_foothills");
+			weight = Config.badlandsFoothillsWeight.getInt();
+			if (weight > 0){
+				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(badlandsFoothills, weight));
+				BiomeManager.addSpawnBiome(badlandsFoothills);
+			}
+		}
 		if(Config.baldHillGenerate.getBoolean(true))
 		{
 			baldHill = registerBiome(event, new BiomeGenBaldHill(), "bald_hill");
+			weight = Config.baldHillWeight.getInt();
+			if (weight > 0){
+				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(baldHill, weight));
+				BiomeManager.addSpawnBiome(baldHill);
+			}
+		}
+		if (Config.greyMtnsFoothillsGenerate.getBoolean(true)){
+			greyMtnsFoothills = registerBiome(event, new BiomeGenGreyMountains(HighlandsBiomeProperties.GREY_MOUNTAINS_FOOTHILLS), "grey_mountains_foothills");
+			weight = Config.greyMtnsFoothillsWeight.getInt();
+			if (weight > 0){
+				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(greyMtnsFoothills, weight));
+				BiomeManager.addSpawnBiome(greyMtnsFoothills);
+			}
+		}
+		if(Config.lakeGenerate.getBoolean(true))
+		{
+			lake = registerBiome(event, new BiomeGenLake(), "lake");
+			weight = Config.lakeWeight.getInt();
+			if (weight > 0){
+				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(lake, weight));
+				BiomeManager.addSpawnBiome(lake);
+			}
 		}
 		if(Config.tropicalIslandsGenerate.getBoolean(true))
 		{
 			tropicalIslands = registerBiome(event, new BiomeGenTropicalIslands(), "tropical_islands");
+			weight = Config.tropicalIslandsWeight.getInt();
+			if (weight > 0){
+				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(tropicalIslands, weight));
+				BiomeManager.addSpawnBiome(tropicalIslands);
+			}
 		}
 	}
 
