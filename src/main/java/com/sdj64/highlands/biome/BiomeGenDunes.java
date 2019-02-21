@@ -24,8 +24,9 @@ public class BiomeGenDunes extends BiomeGenBaseHighlands
         this.plants.add(HighlandsGenerators.duneGrass);
         this.plants.add(HighlandsGenerators.empty);
     }
-	
-	public WorldGenAbstractTree genBigTreeChance(Random random)
+
+    @Override
+	public WorldGenAbstractTree getRandomTreeFeature(Random random)
     {
 		return HighlandsGenerators.palmGen;
     }

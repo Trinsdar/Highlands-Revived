@@ -25,12 +25,14 @@ public class BiomeGenAlps extends BiomeGenBaseHighlands{
 	    this.fillerBlock = Blocks.SNOW.getDefaultState();
 
 	}
-	    
-	public WorldGenAbstractTree genBigTreeChance(Random par1Random)
+
+	@Override
+	public WorldGenAbstractTree getRandomTreeFeature(Random par1Random)
 	{
 	    return (par1Random.nextInt(5) == 0 ? HighlandsGenerators.firGen : HighlandsGenerators.shrubGen);
 	}
-	
+
+	@Override
 	public void decorate(World world, Random random, BlockPos pos)
     {
         super.decorate(world, random, pos);

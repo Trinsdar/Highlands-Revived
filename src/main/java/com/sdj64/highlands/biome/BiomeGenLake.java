@@ -18,8 +18,9 @@ public class BiomeGenLake extends BiomeGenBaseHighlands
 	    
         this.spawnableCreatureList.clear();
     }
-	
-	public WorldGenAbstractTree genBigTreeChance(Random random)
+
+    @Override
+	public WorldGenAbstractTree getRandomTreeFeature(Random random)
     {
 		return HighlandsGenerators.poplarGen;
     }

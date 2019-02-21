@@ -23,12 +23,14 @@ public class BiomeGenTropicalIslands extends BiomeGenBaseHighlands
         plants.add(HighlandsGenerators.mcWTulip);
         plants.add(HighlandsGenerators.mcOTulip);
     }
-    
-    public WorldGenAbstractTree genBigTreeChance(Random random)
+
+    @Override
+    public WorldGenAbstractTree getRandomTreeFeature(Random random)
     {
         return HighlandsGenerators.palmGen;
     }
 
+    @Override
     public void decorate(World world, Random random, BlockPos pos)
     {
         super.decorate(world, random, pos);

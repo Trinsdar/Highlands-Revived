@@ -20,7 +20,8 @@ public class BiomeGenBaldHill extends BiomeGenBaseHighlands
         
     }
 
-	public WorldGenAbstractTree genBigTreeChance(Random random)
+    @Override
+	public WorldGenAbstractTree getRandomTreeFeature(Random random)
     {
 		return (random.nextInt(10) == 0 ? this.BIG_TREE_FEATURE : this.TREE_FEATURE);
     }

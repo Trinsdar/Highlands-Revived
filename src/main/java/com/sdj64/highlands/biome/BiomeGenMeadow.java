@@ -31,8 +31,9 @@ public class BiomeGenMeadow extends BiomeGenBaseHighlands
         plants.add(HighlandsGenerators.mcWTulip);
         plants.add(HighlandsGenerators.mcAllium);
     }
-    
-    public WorldGenAbstractTree genBigTreeChance(Random par1Random)
+
+    @Override
+    public WorldGenAbstractTree getRandomTreeFeature(Random par1Random)
     {
         return HighlandsGenerators.poplarGen;
     }

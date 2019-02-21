@@ -25,11 +25,13 @@ public class BiomeGenTropHills extends BiomeGenBaseHighlands
     /**
      * Gets a WorldGen appropriate for this biome.
      */
-    public WorldGenAbstractTree genBigTreeChance(Random par1Random)
+    @Override
+    public WorldGenAbstractTree getRandomTreeFeature(Random par1Random)
     {
         return HighlandsGenerators.eucalyptusGen;
     }
-    
+
+    @Override
     public void decorate(World world, Random random, BlockPos pos)
     {
         super.decorate(world, random, pos);

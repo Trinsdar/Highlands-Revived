@@ -32,7 +32,8 @@ public class BiomeGenGreyMountains extends BiomeGenBaseHighlands
     /**
      * Gets a WorldGen appropriate for this biome.
      */
-    public WorldGenAbstractTree genBigTreeChance(Random par1Random)
+    @Override
+    public WorldGenAbstractTree getRandomTreeFeature(Random par1Random)
     {
         return (par1Random.nextInt(3) != 0 ? HighlandsGenerators.shrub2Gen : this.TREE_FEATURE);
     }
@@ -42,7 +43,8 @@ public class BiomeGenGreyMountains extends BiomeGenBaseHighlands
     {
         return 0x909686;
     }
-    
+
+    @Override
     public void decorate(World world, Random random, BlockPos pos)
     {
         super.decorate(world, random, pos);

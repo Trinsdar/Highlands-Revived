@@ -46,6 +46,7 @@ public class BiomeGenAdirondacks extends BiomeGenBaseHighlands
     }
 
 
+    @Override
     public void decorate(World world, Random random, BlockPos pos)
     {
         super.decorate(world, random, pos);

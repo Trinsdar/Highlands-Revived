@@ -38,7 +38,8 @@ public class BiomeGenRedwoodForest extends BiomeGenBaseHighlands
     /**
      * Gets a WorldGen appropriate for this biome.
      */
-    public WorldGenAbstractTree genBigTreeChance(Random par1Random)
+    @Override
+    public WorldGenAbstractTree getRandomTreeFeature(Random par1Random)
     {
     	if(par1Random.nextInt(3) == 0)
     		return HighlandsGenerators.redwoodGen;
@@ -46,7 +47,8 @@ public class BiomeGenRedwoodForest extends BiomeGenBaseHighlands
     		return HighlandsGenerators.firGen;
     	else return HighlandsGenerators.shrub2Gen;
     }
-    
+
+    @Override
     public void decorate(World world, Random random, BlockPos pos)
     {
         super.decorate(world, random, pos);
@@ -54,7 +56,7 @@ public class BiomeGenRedwoodForest extends BiomeGenBaseHighlands
         genStandardOre(decorator.chunkProviderSettings.redstoneCount/2, decorator.redstoneGen, decorator.chunkProviderSettings.redstoneMinHeight, decorator.chunkProviderSettings.redstoneMaxHeight, world, random, pos);
     }
 
-    
+    @Override
     public void genTerrainBlocks(World worldIn, Random random, ChunkPrimer primer, int x, int z, double whatisthis)
     {
         this.topBlock = Blocks.DIRT.getStateFromMeta(2);

@@ -29,11 +29,13 @@ public class BiomeGenHighlands extends BiomeGenBaseHighlands
     /**
      * Gets a WorldGen appropriate for this biome.
      */
-    public WorldGenAbstractTree genBigTreeChance(Random random)
+    @Override
+    public WorldGenAbstractTree getRandomTreeFeature(Random random)
     {
         return (random.nextInt(3) != 0 ? HighlandsGenerators.shrub2Gen : this.TREE_FEATURE);
     }
-    
+
+    @Override
     public void decorate(World world, Random random, BlockPos pos)
     {
         super.decorate(world, random, pos);

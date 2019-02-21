@@ -15,14 +15,14 @@ import java.util.Random;
 
 public class WorldGenGreatOak extends WorldGenAbstractTree
 {
-    private Random field_175949_k;
+    private Random random;
     private World world;
     private BlockPos blockPosOrigin;
     int heightLimit;
     int height;
     double heightAttenuation;
-    double field_175944_d;
-    double field_175945_e;
+    double branchSlope;
+    double scaleWidth;
     double leafDensity;
     int trunkWide;
     int heightLimit2;
@@ -40,8 +40,8 @@ public class WorldGenGreatOak extends WorldGenAbstractTree
         super(notify);
         this.blockPosOrigin = BlockPos.ORIGIN;
         this.heightAttenuation = 0.618D;
-        this.field_175944_d = 0.381D;
-        this.field_175945_e = 1.0D;
+        this.branchSlope = 0.381D;
+        this.scaleWidth = 1.0D;
         this.leafDensity = 0.8D;
         this.trunkWide = trunkWidth;
         this.heightLimit2 = maxH;
@@ -86,8 +86,8 @@ public class WorldGenGreatOak extends WorldGenAbstractTree
             {
                 for (int l = 0; l < i; ++l)
                 {
-                    double d0 = this.field_175945_e * (double)f * ((double)this.field_175949_k.nextFloat() + 0.328D);
-                    double d1 = (double)(this.field_175949_k.nextFloat() * 2.0F) * Math.PI;
+                    double d0 = this.scaleWidth * (double)f * ((double)this.random.nextFloat() + 0.328D);
+                    double d1 = (double)(this.random.nextFloat() * 2.0F) * Math.PI;
                     double d2 = d0 * Math.sin(d1) + 0.5D;
                     double d3 = d0 * Math.cos(d1) + 0.5D;
                     BlockPos blockpos = this.blockPosOrigin.add(d2, (double)(k - 1), d3);
@@ -97,7 +97,7 @@ public class WorldGenGreatOak extends WorldGenAbstractTree
                     {
                         int i1 = this.blockPosOrigin.getX() - blockpos.getX();
                         int j1 = this.blockPosOrigin.getZ() - blockpos.getZ();
-                        double d4 = (double)blockpos.getY() - Math.sqrt((double)(i1 * i1 + j1 * j1)) * this.field_175944_d;
+                        double d4 = (double)blockpos.getY() - Math.sqrt((double)(i1 * i1 + j1 * j1)) * this.branchSlope;
                         int k1 = d4 > (double)j ? j : (int)d4;
                         BlockPos blockpos2 = new BlockPos(this.blockPosOrigin.getX(), k1, this.blockPosOrigin.getZ());
 
@@ -167,7 +167,7 @@ public class WorldGenGreatOak extends WorldGenAbstractTree
         return p_76495_1_ >= 0 && p_76495_1_ < this.leafDistanceLimit ? (p_76495_1_ != 0 && p_76495_1_ != this.leafDistanceLimit - 1 ? 3.0F : 2.0F) : -1.0F;
     }
 
-    void func_175940_a(BlockPos pos)
+    void generateLeafNode(BlockPos pos)
     {
         for (int i = 0; i < this.leafDistanceLimit; ++i)
         {
@@ -178,7 +178,7 @@ public class WorldGenGreatOak extends WorldGenAbstractTree
     void func_175937_a(BlockPos p_175937_1_, BlockPos p_175937_2_)
     {
         BlockPos blockpos2 = p_175937_2_.add(-p_175937_1_.getX(), -p_175937_1_.getY(), -p_175937_1_.getZ());
-        int i = this.func_175935_b(blockpos2);
+        int i = this.getGreatestDifference(blockpos2);
         float f = (float)blockpos2.getX() / (float)i;
         float f1 = (float)blockpos2.getY() / (float)i;
         float f2 = (float)blockpos2.getZ() / (float)i;
@@ -191,7 +191,7 @@ public class WorldGenGreatOak extends WorldGenAbstractTree
         }
     }
 
-    private int func_175935_b(BlockPos p_175935_1_)
+    private int getGreatestDifference(BlockPos p_175935_1_)
     {
         int i = MathHelper.abs(p_175935_1_.getX());
         int j = MathHelper.abs(p_175935_1_.getY());
@@ -228,7 +228,7 @@ public class WorldGenGreatOak extends WorldGenAbstractTree
         while (iterator.hasNext())
         {
             WorldGenGreatOak.FoliageCoordinates foliagecoordinates = (WorldGenGreatOak.FoliageCoordinates)iterator.next();
-            this.func_175940_a(foliagecoordinates);
+            this.generateLeafNode(foliagecoordinates);
         }
     }
 
@@ -274,7 +274,7 @@ public class WorldGenGreatOak extends WorldGenAbstractTree
     int func_175936_a(BlockPos p_175936_1_, BlockPos p_175936_2_)
     {
         BlockPos blockpos2 = p_175936_2_.add(-p_175936_1_.getX(), -p_175936_1_.getY(), -p_175936_1_.getZ());
-        int i = this.func_175935_b(blockpos2);
+        int i = this.getGreatestDifference(blockpos2);
         float f = (float)blockpos2.getX() / (float)i;
         float f1 = (float)blockpos2.getY() / (float)i;
         float f2 = (float)blockpos2.getZ() / (float)i;
@@ -304,15 +304,16 @@ public class WorldGenGreatOak extends WorldGenAbstractTree
         this.leafDistanceLimit = 5;
     }
 
+    @Override
     public boolean generate(World worldIn, Random p_180709_2_, BlockPos p_180709_3_)
     {
         this.world = worldIn;
         this.blockPosOrigin = p_180709_3_;
-        this.field_175949_k = new Random(p_180709_2_.nextLong());
+        this.random = new Random(p_180709_2_.nextLong());
 
         if (this.heightLimit == 0)
         {
-            this.heightLimit = 5 + this.field_175949_k.nextInt(this.heightLimit2);
+            this.heightLimit = 5 + this.random.nextInt(this.heightLimit2);
         }
 
         if (!this.validTreeLocation())

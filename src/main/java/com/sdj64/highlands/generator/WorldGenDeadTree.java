@@ -305,6 +305,7 @@ public class WorldGenDeadTree extends WorldGenAbstractTree
         this.leafDistanceLimit = 5;
     }
 
+    @Override
     public boolean generate(World worldIn, Random p_180709_2_, BlockPos p_180709_3_)
     {
         this.world = worldIn;

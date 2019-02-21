@@ -25,7 +25,8 @@ public class BiomeGenDryForest extends BiomeGenBaseHighlands
     /**
      * Gets a WorldGen appropriate for this biome.
      */
-    public WorldGenAbstractTree genBigTreeChance(Random par1Random)
+    @Override
+    public WorldGenAbstractTree getRandomTreeFeature(Random par1Random)
     {
     	if(par1Random.nextInt(3) == 0){
             return HighlandsGenerators.aspenGen;
@@ -35,7 +36,8 @@ public class BiomeGenDryForest extends BiomeGenBaseHighlands
             return HighlandsGenerators.shrub2Gen;
         }
     }
-    
+
+    @Override
     public void decorate(World world, Random random, BlockPos pos)
     {
         super.decorate(world, random, pos);

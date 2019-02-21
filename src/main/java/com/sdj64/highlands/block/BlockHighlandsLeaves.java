@@ -9,12 +9,15 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ColorizerFoliage;
@@ -39,13 +42,18 @@ public class BlockHighlandsLeaves extends BlockLeaves
         this.setHardness(0.2F);
         this.setLightOpacity(1);
         this.setSoundType(SoundType.PLANT);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(CHECK_DECAY, Boolean.valueOf(true)).withProperty(DECAYABLE, Boolean.valueOf(true)));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(CHECK_DECAY, true).withProperty(DECAYABLE, true));
         
         
         
         this.setGraphics();
     }
-    
+
+    @Override
+    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
+        return super.getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, meta, placer, hand).withProperty(DECAYABLE, false);
+    }
+
     public void setGraphics(){
     	if(FMLCommonHandler.instance().getEffectiveSide().equals(Side.CLIENT))
     		this.setGraphicsLevel(Minecraft.getMinecraft().isFancyGraphicsEnabled());
@@ -202,9 +210,32 @@ public class BlockHighlandsLeaves extends BlockLeaves
         return NonNullList.withSize(1, new ItemStack(this));
     }
 
+    public static boolean allowLeavesDecay = true;
+
+    @Override
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
+    {
+        if(!allowLeavesDecay) {
+            return;
+        }
+
+        if (worldIn.isAreaLoaded(pos.add(-5, -5, -5), pos.add(5, 5, 5)))
+        {
+            for (BlockPos blockpos : BlockPos.getAllInBox(pos.add(-4, -4, -4), pos.add(4, 4, 4)))
+            {
+                IBlockState iblockstate = worldIn.getBlockState(blockpos);
+
+                if (iblockstate.getBlock().isLeaves(iblockstate, worldIn, blockpos))
+                {
+                    iblockstate.getBlock().beginLeavesDecay(iblockstate, worldIn, blockpos);
+                }
+            }
+        }
+    }
+
 	@Override
 	public EnumType getWoodType(int meta) {
 		// returns Birch since it doesn't drop any apples. Probably safe, and safer than null.
-		return BlockPlanks.EnumType.BIRCH;
+		return EnumType.JUNGLE;
 	}
 }

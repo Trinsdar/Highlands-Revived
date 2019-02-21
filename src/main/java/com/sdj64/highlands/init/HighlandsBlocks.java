@@ -140,6 +140,7 @@ public class HighlandsBlocks {
 	@SideOnly(Side.CLIENT)
 	public static void registerModels(ModelRegistryEvent event) {
 		for(int i = 0; i < NUM_TREE_TYPES; i++){
+			ModelLoader.setCustomStateMapper(leaves[i], new StateMap.Builder().ignore(BlockHighlandsLeaves.CHECK_DECAY, BlockHighlandsLeaves.DECAYABLE).build());
 			ModelLoader.setCustomStateMapper(slabs[i], new StateMap.Builder().ignore(BlockHighlandsSlab.VARIANT).build());
 			ModelLoader.setCustomStateMapper(doubleSlabs[i], new StateMap.Builder().ignore(BlockHighlandsSlab.VARIANT).build());
 		}

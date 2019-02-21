@@ -50,6 +50,7 @@ public class WorldGenMinable2 extends WorldGenerator
         this.field_175919_c = p_i45631_3_;
     }
 
+    @Override
     public boolean generate(World world, Random random, BlockPos pos)
     {
         float f = random.nextFloat() * (float)Math.PI;

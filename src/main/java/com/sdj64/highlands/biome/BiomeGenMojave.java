@@ -37,12 +37,14 @@ public class BiomeGenMojave extends BiomeGenBaseHighlands
         plants.add(HighlandsGenerators.duneGrass);
     }
 
-    
-    public WorldGenAbstractTree genBigTreeChance(Random par1Random)
+
+    @Override
+    public WorldGenAbstractTree getRandomTreeFeature(Random par1Random)
     {
         return (par1Random.nextInt(3) == 0 ? new WorldGenSavannaTree(false) : HighlandsGenerators.shrub2Gen);
     }
-    
+
+    @Override
     public void decorate(World world, Random random, BlockPos pos)
     {
         //genStandardOre(6, HighlandsGenerators.sandInDIRT, 64, 120, world, random, pos);
@@ -52,7 +54,8 @@ public class BiomeGenMojave extends BiomeGenBaseHighlands
         genStandardOre(5, HighlandsGenerators.hlsand, 0, 72, world, random, pos);
         genStandardOre(decorator.chunkProviderSettings.goldCount/2, decorator.goldGen, decorator.chunkProviderSettings.goldMinHeight, decorator.chunkProviderSettings.goldMaxHeight, world, random, pos);
     }
-    
+
+    @Override
     public void genTerrainBlocks(World worldIn, Random random, ChunkPrimer primer, int x, int z, double whatisthis)
     {
         this.topBlock = Blocks.GRASS.getDefaultState();

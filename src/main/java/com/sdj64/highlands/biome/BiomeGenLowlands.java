@@ -40,13 +40,15 @@ public class BiomeGenLowlands extends BiomeGenBaseHighlands
     /**
      * Gets a WorldGen appropriate for this biome.
      */
-    public WorldGenAbstractTree genBigTreeChance(Random par1Random)
+    @Override
+    public WorldGenAbstractTree getRandomTreeFeature(Random par1Random)
     {
         return (par1Random.nextInt(8) == 0 ?
         		HighlandsGenerators.shrub2Gen : par1Random.nextInt(4) != 0 ?
         		this.TREE_FEATURE : HighlandsGenerators.firGen);
     }
 
+    @Override
     public void decorate(World world, Random random, BlockPos pos)
     {
         super.decorate(world, random, pos);
@@ -54,7 +56,8 @@ public class BiomeGenLowlands extends BiomeGenBaseHighlands
         genStandardOre(10, HighlandsGenerators.hlwater, 10, 64, world, random, pos);
         genStandardOre(decorator.chunkProviderSettings.diamondCount/2, decorator.diamondGen, decorator.chunkProviderSettings.diamondMinHeight, decorator.chunkProviderSettings.diamondMaxHeight, world, random, pos);
     }
-    
+
+    @Override
     public void genTerrainBlocks(World worldIn, Random random, ChunkPrimer primer, int x, int z, double whatisthis)
     {
         this.topBlock = Blocks.GRASS.getDefaultState();
