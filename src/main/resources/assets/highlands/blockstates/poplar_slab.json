@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "half=bottom": { "model": "highlands:poplar_half_slab" },
+    	"half=top": { "model": "highlands:poplar_upper_slab" }
+    }
+}

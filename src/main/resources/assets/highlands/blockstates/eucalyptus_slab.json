@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "half=bottom": { "model": "highlands:eucalyptus_half_slab" },
+    	"half=top": { "model": "highlands:eucalyptus_upper_slab" }
+    }
+}

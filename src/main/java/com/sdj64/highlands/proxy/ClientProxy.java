@@ -13,6 +13,7 @@ public class ClientProxy extends CommonProxy{
     public void registerModels(ModelRegistryEvent event) {
         for (int i = 0; i < HighlandsBlocks.NUM_TREE_TYPES; i++) {
             registerModel(HighlandsItems.planks[i]);
+            registerModel(HighlandsItems.slabs[i]);
             registerModel(HighlandsItems.logs[i]);
             registerModel(HighlandsItems.leaves[i]);
             registerModel(HighlandsItems.saplings[i]);

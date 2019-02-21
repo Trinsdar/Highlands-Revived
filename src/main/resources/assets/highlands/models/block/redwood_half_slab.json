@@ -1,0 +1,8 @@
+{
+    "parent": "block/half_slab",
+    "textures": {
+        "bottom": "highlands:blocks/planks_redwood",
+        "top": "highlands:blocks/planks_redwood",
+        "side": "highlands:blocks/planks_redwood"
+    }
+}

@@ -1,11 +1,13 @@
 package com.sdj64.highlands.init;
 
 import com.sdj64.highlands.References;
+import com.sdj64.highlands.block.BlockHighlandsDoubleSlab;
 import com.sdj64.highlands.block.BlockHighlandsLeaves;
 import com.sdj64.highlands.block.BlockHighlandsLog;
 import com.sdj64.highlands.block.BlockHighlandsPlanks;
 import com.sdj64.highlands.block.BlockHighlandsPlant;
 import com.sdj64.highlands.block.BlockHighlandsSapling;
+import com.sdj64.highlands.block.BlockHighlandsSlab;
 import com.sdj64.highlands.block.BlockHighlandsStair;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
@@ -88,12 +90,22 @@ public class HighlandsBlocks {
 		//initialize blocks within arrays
 		for(int i = 0; i < NUM_TREE_TYPES; i++)
 		{
-			planks[i] = register(event, new BlockHighlandsPlanks(EnumTypeTree.META_LOOKUP[i]), EnumTypeTree.META_LOOKUP[i].getName() + "_planks");
+			planks[i] = register(event, new BlockHighlandsPlanks(), EnumTypeTree.META_LOOKUP[i].getName() + "_planks");
 			OreDictionary.registerOre("plankWood", planks[i]);
 			Blocks.FIRE.setFireInfo(planks[i], 5, 20);
 		}
 		for(int i = 0; i < NUM_TREE_TYPES; i++){
-			stairs[i] = register(event, new BlockHighlandsStair(EnumTypeTree.META_LOOKUP[i], planks[i]), EnumTypeTree.META_LOOKUP[i].getName() + "_stairs");
+			slabs[i] = register(event, new BlockHighlandsSlab(), EnumTypeTree.META_LOOKUP[i].getName() + "_slab");
+			OreDictionary.registerOre("slabWood", slabs[i]);
+			Blocks.FIRE.setFireInfo(slabs[i], 5, 20);
+		}
+		for(int i = 0; i < NUM_TREE_TYPES; i++){
+			doubleSlabs[i] = register(event, new BlockHighlandsDoubleSlab(), EnumTypeTree.META_LOOKUP[i].getName() + "_double_slab");
+			OreDictionary.registerOre("slabWood", doubleSlabs[i]);
+			Blocks.FIRE.setFireInfo(doubleSlabs[i], 5, 20);
+		}
+		for(int i = 0; i < NUM_TREE_TYPES; i++){
+			stairs[i] = register(event, new BlockHighlandsStair(planks[i]), EnumTypeTree.META_LOOKUP[i].getName() + "_stairs");
 			OreDictionary.registerOre("stairWood", stairs[i]);
 			Blocks.FIRE.setFireInfo(stairs[i], 5, 20);
 		}

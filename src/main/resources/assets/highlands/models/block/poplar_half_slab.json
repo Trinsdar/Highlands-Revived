@@ -1,0 +1,8 @@
+{
+    "parent": "block/half_slab",
+    "textures": {
+        "bottom": "highlands:blocks/planks_poplar",
+        "top": "highlands:blocks/planks_poplar",
+        "side": "highlands:blocks/planks_poplar"
+    }
+}

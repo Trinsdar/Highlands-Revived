@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "half=bottom": { "model": "highlands:redwood_half_slab" },
+    	"half=top": { "model": "highlands:redwood_upper_slab" }
+    }
+}

@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "half=bottom": { "model": "highlands:bamboo_half_slab" },
+    	"half=top": { "model": "highlands:bamboo_upper_slab" }
+    }
+}

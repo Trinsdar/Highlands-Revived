@@ -18,7 +18,6 @@ public class HighlandsItems {
     public static Item[] doors;
     public static Item[] fences;
     public static Item[] slabs;
-    public static Item[] doubleSlabs;
     public static Item[] stairs;
 
     public static Item[] plants;
@@ -32,7 +31,6 @@ public class HighlandsItems {
         doors = new Item[HighlandsBlocks.NUM_TREE_TYPES];
         fences = new Item[HighlandsBlocks.NUM_TREE_TYPES];
         slabs = new Item[HighlandsBlocks.NUM_TREE_TYPES];
-        doubleSlabs = new Item[HighlandsBlocks.NUM_TREE_TYPES];
         stairs = new Item[HighlandsBlocks.NUM_TREE_TYPES];
 
         plants = new Item[HighlandsBlocks.NUM_PLANTS];
@@ -42,6 +40,9 @@ public class HighlandsItems {
         }
         for(int i = 0; i < HighlandsBlocks.NUM_TREE_TYPES; i++){
             stairs[i] = register(event, HighlandsBlocks.stairs[i]);
+        }
+        for(int i = 0; i < HighlandsBlocks.NUM_TREE_TYPES; i++){
+            slabs[i] = register(event, HighlandsBlocks.slabs[i]);
         }
         for(int i = 0; i < HighlandsBlocks.NUM_TREE_TYPES; i++){
             logs[i] = register(event, HighlandsBlocks.logs[i]);
