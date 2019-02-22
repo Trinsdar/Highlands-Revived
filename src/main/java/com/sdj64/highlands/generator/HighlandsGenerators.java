@@ -31,8 +31,8 @@ public class HighlandsGenerators {
 	public static final WorldGenAbstractTree palmSapling = new WorldGenTreePalm(HighlandsBlocks.leaves[3], HighlandsBlocks.logs[3], flmeta(3), 0, 6, 12, true);
 	public static final WorldGenAbstractTree firGen = new WorldGenTreeFir(HighlandsBlocks.leaves[4], HighlandsBlocks.logs[4], flmeta(4), 0, 12, 30, false);
 	public static final WorldGenAbstractTree firSapling = new WorldGenTreeFir(HighlandsBlocks.leaves[4], HighlandsBlocks.logs[4], flmeta(4), 0, 12, 30, true);
-	public static final WorldGenAbstractTree firMegaGen = new WorldGenMegaTreeFir(HighlandsBlocks.leaves[4], HighlandsBlocks.logs[4], flmeta(4), 0, 12, 30, false);
-	public static final WorldGenAbstractTree firMegaSapling = new WorldGenMegaTreeFir(HighlandsBlocks.leaves[4], HighlandsBlocks.logs[4], flmeta(4), 0, 12, 30, true);
+	public static final WorldGenAbstractTree firMegaGen = new WorldGenMegaTreeFir(HighlandsBlocks.leaves[4], HighlandsBlocks.logs[4], flmeta(4), 0, 24, 48, false);
+	public static final WorldGenAbstractTree firMegaSapling = new WorldGenMegaTreeFir(HighlandsBlocks.leaves[4], HighlandsBlocks.logs[4], flmeta(4), 0, 24, 48, true);
 	public static final WorldGenAbstractTree redwoodGen = new WorldGenTreeRedwood(HighlandsBlocks.leaves[5], HighlandsBlocks.logs[5], flmeta(5), 0, 27, 38, false);
 	public static final WorldGenAbstractTree redwoodSapling = new WorldGenTreeRedwood(HighlandsBlocks.leaves[5], HighlandsBlocks.logs[5], flmeta(5), 0, 27, 38, true);
 	public static final WorldGenAbstractTree shrubGen = new WorldGenHighlandsShrub(Blocks.LEAVES, Blocks.LOG, 1, 1, false);
