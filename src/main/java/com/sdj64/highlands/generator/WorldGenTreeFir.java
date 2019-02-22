@@ -1,16 +1,29 @@
 package com.sdj64.highlands.generator;
 
+import com.sdj64.highlands.block.BlockHighlandsLeaves;
+import com.sdj64.highlands.block.BlockHighlandsLog;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockLog;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.IPlantable;
 
 import java.util.Random;
 
 public class WorldGenTreeFir extends WorldGenMTreeBase
 {
+	private IBlockState woodState;
+	private IBlockState leafState;
+
     public WorldGenTreeFir(Block leafBlock, Block woodBlock, int leafBlockMeta,
 			int woodBlockMeta, int minH, int maxH, boolean notify) {
 		super(leafBlock, woodBlock, leafBlockMeta, woodBlockMeta, minH, maxH, notify);
+		woodState = woodBlock.getDefaultState().withProperty(BlockHighlandsLog.LOG_AXIS, BlockLog.EnumAxis.Y);
+		leafState = leafBlock.getDefaultState().withProperty(BlockHighlandsLeaves.CHECK_DECAY, false);
 	}
 
 
@@ -18,30 +31,150 @@ public class WorldGenTreeFir extends WorldGenMTreeBase
 	@Override
     public boolean generate(World wor, Random rand, BlockPos pos)
     {
-    	this.world = wor;
-    	this.random = rand;
-    	
-    	boolean isWide = (random.nextInt(3) == 0);
-    	int treeHeight = minHeight + random.nextInt(maxHeight-minHeight);
-    	
-    	boolean trunk2 = random.nextInt(6)==0;
-    	
-        if(!isLegalTreePosition(pos, true, false))return false;
-        if(!isCubeClear(pos.up(3), 2, 10))return false;
-    	
-		//generates the trunk
-    	genTree(pos, treeHeight, isWide);
-    	
-    	
-    	if(trunk2){
-    		genTree(pos.west(), treeHeight, isWide);
-    		genTree(pos.south(), treeHeight, isWide);
-    		genTree(pos.west().south(), treeHeight, isWide);
-    	}
-    	
-    	return true;
+		// Total trunk height
+		int height = rand.nextInt(8) + 24;
+
+		// How much "bare trunk" there will be.
+		int bareTrunkHeight = 1 + rand.nextInt(12);
+
+		// Maximum leaf radius.
+		int maxRadius = 2 + rand.nextInt(6);
+
+		if(pos.getY() + height + 1 > world.getHeight() || pos.getY() < 1) {
+			return false;
+		}
+
+		BlockPos below = pos.down();
+		IBlockState soil = world.getBlockState(below);
+
+		if(!soil.getBlock().canSustainPlant(soil, world, below, EnumFacing.UP, (IPlantable) Blocks.SAPLING)) {
+			return false;
+		}
+
+		if(!checkForObstructions(world, pos, height, bareTrunkHeight, maxRadius)) {
+			return false;
+		}
+
+		boolean oldAllowLeavesDecay = BlockHighlandsLeaves.allowLeavesDecay;
+		if(!notifyFlag) {
+			BlockHighlandsLeaves.allowLeavesDecay = false;
+		}
+
+		setBlockAndNotifyAdequately(world, pos.down(), Blocks.DIRT.getDefaultState());
+		growLeaves(world, pos, height, bareTrunkHeight, maxRadius);
+		growTrunk(world, new BlockPos.MutableBlockPos(pos), height);
+
+		if(!notifyFlag) {
+			BlockHighlandsLeaves.allowLeavesDecay = oldAllowLeavesDecay;
+		}
+
+		return true;
     }
-    
+
+	private boolean checkForObstructions(World world, BlockPos origin, int height, int bareTrunkHeight, int radius) {
+		BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos(origin);
+
+		for(int i = 0; i < bareTrunkHeight; i++) {
+			IBlockState state = world.getBlockState(pos.move(EnumFacing.UP));
+
+			if(!canReplaceBlock(world, state, pos)) {
+				return false;
+			}
+		}
+
+		for(int dY = bareTrunkHeight; dY < height; dY++) {
+			for(int dZ = -radius; dZ <= radius; dZ++) {
+				for(int dX = -radius; dX <= radius; dX++) {
+					pos.setPos(origin.getX() + dX, origin.getY() + dY, origin.getZ() + dZ);
+
+					IBlockState state = world.getBlockState(pos);
+					if(!canReplaceBlock(world, state, pos)) {
+						return false;
+					}
+				}
+			}
+		}
+
+		return true;
+	}
+
+	private void growLeaves(World world, BlockPos origin, int height, int bareTrunkHeight, int maxRadius) {
+		int radius = 0;
+		int radiusTarget = 1;
+		boolean topCone = true;
+
+		BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos(origin);
+
+		for(int dY = height; dY >= bareTrunkHeight; dY--) {
+			for(int dZ = -radius; dZ <= radius; dZ++) {
+				for(int dX = -radius; dX <= radius; dX++) {
+					if(radius > 0 && Math.abs(dZ) == radius && Math.abs(dX) == radius) {
+						// Cull corners
+						continue;
+					}
+
+					pos.setPos(origin.getX() + dX, origin.getY() + dY, origin.getZ() + dZ);
+
+					IBlockState existing = world.getBlockState(pos);
+					if(existing.getBlock().canBeReplacedByLeaves(existing, world, pos)) {
+						setBlockAndNotifyAdequately(world, pos, leafState);
+					}
+				}
+			}
+
+			radius += 1;
+
+			if(radius > radiusTarget) {
+				if(topCone) {
+					radius = 0;
+					radiusTarget = Math.min(2, maxRadius);
+					topCone = false;
+				} else {
+					radius = 1;
+					radiusTarget = Math.min(radiusTarget + 1, maxRadius);
+				}
+			}
+		}
+	}
+
+	private void growTrunk(World world, BlockPos.MutableBlockPos pos, int height) {
+		for(int i = 0; i < height; i++) {
+			setBlockAndNotifyAdequately(world, pos, woodState);
+
+			pos.move(EnumFacing.UP);
+		}
+	}
+
+	private static boolean canReplaceBlock(World world, IBlockState state, BlockPos pos) {
+		Block block = state.getBlock();
+
+		if(block.isAir(state, world, pos) || block.isLeaves(state, world, pos) || block.isWood(world, pos)) {
+			return true;
+		}
+
+		Material material = state.getMaterial();
+		if(material == Material.AIR || material == Material.LEAVES) {
+			return true;
+		}
+
+		return block == Blocks.GRASS || block == Blocks.DIRT || block == Blocks.LOG || block == Blocks.LOG2 || block == Blocks.SAPLING || block == Blocks.VINE;
+	}
+
+	@Override
+	protected void setBlockAndNotifyAdequately(World worldIn, BlockPos pos, IBlockState state)
+	{
+		if (this.notifyFlag)
+		{
+			worldIn.setBlockState(pos, state, 3);
+		}
+		else
+		{
+			// Don't notify neighbors, don't load adjacent chunks.
+			// The leaves will be just fine.
+
+			worldIn.setBlockState(pos, state, 2 | 16);
+		}
+	}
     
     //TREE GENERATORS
     
