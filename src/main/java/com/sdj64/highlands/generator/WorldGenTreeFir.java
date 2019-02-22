@@ -32,10 +32,10 @@ public class WorldGenTreeFir extends WorldGenMTreeBase
     public boolean generate(World world, Random rand, BlockPos pos)
     {
 		// Total trunk height
-		int height = rand.nextInt(8) + 24;
+		int height = rand.nextInt(maxHeight - minHeight) + minHeight;
 
 		// How much "bare trunk" there will be.
-		int bareTrunkHeight = 1 + rand.nextInt(12);
+		int bareTrunkHeight = 1 + rand.nextInt(9);
 
 		// Maximum leaf radius.
 		int maxRadius = 2 + rand.nextInt(2);

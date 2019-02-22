@@ -65,37 +65,99 @@ public class BlockHighlandsSapling extends BlockBush implements IGrowable{
 	public void generateTree(World worldIn, BlockPos pos, IBlockState state, Random rand) {
 		WorldGenAbstractTree gen;
 
-		switch (treeType) {
-		case ASPEN:
-			gen = HighlandsGenerators.aspenSapling;
-			break;
-		case POPLAR:
-			gen = HighlandsGenerators.poplarSapling;
-			break;
-		case EUCA:
-			gen = HighlandsGenerators.eucalyptusSapling;
-			break;
-		case PALM:
-			gen = HighlandsGenerators.palmSapling;
-			break;
-		case FIR:
-			gen = HighlandsGenerators.firSapling;
-			break;
-		case REDWOOD:
-			gen = HighlandsGenerators.redwoodSapling;
-			break;
-		case BAMBOO: 
-			gen = HighlandsGenerators.bambooSapling; 
-			break;
-		default:
-			return;
+		boolean flag;
+		int dX = 0;
+		int dZ;
+		boolean mega = false;
+
+		outer:
+		for(dZ = 0; dZ >= -1; dZ--) {
+			for(dX = 0; dX >= -1; dX--) {
+				if(isTwoByTwoOfType(worldIn, pos, dX, dZ)) {
+					mega = true;
+					break outer;
+				}
+			}
 		}
 
-		boolean flag = gen.generate(worldIn, rand, pos);
+		if (!mega){
+			switch (treeType) {
+				case ASPEN:
+					gen = HighlandsGenerators.aspenSapling;
+					break;
+				case POPLAR:
+					gen = HighlandsGenerators.poplarSapling;
+					break;
+				case EUCA:
+					gen = HighlandsGenerators.eucalyptusSapling;
+					break;
+				case PALM:
+					gen = HighlandsGenerators.palmSapling;
+					break;
+				case FIR:
+					gen = HighlandsGenerators.firSapling;
+					break;
+				case REDWOOD:
+					gen = HighlandsGenerators.redwoodSapling;
+					break;
+				case BAMBOO:
+					gen = HighlandsGenerators.bambooSapling;
+					break;
+				default:
+					return;
+			}
+			flag = gen.generate(worldIn, rand, pos);
+			// if tree is not in legal position, reset sapling.
+			if (!flag){
+				worldIn.setBlockState(pos, state);
+			}
+		}else{
+			gen = HighlandsGenerators.firMegaSapling;
 
-		// if tree is not in legal position, reset sapling.
-		if (!flag)
-			worldIn.setBlockState(pos, state, 2);
+			IBlockState[][] oldStates = new IBlockState[2][2];
+
+			BlockPos generatePos = pos.add(dX, 0, dZ);
+
+			for(dZ = 0; dZ < 2; dZ++) {
+				for(dX = 0; dX < 2; dX++) {
+					BlockPos sapling = generatePos.add(dX, 0, dZ);
+
+					oldStates[dZ][dX] = worldIn.getBlockState(sapling);
+					worldIn.setBlockToAir(sapling);
+				}
+			}
+
+			if(!gen.generate(worldIn, rand, generatePos)) {
+				for(dZ = 0; dZ < 2; dZ++) {
+					for(dX = 0; dX < 2; dX++) {
+						BlockPos sapling = generatePos.add(dX, 0, dZ);
+
+						worldIn.setBlockState(sapling, oldStates[dZ][dX]);
+					}
+				}
+			}
+		}
+
+
+
+
+
+
+
+
+	}
+
+	private boolean isTwoByTwoOfType(World worldIn, BlockPos pos, int dX, int dZ)
+	{
+		return this.isTypeAt(worldIn, pos.add(dX, 0, dZ))
+				&& this.isTypeAt(worldIn, pos.add(dX + 1, 0, dZ))
+				&& this.isTypeAt(worldIn, pos.add(dX, 0, dZ + 1))
+				&& this.isTypeAt(worldIn, pos.add(dX + 1, 0, dZ + 1));
+	}
+
+	private boolean isTypeAt(World worldIn, BlockPos pos)
+	{
+		return worldIn.getBlockState(pos).getBlock() == this;
 	}
 
 	@Override
