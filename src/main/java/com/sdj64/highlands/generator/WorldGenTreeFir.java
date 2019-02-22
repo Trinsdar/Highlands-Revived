@@ -29,7 +29,7 @@ public class WorldGenTreeFir extends WorldGenMTreeBase
 
 
 	@Override
-    public boolean generate(World wor, Random rand, BlockPos pos)
+    public boolean generate(World world, Random rand, BlockPos pos)
     {
 		// Total trunk height
 		int height = rand.nextInt(8) + 24;
@@ -38,7 +38,7 @@ public class WorldGenTreeFir extends WorldGenMTreeBase
 		int bareTrunkHeight = 1 + rand.nextInt(12);
 
 		// Maximum leaf radius.
-		int maxRadius = 2 + rand.nextInt(6);
+		int maxRadius = 2 + rand.nextInt(2);
 
 		if(pos.getY() + height + 1 > world.getHeight() || pos.getY() < 1) {
 			return false;
@@ -110,6 +110,14 @@ public class WorldGenTreeFir extends WorldGenMTreeBase
 				for(int dX = -radius; dX <= radius; dX++) {
 					if(radius > 0 && Math.abs(dZ) == radius && Math.abs(dX) == radius) {
 						// Cull corners
+						continue;
+					}
+					if(radius > 0 && radius == 3 && Math.abs(dZ) == radius && Math.abs(dX) == radius - 1) {
+						// Cull additional x corners
+						continue;
+					}
+					if(radius > 0 && radius == 3 && Math.abs(dZ) == radius - 1 && Math.abs(dX) == radius) {
+						// Cull additional z corners
 						continue;
 					}
 
