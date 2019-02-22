@@ -95,7 +95,7 @@ public class BlockHighlandsSapling extends BlockBush implements IGrowable{
 
 		// if tree is not in legal position, reset sapling.
 		if (!flag)
-			worldIn.setBlockState(pos, state);
+			worldIn.setBlockState(pos, state, 2);
 	}
 
 	@Override

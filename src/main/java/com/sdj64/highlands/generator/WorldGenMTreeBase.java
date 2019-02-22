@@ -213,7 +213,7 @@ public abstract class WorldGenMTreeBase extends WorldGenAbstractTree
     protected void setBlockLeaf(BlockPos pos){
     	try{
 			if(world.isAirBlock(pos) || world.getBlockState(pos).getBlock().equals(Blocks.TALLGRASS) || world.getBlockState(pos).equals(Blocks.SNOW_LAYER.getDefaultState())){
-				world.setBlockState(pos, leaves.getStateFromMeta(leafMeta));//getDefaultState().withProperty(BlockHighlandsLeaves.CHECK_DECAY, true).withProperty(BlockHighlandsLeaves.DECAYABLE, true));
+				world.setBlockState(pos, leaves.getStateFromMeta(leafMeta), 2);//getDefaultState().withProperty(BlockHighlandsLeaves.CHECK_DECAY, true).withProperty(BlockHighlandsLeaves.DECAYABLE, true));
 			}
     	}
     	catch(RuntimeException e){
@@ -233,7 +233,7 @@ public abstract class WorldGenMTreeBase extends WorldGenAbstractTree
 			if(world.getBlockState(pos).getBlock().isReplaceable(world, pos) ||
 					world.isAirBlock(pos) ||
 					world.getBlockState(pos).getBlock() instanceof BlockHighlandsSapling){
-				world.setBlockState(pos, wood.getStateFromMeta(woodMeta+direction));
+				world.setBlockState(pos, wood.getStateFromMeta(woodMeta+direction), 2);
 			}
     	}
     	catch(RuntimeException e){

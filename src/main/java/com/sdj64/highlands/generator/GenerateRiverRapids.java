@@ -26,20 +26,20 @@ public class GenerateRiverRapids implements IWorldGenerator
 					int locZ = chunkZ*16 + k;
 					
 					BlockPos pos = new BlockPos(locX, 1, locZ);
-					BiomeGenBase biome = world.getBiomeGenForCoords(pos);
+					Biome biome = world.getBiome(pos);
 					
 					if(biome.equals(BiomeGenBase.river)){
 						BlockPos pos2 = world.getTopSolidOrLiquidBlock(pos);
 						
-						BiomeGenBase biome2 = world.getBiomeGenForCoords(pos2.north(8));
-						if(biome2.equals(BiomeGenBase.river))  biome2 = world.getBiomeGenForCoords(pos2.east(8));
-						BiomeGenBase biome3 = world.getBiomeGenForCoords(pos2.south(8));
-						if(biome3.equals(BiomeGenBase.river))  biome3 = world.getBiomeGenForCoords(pos2.west(8));
+						Biome biome2 = world.getBiome(pos2.north(8));
+						if(biome2.equals(BiomeGenBase.river))  biome2 = world.getBiome(pos2.east(8));
+						Biome biome3 = world.getBiome(pos2.south(8));
+						if(biome3.equals(Biomes.RIVER))  biome3 = world.getBiome(pos2.west(8));
 						
 						int y = getNewSeaLevel(biome2, biome3);
 						for(int j = 0; j < y-pos2.getY(); j++){
-							world.setBlockState(pos2.up(j), Blocks.water.getDefaultState());
-							Blocks.water.updateTick(world, pos2.up(j), Blocks.water.getDefaultState(), random);
+							world.setBlockState(pos2.up(j), Blocks.WATER.getDefaultState(), 2);
+							Blocks.WATER.updateTick(world, pos2.up(j), Blocks.WATER.getDefaultState(), random);
 						}
 						
 					}

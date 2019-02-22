@@ -28,7 +28,7 @@ public class WorldGenPlants extends WorldGenerator{
 			Block soil = world.getBlockState(pos2).getBlock();
 			
 			if(soil.equals(Blocks.DIRT) || soil.equals(Blocks.SAND) || soil.equals(Blocks.GRASS)){
-				if(world.isAirBlock(pos2.up()))world.setBlockState(pos2.up(), plant);
+				if(world.isAirBlock(pos2.up()))world.setBlockState(pos2.up(), plant, 2);
 			}
 			pos2 = pos.east(random.nextInt(16)-7).north(random.nextInt(16)-7);
 		}

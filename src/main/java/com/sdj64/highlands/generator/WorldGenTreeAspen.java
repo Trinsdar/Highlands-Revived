@@ -1,6 +1,9 @@
 package com.sdj64.highlands.generator;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -61,6 +64,52 @@ public class WorldGenTreeAspen extends WorldGenMTreeBase
     	}
     	return true;
     }
+
+	private boolean checkForObstructions(World world, BlockPos origin, int height, int bareTrunkHeight, int radius) {
+		BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos(origin);
+
+		for(int i = 0; i < bareTrunkHeight; i++) {
+			boolean canReplaceAll =
+					canReplaceBlock(world, world.getBlockState(pos.setPos(origin.getX(), origin.getY() + i, origin.getZ())), pos) &&
+							canReplaceBlock(world, world.getBlockState(pos.setPos(origin.getX() + 1, origin.getY() + i, origin.getZ())), pos) &&
+							canReplaceBlock(world, world.getBlockState(pos.setPos(origin.getX(), origin.getY() + i, origin.getZ() + 1)), pos) &&
+							canReplaceBlock(world, world.getBlockState(pos.setPos(origin.getX() + 1, origin.getY() + i, origin.getZ() + 1)), pos);
+
+			if(!canReplaceAll) {
+				return false;
+			}
+		}
+
+		for(int dY = bareTrunkHeight; dY < height + 4; dY++) {
+			for(int dZ = -radius; dZ <= radius + 1; dZ++) {
+				for(int dX = -radius; dX <= radius + 1; dX++) {
+					pos.setPos(origin.getX() + dX, origin.getY() + dY, origin.getZ() + dZ);
+
+					IBlockState state = world.getBlockState(pos);
+					if(!canReplaceBlock(world, state, pos)) {
+						return false;
+					}
+				}
+			}
+		}
+
+		return true;
+	}
+
+	private static boolean canReplaceBlock(World world, IBlockState state, BlockPos pos) {
+		Block block = state.getBlock();
+
+		if(block.isAir(state, world, pos) || block.isLeaves(state, world, pos) || block.isWood(world, pos)) {
+			return true;
+		}
+
+		Material material = state.getMaterial();
+		if(material == Material.AIR || material == Material.LEAVES) {
+			return true;
+		}
+
+		return block == Blocks.GRASS || block == Blocks.DIRT || block == Blocks.LOG || block == Blocks.LOG2 || block == Blocks.SAPLING || block == Blocks.VINE;
+	}
 }
 
 
