@@ -3,6 +3,7 @@ package com.sdj64.highlands.generator;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -15,6 +16,7 @@ import java.util.Random;
 
 public class WorldGenDeadTree extends WorldGenAbstractTree
 {
+    protected boolean notifyFlag;
     private Random field_175949_k;
     private World world;
     private BlockPos blockPosOrigin;
@@ -38,6 +40,7 @@ public class WorldGenDeadTree extends WorldGenAbstractTree
 			int woodBlockMeta, int trunkWidth, int maxH, boolean notify)
     {
         super(notify);
+        this.notifyFlag = notify;
         this.blockPosOrigin = BlockPos.ORIGIN;
         this.heightAttenuation = 0.618D;
         this.field_175944_d = 0.381D;
@@ -369,6 +372,22 @@ public class WorldGenDeadTree extends WorldGenAbstractTree
                 this.heightLimit = i;
                 return true;
             }
+        }
+    }
+
+    @Override
+    protected void setBlockAndNotifyAdequately(World worldIn, BlockPos pos, IBlockState state)
+    {
+        if (this.notifyFlag)
+        {
+            worldIn.setBlockState(pos, state, 3);
+        }
+        else
+        {
+            // Don't notify neighbors, don't load adjacent chunks.
+            // The leaves will be just fine.
+
+            worldIn.setBlockState(pos, state, 2 | 16);
         }
     }
 

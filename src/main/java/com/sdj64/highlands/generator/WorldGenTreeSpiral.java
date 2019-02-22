@@ -1,6 +1,7 @@
 package com.sdj64.highlands.generator;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -78,6 +79,22 @@ public class WorldGenTreeSpiral extends WorldGenMTreeBase
     	}
 		return true;
     }
+
+	@Override
+	protected void setBlockAndNotifyAdequately(World worldIn, BlockPos pos, IBlockState state)
+	{
+		if (this.notifyFlag)
+		{
+			worldIn.setBlockState(pos, state, 3);
+		}
+		else
+		{
+			// Don't notify neighbors, don't load adjacent chunks.
+			// The leaves will be just fine.
+
+			worldIn.setBlockState(pos, state, 2 | 16);
+		}
+	}
 }
 
 

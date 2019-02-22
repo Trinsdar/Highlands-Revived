@@ -110,6 +110,22 @@ public class WorldGenTreeAspen extends WorldGenMTreeBase
 
 		return block == Blocks.GRASS || block == Blocks.DIRT || block == Blocks.LOG || block == Blocks.LOG2 || block == Blocks.SAPLING || block == Blocks.VINE;
 	}
+
+	@Override
+	protected void setBlockAndNotifyAdequately(World worldIn, BlockPos pos, IBlockState state)
+	{
+		if (this.notifyFlag)
+		{
+			worldIn.setBlockState(pos, state, 3);
+		}
+		else
+		{
+			// Don't notify neighbors, don't load adjacent chunks.
+			// The leaves will be just fine.
+
+			worldIn.setBlockState(pos, state, 2 | 16);
+		}
+	}
 }
 
 
