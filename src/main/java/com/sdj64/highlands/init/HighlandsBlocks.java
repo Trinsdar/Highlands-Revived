@@ -95,45 +95,49 @@ public class HighlandsBlocks {
 		for(int i = 0; i < NUM_TREE_TYPES; i++)
 		{
 			planks[i] = register(event, new BlockHighlandsPlanks(), EnumTypeTree.META_LOOKUP[i].getName() + "_planks");
-			OreDictionary.registerOre("plankWood", planks[i]);
 			Blocks.FIRE.setFireInfo(planks[i], 5, 20);
 		}
 		for(int i = 0; i < NUM_TREE_TYPES; i++){
 			slabs[i] = register(event, new BlockHighlandsSlab(), EnumTypeTree.META_LOOKUP[i].getName() + "_slab");
-			OreDictionary.registerOre("slabWood", slabs[i]);
 			Blocks.FIRE.setFireInfo(slabs[i], 5, 20);
 		}
 		for(int i = 0; i < NUM_TREE_TYPES; i++){
 			doubleSlabs[i] = register(event, new BlockHighlandsDoubleSlab(), EnumTypeTree.META_LOOKUP[i].getName() + "_double_slab");
-			OreDictionary.registerOre("slabWood", doubleSlabs[i]);
 			Blocks.FIRE.setFireInfo(doubleSlabs[i], 5, 20);
 		}
 		for(int i = 0; i < NUM_TREE_TYPES; i++){
 			stairs[i] = register(event, new BlockHighlandsStair(planks[i]), EnumTypeTree.META_LOOKUP[i].getName() + "_stairs");
-			OreDictionary.registerOre("stairWood", stairs[i]);
 			Blocks.FIRE.setFireInfo(stairs[i], 5, 20);
 		}
 		for(int i = 0; i < NUM_TREE_TYPES; i++){
 			logs[i] = register(event, new BlockHighlandsLog(EnumTypeTree.META_LOOKUP[i]), EnumTypeTree.META_LOOKUP[i].getName() + "_log");
-			OreDictionary.registerOre("logWood", logs[i]);
 			Blocks.FIRE.setFireInfo(logs[i], 5, 5);
 		}
 		for(int i = 0; i < NUM_TREE_TYPES; i++){
 			leaves[i] = register(event, new BlockHighlandsLeaves(EnumTypeTree.META_LOOKUP[i]), EnumTypeTree.META_LOOKUP[i].getName() + "_leaves");
-			OreDictionary.registerOre("treeLeaves", leaves[i]);
 			Blocks.FIRE.setFireInfo(leaves[i], 30, 60);
 		}
 		for(int i = 0; i < NUM_TREE_TYPES; i++){
 			saplings[i] = register(event, new BlockHighlandsSapling(EnumTypeTree.META_LOOKUP[i]), EnumTypeTree.META_LOOKUP[i].getName() + "_saplings");
-			OreDictionary.registerOre("treeSapling", saplings[i]);
 		}
 
 		for(int i = 0; i < NUM_PLANTS; i++){
 			plants[i] = register(event, new BlockHighlandsPlant(), EnumTypePlant.META_LOOKUP[i].name);
-			
 			Blocks.FIRE.setFireInfo(plants[i], 60, 100);
 		}
 		((BlockHighlandsPlant)plants[EnumTypePlant.THORNBUSH.meta]).thornbush = true;
+	}
+
+	public static void initOredict(){
+		for(int i = 0; i < NUM_TREE_TYPES; i++){
+			OreDictionary.registerOre("plankWood", planks[i]);
+			OreDictionary.registerOre("slabWood", slabs[i]);
+			OreDictionary.registerOre("slabWood", doubleSlabs[i]);
+			OreDictionary.registerOre("stairWood", stairs[i]);
+			OreDictionary.registerOre("logWood", logs[i]);
+			OreDictionary.registerOre("treeLeaves", leaves[i]);
+			OreDictionary.registerOre("treeSapling", saplings[i]);
+		}
 	}
 
 	@SubscribeEvent

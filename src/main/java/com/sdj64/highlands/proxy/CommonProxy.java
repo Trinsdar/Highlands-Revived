@@ -52,6 +52,7 @@ public class CommonProxy {
         GameRegistry.registerWorldGenerator(genTrees, 10);
         GameRegistry.registerWorldGenerator(genPlants, 10);
         GameRegistry.registerWorldGenerator(genRRapids, 10);
+        HighlandsBlocks.initOredict();
         HighlandsSettings.constructSettings();
         HighlandsRecipes.init();
         GameRegistry.registerFuelHandler(new FuelManager());

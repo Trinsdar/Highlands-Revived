@@ -188,15 +188,15 @@ public abstract class WorldGenMTreeBase extends WorldGenAbstractTree
 			if(i == length - 2){
 				double lr = 3.5;
 				//if(length > 6)lr++;
-				generateLeafLayerCircleNoise(lr, xo+i, zo, h+1);
-				generateLeafLayerCircleNoise(lr, xo-i, zo, h+1);
-				generateLeafLayerCircleNoise(lr, xo, zo+i, h+1);
-				generateLeafLayerCircleNoise(lr, xo, zo-i, h+1);
+				generateLeafLayerCircle(lr, xo+i, zo, h+1);
+				generateLeafLayerCircle(lr, xo-i, zo, h+1);
+				generateLeafLayerCircle(lr, xo, zo+i, h+1);
+				generateLeafLayerCircle(lr, xo, zo-i, h+1);
 				lr--;
-				generateLeafLayerCircleNoise(lr, xo+i, zo, h+2);
-				generateLeafLayerCircleNoise(lr, xo-i, zo, h+2);
-				generateLeafLayerCircleNoise(lr, xo, zo+i, h+2);
-				generateLeafLayerCircleNoise(lr, xo, zo-i, h+2);
+				generateLeafLayerCircle(lr, xo+i, zo, h+2);
+				generateLeafLayerCircle(lr, xo-i, zo, h+2);
+				generateLeafLayerCircle(lr, xo, zo+i, h+2);
+				generateLeafLayerCircle(lr, xo, zo-i, h+2);
 			}
 		}
 		/*

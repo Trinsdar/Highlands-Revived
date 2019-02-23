@@ -35,9 +35,6 @@ public class WorldGenMegaTreeFir extends WorldGenMTreeBase {
         // How much "bare trunk" there will be.
         int bareTrunkHeight = 1 + rand.nextInt(minHeight/2);
 
-        // Maximum leaf radius.
-        // Note: Old EBXL had a maximum radius of 10, but unfortunately that would cause cascading world generation.
-        // Hey, the trees are pretty massive already.
         int maxRadius = 2 + rand.nextInt(2);
 
         if(origin.getY() + height + 1 + EXTRA_LEAVES_HEIGHT > world.getHeight() || origin.getY() < 1) {

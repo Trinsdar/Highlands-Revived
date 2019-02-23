@@ -45,7 +45,11 @@ public class BlockHighlandsLeaves extends BlockLeaves
         this.setHardness(0.2F);
         this.setLightOpacity(1);
         this.setSoundType(SoundType.PLANT);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(CHECK_DECAY, true).withProperty(DECAYABLE, true));
+        if (type == HighlandsBlocks.EnumTypeTree.PALM){
+            this.setDefaultState(this.blockState.getBaseState().withProperty(CHECK_DECAY, false).withProperty(DECAYABLE, false));
+        }else {
+            this.setDefaultState(this.blockState.getBaseState().withProperty(CHECK_DECAY, true).withProperty(DECAYABLE, true));
+        }
         
         
 
@@ -175,9 +179,19 @@ public class BlockHighlandsLeaves extends BlockLeaves
     public static boolean allowLeavesDecay = true;
 
     @Override
+    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+        if (treeType != HighlandsBlocks.EnumTypeTree.PALM){
+            super.updateTick(worldIn, pos, state, rand);
+        }
+    }
+
+    @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
     {
         if(!allowLeavesDecay) {
+            return;
+        }
+        if (treeType == HighlandsBlocks.EnumTypeTree.PALM){
             return;
         }
 

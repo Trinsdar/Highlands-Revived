@@ -31,6 +31,11 @@ public class WorldGenTreeRedwood extends WorldGenMTreeBase
         int locZ = pos.getZ();
         
         int treeHeight = minHeight + random.nextInt(maxHeight-minHeight);
+
+		if(pos.getY() + treeHeight + 1 > world.getHeight() || pos.getY() < 1) {
+			return false;
+		}
+
 		//generates the trunk - different than other tree types, uses layer circles.
 		double theta = Math.atan(2.2/treeHeight);
 		
@@ -49,19 +54,19 @@ public class WorldGenTreeRedwood extends WorldGenMTreeBase
 		}
 		
 		h = locY + treeHeight - 2;
-		generateLeafLayerCircleNoise(3.5, locX, locZ, h);
+		generateLeafLayerCircle(3.5, locX, locZ, h);
 		h++;
-		generateLeafLayerCircleNoise(2.5, locX, locZ, h);
+		generateLeafLayerCircle(2.5, locX, locZ, h);
 		h++;
-		generateLeafLayerCircleNoise(2, locX, locZ, h);
+		generateLeafLayerCircle(2, locX, locZ, h);
 		h++;
-		generateLeafLayerCircleNoise(1.5, locX, locZ, h);
+		generateLeafLayerCircle(1.5, locX, locZ, h);
 		h++;
-		generateLeafLayerCircleNoise(1, locX, locZ, h);
+		generateLeafLayerCircle(1, locX, locZ, h);
 		h++;
-		generateLeafLayerCircleNoise(0, locX, locZ, h);
+		generateLeafLayerCircle(0, locX, locZ, h);
 		h++;
-		generateLeafLayerCircleNoise(0, locX, locZ, h);
+		generateLeafLayerCircle(0, locX, locZ, h);
 		return true;
     }
 

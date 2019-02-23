@@ -1,5 +1,6 @@
 package com.sdj64.highlands.generator;
 
+import com.sdj64.highlands.block.BlockHighlandsLeaves;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
@@ -31,6 +32,16 @@ public class WorldGenTreeEuca extends WorldGenMTreeBase
         
       //generates trunk
     	int treeHeight = minHeight + random.nextInt(maxHeight-minHeight);
+
+		if(pos.getY() + treeHeight + 1 > world.getHeight() || pos.getY() < 1) {
+			return false;
+		}
+
+		boolean oldAllowLeavesDecay = BlockHighlandsLeaves.allowLeavesDecay;
+		if(!notifyFlag) {
+			BlockHighlandsLeaves.allowLeavesDecay = false;
+		}
+
     	for(int i = 0; i < treeHeight; i++){
     		setBlockLog(pos.down(-i), 0);
     	}
@@ -53,6 +64,10 @@ public class WorldGenTreeEuca extends WorldGenMTreeBase
     		generateLeafLayerCircleNoise(1.8, locX, locZ, h);
     		generateLeafLayerCircleNoise(1.2, locX, locZ, (h+1));
     	}
+
+		if(!notifyFlag) {
+			BlockHighlandsLeaves.allowLeavesDecay = oldAllowLeavesDecay;
+		}
     	return true;
     }
 

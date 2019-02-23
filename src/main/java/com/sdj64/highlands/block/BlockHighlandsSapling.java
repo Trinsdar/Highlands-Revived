@@ -55,7 +55,7 @@ public class BlockHighlandsSapling extends BlockBush implements IGrowable{
 	}
 
 	public void grow(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-		if (((Integer) state.getValue(STAGE)).intValue() == 0) {
+		if (state.getValue(STAGE) == 0) {
 			worldIn.setBlockState(pos, state.cycleProperty(STAGE), 4);
 		} else {
 			this.generateTree(worldIn, pos, state, rand);
@@ -70,17 +70,90 @@ public class BlockHighlandsSapling extends BlockBush implements IGrowable{
 		int dZ;
 		boolean mega = false;
 
-		outer:
-		for(dZ = 0; dZ >= -1; dZ--) {
-			for(dX = 0; dX >= -1; dX--) {
-				if(isTwoByTwoOfType(worldIn, pos, dX, dZ)) {
-					mega = true;
-					break outer;
+		if (treeType == HighlandsBlocks.EnumTypeTree.REDWOOD){
+			outer:
+			for(dZ = 0; dZ >= -2; dZ--) {
+				for(dX = 0; dX >= -2; dX--) {
+					if(isThreeByThreeOfType(worldIn, pos, dX, dZ)) {
+						mega = true;
+						break outer;
+					}
 				}
 			}
-		}
+			if (mega){
+				gen = HighlandsGenerators.redwoodSapling;
 
-		if (!mega){
+				IBlockState[][] oldStates = new IBlockState[3][3];
+
+				BlockPos generatePos = pos.add(dX, 0, dZ);
+
+				for(dZ = 0; dZ < 3; dZ++) {
+					for(dX = 0; dX < 3; dX++) {
+						BlockPos sapling = generatePos.add(dX, 0, dZ);
+
+						oldStates[dZ][dX] = worldIn.getBlockState(sapling);
+						worldIn.setBlockToAir(sapling);
+					}
+				}
+
+				if(!gen.generate(worldIn, rand, generatePos)) {
+					for(dZ = 0; dZ < 3; dZ++) {
+						for(dX = 0; dX < 3; dX++) {
+							BlockPos sapling = generatePos.add(dX, 0, dZ);
+
+							worldIn.setBlockState(sapling, oldStates[dZ][dX]);
+						}
+					}
+				}
+			}
+
+		}else if (treeType == HighlandsBlocks.EnumTypeTree.FIR){
+			outer:
+			for(dZ = 0; dZ >= -1; dZ--) {
+				for(dX = 0; dX >= -1; dX--) {
+					if(isTwoByTwoOfType(worldIn, pos, dX, dZ)) {
+						mega = true;
+						break outer;
+					}
+				}
+			}
+
+
+
+			if (!mega){
+				gen = HighlandsGenerators.firSapling;
+				flag = gen.generate(worldIn, rand, pos);
+				// if tree is not in legal position, reset sapling.
+				if (!flag){
+					worldIn.setBlockState(pos, state, 2);
+				}
+			}else {
+				gen = HighlandsGenerators.firMegaSapling;
+
+				IBlockState[][] oldStates = new IBlockState[2][2];
+
+				BlockPos generatePos = pos.add(dX, 0, dZ);
+
+				for(dZ = 0; dZ < 2; dZ++) {
+					for(dX = 0; dX < 2; dX++) {
+						BlockPos sapling = generatePos.add(dX, 0, dZ);
+
+						oldStates[dZ][dX] = worldIn.getBlockState(sapling);
+						worldIn.setBlockToAir(sapling);
+					}
+				}
+
+				if(!gen.generate(worldIn, rand, generatePos)) {
+					for(dZ = 0; dZ < 2; dZ++) {
+						for(dX = 0; dX < 2; dX++) {
+							BlockPos sapling = generatePos.add(dX, 0, dZ);
+
+							worldIn.setBlockState(sapling, oldStates[dZ][dX]);
+						}
+					}
+				}
+			}
+		}else {
 			switch (treeType) {
 				case ASPEN:
 					gen = HighlandsGenerators.aspenSapling;
@@ -94,12 +167,6 @@ public class BlockHighlandsSapling extends BlockBush implements IGrowable{
 				case PALM:
 					gen = HighlandsGenerators.palmSapling;
 					break;
-				case FIR:
-					gen = HighlandsGenerators.firSapling;
-					break;
-				case REDWOOD:
-					gen = HighlandsGenerators.redwoodSapling;
-					break;
 				case BAMBOO:
 					gen = HighlandsGenerators.bambooSapling;
 					break;
@@ -109,42 +176,9 @@ public class BlockHighlandsSapling extends BlockBush implements IGrowable{
 			flag = gen.generate(worldIn, rand, pos);
 			// if tree is not in legal position, reset sapling.
 			if (!flag){
-				worldIn.setBlockState(pos, state);
-			}
-		}else{
-			gen = HighlandsGenerators.firMegaSapling;
-
-			IBlockState[][] oldStates = new IBlockState[2][2];
-
-			BlockPos generatePos = pos.add(dX, 0, dZ);
-
-			for(dZ = 0; dZ < 2; dZ++) {
-				for(dX = 0; dX < 2; dX++) {
-					BlockPos sapling = generatePos.add(dX, 0, dZ);
-
-					oldStates[dZ][dX] = worldIn.getBlockState(sapling);
-					worldIn.setBlockToAir(sapling);
-				}
-			}
-
-			if(!gen.generate(worldIn, rand, generatePos)) {
-				for(dZ = 0; dZ < 2; dZ++) {
-					for(dX = 0; dX < 2; dX++) {
-						BlockPos sapling = generatePos.add(dX, 0, dZ);
-
-						worldIn.setBlockState(sapling, oldStates[dZ][dX]);
-					}
-				}
+				worldIn.setBlockState(pos, state, 2);
 			}
 		}
-
-
-
-
-
-
-
-
 	}
 
 	private boolean isTwoByTwoOfType(World worldIn, BlockPos pos, int dX, int dZ)
@@ -153,6 +187,19 @@ public class BlockHighlandsSapling extends BlockBush implements IGrowable{
 				&& this.isTypeAt(worldIn, pos.add(dX + 1, 0, dZ))
 				&& this.isTypeAt(worldIn, pos.add(dX, 0, dZ + 1))
 				&& this.isTypeAt(worldIn, pos.add(dX + 1, 0, dZ + 1));
+	}
+
+	private boolean isThreeByThreeOfType(World worldIn, BlockPos pos, int dX, int dZ)
+	{
+		return this.isTypeAt(worldIn, pos.add(dX, 0, dZ))
+				&& this.isTypeAt(worldIn, pos.add(dX + 1, 0, dZ))
+				&& this.isTypeAt(worldIn, pos.add(dX + 2, 0, dZ))
+				&& this.isTypeAt(worldIn, pos.add(dX, 0, dZ + 1))
+				&& this.isTypeAt(worldIn, pos.add(dX + 1, 0, dZ + 1))
+				&& this.isTypeAt(worldIn, pos.add(dX + 2, 0, dZ + 1))
+				&& this.isTypeAt(worldIn, pos.add(dX, 0, dZ + 2))
+				&& this.isTypeAt(worldIn, pos.add(dX + 1, 0, dZ + 2))
+				&& this.isTypeAt(worldIn, pos.add(dX + 2, 0, dZ + 2));
 	}
 
 	private boolean isTypeAt(World worldIn, BlockPos pos)

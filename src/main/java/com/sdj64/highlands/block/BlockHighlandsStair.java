@@ -13,5 +13,7 @@ public class BlockHighlandsStair extends BlockStairs {
         setHardness(2.0F);
         setResistance(0.5F);
         setSoundType(SoundType.WOOD);
+
+        useNeighborBrightness = true;
     }
 }

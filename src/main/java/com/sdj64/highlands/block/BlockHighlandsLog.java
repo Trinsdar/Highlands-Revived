@@ -13,7 +13,9 @@ import net.minecraft.world.IBlockAccess;
 
 public class BlockHighlandsLog extends BlockLog
 {
-    protected static final AxisAlignedBB BAMBOO_BOUNDING_BOX = new AxisAlignedBB(0.375F, 0.0F, 0.375F, 0.625F, 1.0F, 0.625F);
+    protected static final AxisAlignedBB BAMBOO_BOUNDING_BOXX = new AxisAlignedBB(0.0F, 0.375F, 0.375F, 1.0F, 0.625F, 0.625F);
+    protected static final AxisAlignedBB BAMBOO_BOUNDING_BOXY = new AxisAlignedBB(0.375F, 0.0F, 0.375F, 0.625F, 1.0F, 0.625F);
+    protected static final AxisAlignedBB BAMBOO_BOUNDING_BOXZ = new AxisAlignedBB(0.375F, 0.375F, 0.0F, 0.625F, 0.625F, 1.0F);
 
 	private HighlandsBlocks.EnumTypeTree treeType;
 	
@@ -23,10 +25,12 @@ public class BlockHighlandsLog extends BlockLog
         setHardness(2.0F);
     	setResistance(0.5F);
     	setSoundType(SoundType.WOOD);
-        
 
         
         treeType = type;
+        if (type == HighlandsBlocks.EnumTypeTree.BAMBOO){
+            useNeighborBrightness = true;
+        }
     }
 
     @Override
@@ -34,7 +38,13 @@ public class BlockHighlandsLog extends BlockLog
     {
         if (this.treeType.equals(HighlandsBlocks.EnumTypeTree.BAMBOO)) {
 
-            return BAMBOO_BOUNDING_BOX;
+            if (state.getActualState(source, pos) == getStateFromMeta(4)){
+                return BAMBOO_BOUNDING_BOXX;
+            }
+            if (state.getActualState(source, pos) == getStateFromMeta(8)){
+                return BAMBOO_BOUNDING_BOXZ;
+            }
+            return BAMBOO_BOUNDING_BOXY;
         }
 
         return FULL_BLOCK_AABB;
