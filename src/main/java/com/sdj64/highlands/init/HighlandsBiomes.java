@@ -24,6 +24,8 @@ import com.sdj64.highlands.biome.BiomeGenTropHills;
 import com.sdj64.highlands.biome.BiomeGenTropicalIslands;
 import com.sdj64.highlands.biome.HighlandsBiomeProperties;
 import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.BiomeManager.BiomeEntry;
 import net.minecraftforge.common.BiomeManager.BiomeType;
@@ -94,6 +96,7 @@ public class HighlandsBiomes {
 		if(Config.adirondackGenerate.getBoolean(true))
 		{
 			adirondack = registerBiome(event, new BiomeGenAdirondacks(HighlandsBiomeProperties.ADIRONDACKS), "adirondack");
+			BiomeDictionary.addTypes(adirondack, Type.FOREST, Type.MOUNTAIN, Type.HILLS);
 			weight = Config.adirondackWeight.getInt();
 			if (weight > 0){
 				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(adirondack, weight));
@@ -104,6 +107,7 @@ public class HighlandsBiomes {
 		if(Config.alpsGenerate.getBoolean(true))
 		{
 			alps = registerBiome(event, new BiomeGenAlps(HighlandsBiomeProperties.ALPS), "alps");
+			BiomeDictionary.addTypes(alps, Type.COLD, Type.SNOWY, Type.SPARSE, Type.MOUNTAIN);
 			weight = Config.alpsWeight.getInt();
 			if (weight > 0){
 				BiomeManager.addBiome(BiomeType.ICY, new BiomeManager.BiomeEntry(alps, weight));
@@ -113,6 +117,7 @@ public class HighlandsBiomes {
 		if(Config.badlandsGenerate.getBoolean(true))
 		{
 			badlands = registerBiome(event, new BiomeGenBadlands(HighlandsBiomeProperties.BADLANDS), "badlands");
+			BiomeDictionary.addTypes(badlands, Type.DRY, Type.HILLS, Type.SPARSE);
 			weight = Config.badlandsWeight.getInt();
 			if (weight > 0){
 				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(badlands, weight));
@@ -122,6 +127,7 @@ public class HighlandsBiomes {
 		if(Config.bambooForestGenerate.getBoolean(true))
 		{
 			bambooForest = registerBiome(event, new BiomeGenBambooForest(), "bamboo_forest");
+			BiomeDictionary.addTypes(bambooForest, Type.DENSE, Type.FOREST, Type.HOT, Type.DRY);
 			weight = Config.bambooForestWeight.getInt();
 			if (weight > 0){
 				BiomeManager.addBiome(BiomeType.DESERT, new BiomeManager.BiomeEntry(bambooForest, weight));

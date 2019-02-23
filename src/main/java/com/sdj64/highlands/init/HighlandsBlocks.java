@@ -132,7 +132,6 @@ public class HighlandsBlocks {
 		for(int i = 0; i < NUM_TREE_TYPES; i++){
 			OreDictionary.registerOre("plankWood", planks[i]);
 			OreDictionary.registerOre("slabWood", slabs[i]);
-			OreDictionary.registerOre("slabWood", doubleSlabs[i]);
 			OreDictionary.registerOre("stairWood", stairs[i]);
 			OreDictionary.registerOre("logWood", logs[i]);
 			OreDictionary.registerOre("treeLeaves", leaves[i]);
