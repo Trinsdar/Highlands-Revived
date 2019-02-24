@@ -1,6 +1,7 @@
 package com.sdj64.highlands.biome;
 
 import com.sdj64.highlands.generator.HighlandsGenerators;
+import com.sdj64.highlands.init.HighlandsBiomeProperties;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -9,7 +10,7 @@ import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 
 import java.util.Random;
 
-public class BiomeGenLowlands extends BiomeGenBaseHighlands
+public class BiomeRedwoodForest extends BiomeHighlandsBase
 {
 
 	private int terrainInt1;
@@ -17,24 +18,22 @@ public class BiomeGenLowlands extends BiomeGenBaseHighlands
     private int terrainInt3;
     private int terrainInt4;
 	
-	public BiomeGenLowlands()
+	public BiomeRedwoodForest()
     {
-        super(HighlandsBiomeProperties.LOWLANDS);
+        super(HighlandsBiomeProperties.REDWOOD_FOREST);
         
-        decorator.treesPerChunk = 2;
-        decorator.grassPerChunk = 4;
+        decorator.treesPerChunk = 14;
+        decorator.grassPerChunk = 5;
         decorator.flowersPerChunk = 0;
-
-        decorator.generateFalls = false;
+        
+        this.topBlock = Blocks.DIRT.getStateFromMeta(2);
+        
+        plants.add(HighlandsGenerators.lavender);
         
         this.terrainInt1 = 0;
         this.terrainInt2 = 1;
         this.terrainInt3 = 2;
         this.terrainInt4 = this.terrainInt1;
-        
-        plants.add(HighlandsGenerators.blueSwampFlower);
-        plants.add(HighlandsGenerators.mcDaisy);
-        plants.add(HighlandsGenerators.cattail);
     }
 
     /**
@@ -43,9 +42,11 @@ public class BiomeGenLowlands extends BiomeGenBaseHighlands
     @Override
     public WorldGenAbstractTree getRandomTreeFeature(Random par1Random)
     {
-        return (par1Random.nextInt(8) == 0 ?
-        		HighlandsGenerators.shrub2Gen : par1Random.nextInt(4) != 0 ?
-        		this.TREE_FEATURE : HighlandsGenerators.firGen);
+    	if(par1Random.nextInt(3) == 0)
+    		return HighlandsGenerators.redwoodGen;
+    	else if(par1Random.nextInt(2) == 0)
+    		return HighlandsGenerators.firGen;
+    	else return HighlandsGenerators.shrub2Gen;
     }
 
     @Override
@@ -53,20 +54,18 @@ public class BiomeGenLowlands extends BiomeGenBaseHighlands
     {
         super.decorate(world, random, pos);
         
-        genStandardOre(10, HighlandsGenerators.hlwater, 10, 64, world, random, pos);
-        genStandardOre(decorator.chunkProviderSettings.diamondCount/2, decorator.diamondGen, decorator.chunkProviderSettings.diamondMinHeight, decorator.chunkProviderSettings.diamondMaxHeight, world, random, pos);
+        genStandardOre(decorator.chunkProviderSettings.redstoneCount/2, decorator.redstoneGen, decorator.chunkProviderSettings.redstoneMinHeight, decorator.chunkProviderSettings.redstoneMaxHeight, world, random, pos);
     }
 
     @Override
     public void genTerrainBlocks(World worldIn, Random random, ChunkPrimer primer, int x, int z, double whatisthis)
     {
-        this.topBlock = Blocks.GRASS.getDefaultState();
+        this.topBlock = Blocks.DIRT.getStateFromMeta(2);
         this.fillerBlock = Blocks.DIRT.getDefaultState();
 
         if (whatisthis > 1.0D && this.terrainInt4 != this.terrainInt2)
         {
-            this.topBlock = Blocks.STONE.getDefaultState();
-            this.fillerBlock = Blocks.STONE.getDefaultState();
+            this.topBlock = Blocks.GRASS.getDefaultState();
         }
 
         this.generateBiomeTerrain(worldIn, random, primer, x, z, whatisthis);

@@ -1,38 +1,34 @@
 package com.sdj64.highlands.init;
 
 import com.sdj64.highlands.Config;
-import com.sdj64.highlands.HighlandsSettings;
 import com.sdj64.highlands.References;
-import com.sdj64.highlands.biome.BiomeGenAdirondacks;
-import com.sdj64.highlands.biome.BiomeGenAlps;
-import com.sdj64.highlands.biome.BiomeGenBadlands;
-import com.sdj64.highlands.biome.BiomeGenBaldHill;
-import com.sdj64.highlands.biome.BiomeGenBambooForest;
-import com.sdj64.highlands.biome.BiomeGenBaseHighlands;
-import com.sdj64.highlands.biome.BiomeGenDryForest;
-import com.sdj64.highlands.biome.BiomeGenDunes;
-import com.sdj64.highlands.biome.BiomeGenGreyMountains;
-import com.sdj64.highlands.biome.BiomeGenHighlands;
-import com.sdj64.highlands.biome.BiomeGenLake;
-import com.sdj64.highlands.biome.BiomeGenLowlands;
-import com.sdj64.highlands.biome.BiomeGenMeadow;
-import com.sdj64.highlands.biome.BiomeGenMojave;
-import com.sdj64.highlands.biome.BiomeGenPinelands;
-import com.sdj64.highlands.biome.BiomeGenPoplarHills;
-import com.sdj64.highlands.biome.BiomeGenRedwoodForest;
-import com.sdj64.highlands.biome.BiomeGenTropHills;
-import com.sdj64.highlands.biome.BiomeGenTropicalIslands;
-import com.sdj64.highlands.biome.HighlandsBiomeProperties;
+import com.sdj64.highlands.biome.BiomeAdirondacks;
+import com.sdj64.highlands.biome.BiomeAlps;
+import com.sdj64.highlands.biome.BiomeBadlands;
+import com.sdj64.highlands.biome.BiomeBaldHill;
+import com.sdj64.highlands.biome.BiomeBambooForest;
+import com.sdj64.highlands.biome.BiomeDryForest;
+import com.sdj64.highlands.biome.BiomeGreyMountains;
+import com.sdj64.highlands.biome.BiomeHighlands;
+import com.sdj64.highlands.biome.BiomeHighlandsBase;
+import com.sdj64.highlands.biome.BiomeDunes;
+import com.sdj64.highlands.biome.BiomeLake;
+import com.sdj64.highlands.biome.BiomeLowlands;
+import com.sdj64.highlands.biome.BiomeMeadow;
+import com.sdj64.highlands.biome.BiomeMojave;
+import com.sdj64.highlands.biome.BiomePinelands;
+import com.sdj64.highlands.biome.BiomePoplarHills;
+import com.sdj64.highlands.biome.BiomeRedwoodForest;
+import com.sdj64.highlands.biome.BiomeTropHills;
+import com.sdj64.highlands.biome.BiomeTropicalIslands;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.BiomeManager;
-import net.minecraftforge.common.BiomeManager.BiomeEntry;
 import net.minecraftforge.common.BiomeManager.BiomeType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 
 /*
@@ -95,7 +91,7 @@ public class HighlandsBiomes {
 		//main biomes
 		if(Config.adirondackGenerate.getBoolean(true))
 		{
-			adirondack = registerBiome(event, new BiomeGenAdirondacks(HighlandsBiomeProperties.ADIRONDACKS), "adirondack");
+			adirondack = registerBiome(event, new BiomeAdirondacks(HighlandsBiomeProperties.ADIRONDACKS), "adirondack");
 			BiomeDictionary.addTypes(adirondack, Type.FOREST, Type.MOUNTAIN, Type.HILLS);
 			weight = Config.adirondackWeight.getInt();
 			if (weight > 0){
@@ -106,7 +102,7 @@ public class HighlandsBiomes {
 		}
 		if(Config.alpsGenerate.getBoolean(true))
 		{
-			alps = registerBiome(event, new BiomeGenAlps(HighlandsBiomeProperties.ALPS), "alps");
+			alps = registerBiome(event, new BiomeAlps(HighlandsBiomeProperties.ALPS), "alps");
 			BiomeDictionary.addTypes(alps, Type.COLD, Type.SNOWY, Type.SPARSE, Type.MOUNTAIN);
 			weight = Config.alpsWeight.getInt();
 			if (weight > 0){
@@ -116,7 +112,7 @@ public class HighlandsBiomes {
 		}
 		if(Config.badlandsGenerate.getBoolean(true))
 		{
-			badlands = registerBiome(event, new BiomeGenBadlands(HighlandsBiomeProperties.BADLANDS), "badlands");
+			badlands = registerBiome(event, new BiomeBadlands(HighlandsBiomeProperties.BADLANDS), "badlands");
 			BiomeDictionary.addTypes(badlands, Type.DRY, Type.HILLS, Type.SPARSE);
 			weight = Config.badlandsWeight.getInt();
 			if (weight > 0){
@@ -126,7 +122,7 @@ public class HighlandsBiomes {
 		}
 		if(Config.bambooForestGenerate.getBoolean(true))
 		{
-			bambooForest = registerBiome(event, new BiomeGenBambooForest(), "bamboo_forest");
+			bambooForest = registerBiome(event, new BiomeBambooForest(), "bamboo_forest");
 			BiomeDictionary.addTypes(bambooForest, Type.DENSE, Type.FOREST, Type.HOT, Type.DRY);
 			weight = Config.bambooForestWeight.getInt();
 			if (weight > 0){
@@ -136,7 +132,8 @@ public class HighlandsBiomes {
 		}
 		if(Config.dryForestGenerate.getBoolean(true))
 		{
-			dryForest = registerBiome(event, new BiomeGenDryForest(), "dry_forest");
+			dryForest = registerBiome(event, new BiomeDryForest(), "dry_forest");
+			BiomeDictionary.addTypes(dryForest, Type.HOT, Type.FOREST, Type.DENSE, Type.DRY);
 			weight = Config.dryForestWeight.getInt();
 			if (weight > 0){
 				BiomeManager.addBiome(BiomeType.DESERT, new BiomeManager.BiomeEntry(dryForest, weight));
@@ -145,7 +142,8 @@ public class HighlandsBiomes {
 		}
 		if(Config.dunesGenerate.getBoolean(true))
 		{
-			dunes = registerBiome(event, new BiomeGenDunes(), "dunes");
+			dunes = registerBiome(event, new BiomeDunes(), "dunes");
+			BiomeDictionary.addTypes(dunes, Type.HOT, Type.DRY, Type.SANDY, Type.HILLS);
 			weight = Config.dunesWeight.getInt();
 			if (weight > 0){
 				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(dunes, weight));
@@ -154,7 +152,8 @@ public class HighlandsBiomes {
 		}
 		if(Config.greyMtnsGenerate.getBoolean(true))
 		{
-			greyMtns = registerBiome(event, new BiomeGenGreyMountains(HighlandsBiomeProperties.GREY_MOUNTAINS), "grey_mountains");
+			greyMtns = registerBiome(event, new BiomeGreyMountains(HighlandsBiomeProperties.GREY_MOUNTAINS), "grey_mountains");
+			BiomeDictionary.addTypes(greyMtns, Type.DRY, Type.MOUNTAIN, Type.HILLS);
 			weight = Config.greyMtnsWeight.getInt();
 			if (weight > 0){
 				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(greyMtns, weight));
@@ -163,7 +162,8 @@ public class HighlandsBiomes {
 		}
 		if(Config.highlandsbGenerate.getBoolean(true))
 		{
-			highlandsBiome = registerBiome(event, new BiomeGenHighlands(), "highlands");
+			highlandsBiome = registerBiome(event, new BiomeHighlands(), "highlands");
+			BiomeDictionary.addTypes(highlandsBiome, Type.HILLS);
 			weight = Config.highlandsbWeight.getInt();
 			if (weight > 0){
 				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(highlandsBiome, weight));
@@ -172,7 +172,8 @@ public class HighlandsBiomes {
 		}
 		if(Config.lowlandsGenerate.getBoolean(true))
 		{
-			lowlands = registerBiome(event, new BiomeGenLowlands(), "lowlands");
+			lowlands = registerBiome(event, new BiomeLowlands(), "lowlands");
+			BiomeDictionary.addTypes(lowlands, Type.HILLS, Type.RIVER);
 			weight = Config.lowlandsWeight.getInt();
 			if (weight > 0){
 				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(lowlands, weight));
@@ -181,7 +182,8 @@ public class HighlandsBiomes {
 		}
 		if(Config.meadowGenerate.getBoolean(true))
 		{
-			meadow = registerBiome(event, new BiomeGenMeadow(), "meadow");
+			meadow = registerBiome(event, new BiomeMeadow(), "meadow");
+			BiomeDictionary.addTypes(meadow, Type.PLAINS);
 			weight = Config.meadowWeight.getInt();
 			if (weight > 0){
 				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(meadow, weight));
@@ -190,7 +192,8 @@ public class HighlandsBiomes {
 		}
 		if(Config.mojaveGenerate.getBoolean(true))
 		{
-			mojave = registerBiome(event, new BiomeGenMojave(), "mojave");
+			mojave = registerBiome(event, new BiomeMojave(), "mojave");
+			BiomeDictionary.addTypes(mojave, Type.SANDY, Type.HILLS, Type.DRY, Type.HOT, Type.SAVANNA);
 			weight = Config.mojaveWeight.getInt();
 			if (weight > 0){
 				BiomeManager.addBiome(BiomeType.DESERT, new BiomeManager.BiomeEntry(mojave, weight));
@@ -199,7 +202,8 @@ public class HighlandsBiomes {
 		}
 		if(Config.pinelandsGenerate.getBoolean(true))
 		{
-			pinelands = registerBiome(event, new BiomeGenPinelands(), "pinelands");
+			pinelands = registerBiome(event, new BiomePinelands(), "pinelands");
+			BiomeDictionary.addTypes(pinelands, Type.HILLS, Type.CONIFEROUS);
 			weight = Config.pinelandsWeight.getInt();
 			if (weight > 0){
 				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(pinelands, weight));
@@ -208,7 +212,8 @@ public class HighlandsBiomes {
 		}
 		if(Config.poplarHillsGenerate.getBoolean(true))
 		{
-			poplarHills = registerBiome(event, new BiomeGenPoplarHills(), "poplar_hills");
+			poplarHills = registerBiome(event, new BiomePoplarHills(), "poplar_hills");
+			BiomeDictionary.addTypes(poplarHills, Type.HILLS, Type.FOREST, Type.RIVER);
 			weight = Config.poplarHillsWeight.getInt();
 			if (weight > 0){
 				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(poplarHills, weight));
@@ -217,7 +222,8 @@ public class HighlandsBiomes {
 		}
 		if(Config.redwoodForestGenerate.getBoolean(true))
 		{
-			redwoodForest = registerBiome(event, new BiomeGenRedwoodForest(), "redwood_forest");
+			redwoodForest = registerBiome(event, new BiomeRedwoodForest(), "redwood_forest");
+			BiomeDictionary.addTypes(redwoodForest, Type.HILLS, Type.FOREST, Type.CONIFEROUS);
 			weight = Config.redwoodForestWeight.getInt();
 			if (weight > 0){
 				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(redwoodForest, weight));
@@ -226,7 +232,8 @@ public class HighlandsBiomes {
 		}
 		if(Config.tropHillsGenerate.getBoolean(true))
 		{
-			tropHills = registerBiome(event, new BiomeGenTropHills(), "tropical_hills");
+			tropHills = registerBiome(event, new BiomeTropHills(), "tropical_hills");
+			BiomeDictionary.addTypes(tropHills, Type.HILLS, Type.HOT, Type.FOREST, Type.WET);
 			weight = Config.tropHillsWeight.getInt();
 			if (weight > 0){
 				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(tropHills, weight));
@@ -236,7 +243,8 @@ public class HighlandsBiomes {
 
 		//sub-biomes
 		if (Config.adirondackFoothillsGenerate.getBoolean(true)){
-			adirondackFoothills = registerBiome(event, new BiomeGenAdirondacks(HighlandsBiomeProperties.ADIRONDACKS_FOOTHILLS), "adirondack_foothills");
+			adirondackFoothills = registerBiome(event, new BiomeAdirondacks(HighlandsBiomeProperties.ADIRONDACKS_FOOTHILLS), "adirondack_foothills");
+			BiomeDictionary.addTypes(adirondackFoothills, Type.FOREST, Type.MOUNTAIN, Type.HILLS);
 			weight = Config.adirondackFoothillsWeight.getInt();
 			if (weight > 0){
 				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(adirondackFoothills, weight));
@@ -244,7 +252,8 @@ public class HighlandsBiomes {
 			}
 		}
 		if (Config.alpsFoothillsGenerate.getBoolean(true)){
-			alpsFoothills = registerBiome(event, new BiomeGenAlps(HighlandsBiomeProperties.ALPS_FOOTHILLS), "alps_foothills");
+			alpsFoothills = registerBiome(event, new BiomeAlps(HighlandsBiomeProperties.ALPS_FOOTHILLS), "alps_foothills");
+			BiomeDictionary.addTypes(alpsFoothills, Type.COLD, Type.SNOWY, Type.SPARSE, Type.MOUNTAIN);
 			weight = Config.alpsFoothillsWeight.getInt();
 			if (weight > 0){
 				BiomeManager.addBiome(BiomeType.ICY, new BiomeManager.BiomeEntry(alpsFoothills, weight));
@@ -252,7 +261,8 @@ public class HighlandsBiomes {
 			}
 		}
 		if (Config.badlandsFoothillsGenerate.getBoolean(true)){
-			badlandsFoothills = registerBiome(event, new BiomeGenBadlands(HighlandsBiomeProperties.BADLANDS_FOOTHILLS), "badlands_foothills");
+			badlandsFoothills = registerBiome(event, new BiomeBadlands(HighlandsBiomeProperties.BADLANDS_FOOTHILLS), "badlands_foothills");
+			BiomeDictionary.addTypes(badlandsFoothills, Type.DRY, Type.HILLS, Type.SPARSE);
 			weight = Config.badlandsFoothillsWeight.getInt();
 			if (weight > 0){
 				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(badlandsFoothills, weight));
@@ -261,7 +271,8 @@ public class HighlandsBiomes {
 		}
 		if(Config.baldHillGenerate.getBoolean(true))
 		{
-			baldHill = registerBiome(event, new BiomeGenBaldHill(), "bald_hill");
+			baldHill = registerBiome(event, new BiomeBaldHill(), "bald_hill");
+			BiomeDictionary.addTypes(baldHill, Type.HILLS);
 			weight = Config.baldHillWeight.getInt();
 			if (weight > 0){
 				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(baldHill, weight));
@@ -269,7 +280,8 @@ public class HighlandsBiomes {
 			}
 		}
 		if (Config.greyMtnsFoothillsGenerate.getBoolean(true)){
-			greyMtnsFoothills = registerBiome(event, new BiomeGenGreyMountains(HighlandsBiomeProperties.GREY_MOUNTAINS_FOOTHILLS), "grey_mountains_foothills");
+			greyMtnsFoothills = registerBiome(event, new BiomeGreyMountains(HighlandsBiomeProperties.GREY_MOUNTAINS_FOOTHILLS), "grey_mountains_foothills");
+			BiomeDictionary.addTypes(greyMtnsFoothills, Type.DRY, Type.MOUNTAIN, Type.HILLS);
 			weight = Config.greyMtnsFoothillsWeight.getInt();
 			if (weight > 0){
 				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(greyMtnsFoothills, weight));
@@ -278,7 +290,8 @@ public class HighlandsBiomes {
 		}
 		if(Config.lakeGenerate.getBoolean(true))
 		{
-			lake = registerBiome(event, new BiomeGenLake(), "lake");
+			lake = registerBiome(event, new BiomeLake(), "lake");
+			BiomeDictionary.addTypes(lake, Type.WATER);
 			weight = Config.lakeWeight.getInt();
 			if (weight > 0){
 				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(lake, weight));
@@ -287,7 +300,8 @@ public class HighlandsBiomes {
 		}
 		if(Config.tropicalIslandsGenerate.getBoolean(true))
 		{
-			tropicalIslands = registerBiome(event, new BiomeGenTropicalIslands(), "tropical_islands");
+			tropicalIslands = registerBiome(event, new BiomeTropicalIslands(), "tropical_islands");
+			BiomeDictionary.addTypes(tropicalIslands, Type.HOT, Type.FOREST, Type.WET, Type.LUSH, Type.OCEAN);
 			weight = Config.tropicalIslandsWeight.getInt();
 			if (weight > 0){
 				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(tropicalIslands, weight));
@@ -330,8 +344,8 @@ public class HighlandsBiomes {
 
 	public static void addSubBiome(Biome parent, Biome sub, ArrayList<Biome> list)
 	{
-		if(parent != null && sub != null && list.contains(parent) && list.contains(sub) && parent instanceof BiomeGenBaseHighlands){
-			((BiomeGenBaseHighlands)parent).subBiomes.add(sub);
+		if(parent != null && sub != null && list.contains(parent) && list.contains(sub) && parent instanceof BiomeHighlandsBase){
+			((BiomeHighlandsBase)parent).subBiomes.add(sub);
 		}
 	}
 	

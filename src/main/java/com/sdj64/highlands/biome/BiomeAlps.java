@@ -4,15 +4,16 @@ import java.util.Random;
 
 import com.sdj64.highlands.generator.HighlandsGenerators;
 
+import com.sdj64.highlands.generator.WorldGenTaiga2;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenTaiga1;
 
-public class BiomeGenAlps extends BiomeGenBaseHighlands{
+public class BiomeAlps extends BiomeHighlandsBase {
 
-	public BiomeGenAlps(Properties properties)
+	public BiomeAlps(Properties properties)
 	{
 	    super(properties);
 	    
@@ -26,11 +27,6 @@ public class BiomeGenAlps extends BiomeGenBaseHighlands{
 
 	}
 
-	@Override
-	public WorldGenAbstractTree getRandomTreeFeature(Random par1Random)
-	{
-	    return (par1Random.nextInt(5) == 0 ? HighlandsGenerators.firGen : HighlandsGenerators.shrubGen);
-	}
 
 	@Override
 	public void decorate(World world, Random random, BlockPos pos)
@@ -41,35 +37,25 @@ public class BiomeGenAlps extends BiomeGenBaseHighlands{
         genStandardOre(decorator.chunkProviderSettings.ironCount/2, decorator.ironGen, decorator.chunkProviderSettings.ironMinHeight, decorator.chunkProviderSettings.ironMaxHeight, world, random, pos);
         
         for(int i = 0; i < 10; i++){
-        	if(world.getTopSolidOrLiquidBlock(pos).getY() < 80){
+        	if(world.getTopSolidOrLiquidBlock(pos).getY() < 100){
 	        	int x = random.nextInt(16) + 8;
 	            int z = random.nextInt(16) + 8;
-	            
+
 	            BlockPos treepos = world.getHeight(pos.add(x, 0, z));
-	            
-	            if(random.nextInt(3) == 0){
-	            	HighlandsGenerators.firGen.generate(world, random, treepos);
-	            }
-	            else{
-	            	new WorldGenTaiga1().generate(world, random, treepos);
-	            }
-	            
-	        }
-        	else if(world.getTopSolidOrLiquidBlock(pos).getY() < 110){
-	        	int x = random.nextInt(16) + 8;
-	            int z = random.nextInt(16) + 8;
-	            
-	            BlockPos treepos = world.getHeight(pos.add(x, 0, z));
-	            
-	            if(random.nextInt(4) == 0){
+
+	            if(random.nextInt(21) == 0){
 		            if(random.nextInt(3) == 0){
+		            	System.out.println("Generating fir tree at" + " " + world.getHeight(pos));
+		            	System.out.println("Chunk is " + world.getChunkFromBlockCoords(pos).getPos());
 		            	HighlandsGenerators.firGen.generate(world, random, treepos);
 		            }
 		            else{
-		            	new WorldGenTaiga1().generate(world, random, treepos);
+						System.out.println("Generating spruce tree at" + " " + world.getHeight(pos));
+						System.out.println("Chunk is " + world.getChunkFromBlockCoords(pos).getPos());
+		            	new WorldGenTaiga2().generate(world, random, treepos);
 		            }
 	            }
-	            
+
 	        }
         }
         

@@ -47,7 +47,10 @@ public class WorldGenTreeFir extends WorldGenMTreeBase
 		BlockPos below = pos.down();
 		IBlockState soil = world.getBlockState(below);
 
-		if(!soil.getBlock().canSustainPlant(soil, world, below, EnumFacing.UP, (IPlantable) Blocks.SAPLING)) {
+		if(notifyFlag && !soil.getBlock().canSustainPlant(soil, world, below, EnumFacing.UP, (IPlantable) Blocks.SAPLING)) {
+			return false;
+		}
+		if (!soil.getBlock().canSustainPlant(soil, world, below, EnumFacing.UP, (IPlantable)Blocks.SAPLING) && soil.getBlock() != Blocks.SNOW){
 			return false;
 		}
 

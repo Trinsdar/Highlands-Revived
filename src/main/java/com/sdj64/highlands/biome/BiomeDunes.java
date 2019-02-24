@@ -1,15 +1,16 @@
 package com.sdj64.highlands.biome;
 
 import com.sdj64.highlands.generator.HighlandsGenerators;
+import com.sdj64.highlands.init.HighlandsBiomeProperties;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 
 import java.util.Random;
 
-public class BiomeGenDunes extends BiomeGenBaseHighlands
+public class BiomeDunes extends BiomeHighlandsBase
 {
 
-	public BiomeGenDunes()
+	public BiomeDunes()
     {
 		super(HighlandsBiomeProperties.DUNES);
 		

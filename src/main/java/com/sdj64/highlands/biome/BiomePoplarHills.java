@@ -1,16 +1,17 @@
 package com.sdj64.highlands.biome;
 
 import com.sdj64.highlands.generator.HighlandsGenerators;
+import com.sdj64.highlands.init.HighlandsBiomeProperties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 
 import java.util.Random;
 
-public class BiomeGenPoplarHills extends BiomeGenBaseHighlands
+public class BiomePoplarHills extends BiomeHighlandsBase
 {
 
-	public BiomeGenPoplarHills()
+	public BiomePoplarHills()
     {
         super(HighlandsBiomeProperties.POPLAR_HILLS);
         

@@ -9,7 +9,7 @@ import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 
 import java.util.Random;
 
-public class BiomeGenBadlands extends BiomeGenBaseHighlands
+public class BiomeBadlands extends BiomeHighlandsBase
 {
 
     private int terrainInt1;
@@ -17,7 +17,7 @@ public class BiomeGenBadlands extends BiomeGenBaseHighlands
     private int terrainInt3;
     private int terrainInt4;
 	
-	public BiomeGenBadlands(Properties properties)
+	public BiomeBadlands(Properties properties)
     {
         super(properties);
         
@@ -42,8 +42,14 @@ public class BiomeGenBadlands extends BiomeGenBaseHighlands
     @Override
     public WorldGenAbstractTree getRandomTreeFeature(Random random)
     {
-        return (random.nextInt(3) != 0 ? HighlandsGenerators.shrub2Gen : this.TREE_FEATURE);
+        if (random.nextInt(3) != 0){
+            return HighlandsGenerators.shrub2Gen;
+        }else{
+            return this.TREE_FEATURE;
+        }
+
     }
+    //(random.nextInt(3) != 0 ? HighlandsGenerators.shrub2Gen :
 
     @Override
     public void decorate(World world, Random random, BlockPos pos)

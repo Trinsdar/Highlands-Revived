@@ -17,7 +17,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.BiomeDictionary;
 
-public abstract class BiomeGenBaseHighlands extends Biome
+public abstract class BiomeHighlandsBase extends Biome
 {
 	public static int minTreeHeight = 4;
 	
@@ -25,7 +25,7 @@ public abstract class BiomeGenBaseHighlands extends Biome
 	public ArrayList<WorldGenPlants> plants;
 	public int plantsPerChunk;
 
-	public BiomeGenBaseHighlands(Properties properties){
+	public BiomeHighlandsBase(Properties properties){
 		super(properties.biomeProperties);
 		subBiomes = new ArrayList<Biome>();
 		plants = new ArrayList<WorldGenPlants>();

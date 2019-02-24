@@ -13,7 +13,7 @@ import net.minecraft.world.gen.feature.WorldGenBigTree;
 import net.minecraft.world.gen.feature.WorldGenTaiga1;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 
-public class BiomeGenAdirondacks extends BiomeGenBaseHighlands
+public class BiomeAdirondacks extends BiomeHighlandsBase
 {
 
     private int terrainInt1;
@@ -21,7 +21,7 @@ public class BiomeGenAdirondacks extends BiomeGenBaseHighlands
     private int terrainInt3;
     private int terrainInt4;
 	
-	public BiomeGenAdirondacks(Properties properties)
+	public BiomeAdirondacks(Properties properties)
     {
         super(properties);
         decorator.treesPerChunk = 2;
@@ -66,7 +66,7 @@ public class BiomeGenAdirondacks extends BiomeGenBaseHighlands
 	            	HighlandsGenerators.firGen.generate(world, random, treepos);
 	            }
 	            else {
-	            	new WorldGenTrees(false, BiomeGenBaseHighlands.minTreeHeight, Blocks.LOG.getStateFromMeta(2), Blocks.LEAVES.getStateFromMeta(2), false).generate(world, random, treepos);
+	            	new WorldGenTrees(false, BiomeHighlandsBase.minTreeHeight, Blocks.LOG.getStateFromMeta(2), Blocks.LEAVES.getStateFromMeta(2), false).generate(world, random, treepos);
 	            }
 	            
 	        }
@@ -81,7 +81,7 @@ public class BiomeGenAdirondacks extends BiomeGenBaseHighlands
 	            	new WorldGenTaiga1().generate(world, random, treepos);
 	            }
 	            else {
-	            	new WorldGenTrees(false, BiomeGenBaseHighlands.minTreeHeight, Blocks.LOG.getStateFromMeta(2), Blocks.LEAVES.getStateFromMeta(2), false).generate(world, random, treepos);
+	            	new WorldGenTrees(false, BiomeHighlandsBase.minTreeHeight, Blocks.LOG.getStateFromMeta(2), Blocks.LEAVES.getStateFromMeta(2), false).generate(world, random, treepos);
 	            }
 	            
 	        }

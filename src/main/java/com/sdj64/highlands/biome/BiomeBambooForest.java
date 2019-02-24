@@ -1,25 +1,26 @@
 package com.sdj64.highlands.biome;
 
 import com.sdj64.highlands.generator.HighlandsGenerators;
+import com.sdj64.highlands.init.HighlandsBiomeProperties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 
 import java.util.Random;
 
-public class BiomeGenDryForest extends BiomeGenBaseHighlands
+public class BiomeBambooForest extends BiomeHighlandsBase
 {
 
-	public BiomeGenDryForest()
+	public BiomeBambooForest()
     {
-        super(HighlandsBiomeProperties.DRY_FOREST);
+        super(HighlandsBiomeProperties.BAMBOO_FOREST);
         
-        decorator.treesPerChunk = 12;
-        decorator.grassPerChunk = 10;
+        decorator.treesPerChunk = 35;
+        decorator.grassPerChunk = 4;
         decorator.flowersPerChunk = 1;
-
-        plants.add(HighlandsGenerators.raspberryBush);
-        plants.add(HighlandsGenerators.mcRTulip);
+        
+        plants.add(HighlandsGenerators.greenLeaf);
+        plants.add(HighlandsGenerators.mcWTulip);
     }
 
     /**
@@ -28,13 +29,7 @@ public class BiomeGenDryForest extends BiomeGenBaseHighlands
     @Override
     public WorldGenAbstractTree getRandomTreeFeature(Random par1Random)
     {
-    	if(par1Random.nextInt(3) == 0){
-            return HighlandsGenerators.aspenGen;
-        } else if(par1Random.nextInt(2) == 0){
-            return this.TREE_FEATURE;
-        } else{
-            return HighlandsGenerators.shrub2Gen;
-        }
+        return HighlandsGenerators.bambooGen;
     }
 
     @Override

@@ -5,7 +5,7 @@ import com.sdj64.highlands.FuelManager;
 import com.sdj64.highlands.HLEventManager;
 import com.sdj64.highlands.HighlandsRecipes;
 import com.sdj64.highlands.HighlandsSettings;
-import com.sdj64.highlands.biome.HighlandsBiomeProperties;
+import com.sdj64.highlands.init.HighlandsBiomeProperties;
 import com.sdj64.highlands.generator.GeneratePlants;
 import com.sdj64.highlands.generator.GenerateRiverRapids;
 import com.sdj64.highlands.generator.GenerateTrees;

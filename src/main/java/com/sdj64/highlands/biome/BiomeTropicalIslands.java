@@ -1,6 +1,7 @@
 package com.sdj64.highlands.biome;
 
 import com.sdj64.highlands.generator.HighlandsGenerators;
+import com.sdj64.highlands.init.HighlandsBiomeProperties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
@@ -9,10 +10,10 @@ import net.minecraft.world.gen.feature.WorldGenVines;
 
 import java.util.Random;
 
-public class BiomeGenTropicalIslands extends BiomeGenBaseHighlands
+public class BiomeTropicalIslands extends BiomeHighlandsBase
 {
 
-	public BiomeGenTropicalIslands()
+	public BiomeTropicalIslands()
     {
         super(HighlandsBiomeProperties.TROPICAL_ISLANDS);
         

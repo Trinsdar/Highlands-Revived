@@ -1,6 +1,7 @@
 package com.sdj64.highlands.biome;
 
 import com.sdj64.highlands.generator.HighlandsGenerators;
+import com.sdj64.highlands.init.HighlandsBiomeProperties;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -9,10 +10,10 @@ import net.minecraft.world.gen.feature.WorldGenTaiga2;
 
 import java.util.Random;
 
-public class BiomeGenPinelands extends BiomeGenBaseHighlands
+public class BiomePinelands extends BiomeHighlandsBase
 {
 
-	public BiomeGenPinelands()
+	public BiomePinelands()
     {
         super(HighlandsBiomeProperties.PINELANDS);
         

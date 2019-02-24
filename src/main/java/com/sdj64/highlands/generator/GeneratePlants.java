@@ -1,7 +1,7 @@
 package com.sdj64.highlands.generator;
 
 import com.sdj64.highlands.HighlandsSettings;
-import com.sdj64.highlands.biome.BiomeGenBaseHighlands;
+import com.sdj64.highlands.biome.BiomeHighlandsBase;
 import net.minecraft.init.Biomes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -26,12 +26,12 @@ public class GeneratePlants implements IWorldGenerator
 			
 			Biome biome = world.getBiome(pos);
 			
-			if(biome instanceof BiomeGenBaseHighlands){
+			if(biome instanceof BiomeHighlandsBase){
 				
 				
-				int l = ((BiomeGenBaseHighlands) biome).plants.size();
+				int l = ((BiomeHighlandsBase) biome).plants.size();
 				if(l > 0){
-					((BiomeGenBaseHighlands) biome).plants.get(random.nextInt(l)).generate(world, random, pos2);
+					((BiomeHighlandsBase) biome).plants.get(random.nextInt(l)).generate(world, random, pos2);
 				}
 			}
 			

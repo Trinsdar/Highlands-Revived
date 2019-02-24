@@ -9,12 +9,12 @@ import net.minecraft.world.gen.feature.WorldGenBlockBlob;
 
 import java.util.Random;
 
-public class BiomeGenGreyMountains extends BiomeGenBaseHighlands
+public class BiomeGreyMountains extends BiomeHighlandsBase
 {
 
 	private static final WorldGenBlockBlob blockBlob = new WorldGenBlockBlob(Blocks.COBBLESTONE, 0);
 	
-	public BiomeGenGreyMountains(Properties properties)
+	public BiomeGreyMountains(Properties properties)
     {
         super(properties);
         

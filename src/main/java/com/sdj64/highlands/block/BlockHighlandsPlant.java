@@ -5,6 +5,7 @@ import com.sdj64.highlands.init.HighlandsBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.IGrowable;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
@@ -20,6 +21,7 @@ public class BlockHighlandsPlant extends BlockBush implements IGrowable{
 	
 	public BlockHighlandsPlant(){
 		super();
+		this.setSoundType(SoundType.PLANT);
 	}
 
 	@Override
@@ -47,19 +49,24 @@ public class BlockHighlandsPlant extends BlockBush implements IGrowable{
 			entityIn.attackEntityFrom(DamageSource.CACTUS, 1);
     }
 
-	@Override
-	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state) {
-		// TODO Auto-generated method stub
-		return super.canBlockStay(worldIn, pos, state) || state.getBlock().equals(Blocks.SAND);
+    @Override
+	protected boolean canSustainBush(IBlockState state) {
+		if (this == HighlandsBlocks.plants[8]){
+			return state.getBlock() == Blocks.GRASS || state.getBlock() == Blocks.DIRT || state.getBlock() == Blocks.FARMLAND || state.getBlock() == Blocks.SAND;
+		}
+		return state.getBlock() == Blocks.GRASS || state.getBlock() == Blocks.DIRT || state.getBlock() == Blocks.FARMLAND;
 	}
-	
-	/**
-     * is the block grass, dirt or farmland
-     */
-    protected boolean canPlaceBlockOn(Block ground)
-    {
-        return ground == Blocks.GRASS || ground == Blocks.DIRT || ground == Blocks.FARMLAND || ground == Blocks.SAND;
-    }
-	
+
+	@Override
+	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state)
+	{
+		if (state.getBlock() == this) //Forge: This function is called during world gen and placement, before this block is set, so if we are not 'here' then assume it's the pre-check.
+		{
+			IBlockState soil = worldIn.getBlockState(pos.down());
+			return soil.getBlock().canSustainPlant(soil, worldIn, pos.down(), net.minecraft.util.EnumFacing.UP, this);
+		}
+		return this.canSustainBush(worldIn.getBlockState(pos.down()));
+	}
+
 	
 }

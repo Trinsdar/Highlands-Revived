@@ -1,6 +1,7 @@
 package com.sdj64.highlands.biome;
 
 import com.sdj64.highlands.generator.HighlandsGenerators;
+import com.sdj64.highlands.init.HighlandsBiomeProperties;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -10,7 +11,7 @@ import net.minecraft.world.gen.feature.WorldGenSavannaTree;
 
 import java.util.Random;
 
-public class BiomeGenMojave extends BiomeGenBaseHighlands
+public class BiomeMojave extends BiomeHighlandsBase
 {
 
     private int terrainInt1;
@@ -18,7 +19,7 @@ public class BiomeGenMojave extends BiomeGenBaseHighlands
     private int terrainInt3;
     private int terrainInt4;
 	
-	public BiomeGenMojave(){
+	public BiomeMojave(){
 		super(HighlandsBiomeProperties.MOJAVE);
 		
 		decorator.treesPerChunk = 1;

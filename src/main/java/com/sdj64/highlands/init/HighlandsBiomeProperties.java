@@ -1,6 +1,6 @@
-package com.sdj64.highlands.biome;
+package com.sdj64.highlands.init;
 
-import com.sdj64.highlands.biome.BiomeGenBaseHighlands.Properties;
+import com.sdj64.highlands.biome.BiomeHighlandsBase.Properties;
 
 public class HighlandsBiomeProperties {
     public static Properties ADIRONDACKS;
