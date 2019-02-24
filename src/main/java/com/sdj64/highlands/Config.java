@@ -21,6 +21,7 @@ public class Config
 	public static Property bambooForestWeight;
 	public static Property dryForestWeight;
 	public static Property dunesWeight;
+	public static Property glacierWeight;
 	public static Property greyMtnsWeight;
     public static Property highlandsbWeight;
 	public static Property lowlandsWeight;
@@ -47,6 +48,7 @@ public class Config
 	public static Property bambooForestGenerate;
 	public static Property dryForestGenerate;
 	public static Property dunesGenerate;
+	public static Property glacierGenerate;
 	public static Property greyMtnsGenerate;
 	public static Property highlandsbGenerate;
 	public static Property lowlandsGenerate;
@@ -96,6 +98,8 @@ public class Config
 		dryForestGenerate = config.get(CATEGORY_BIOME_GENERATE, "Dry Forest Generate", true);
 		dunesWeight = config.get(CATEGORY_BIOME_WEIGHT, "Dunes Weight", 10);
 		dunesGenerate = config.get(CATEGORY_BIOME_GENERATE, "Dunes Generate", true);
+		glacierWeight = config.get(CATEGORY_BIOME_WEIGHT, "Glacier Weight", 10);
+		glacierGenerate = config.get(CATEGORY_BIOME_GENERATE, "Glacier Generate", true);
 		greyMtnsWeight = config.get(CATEGORY_BIOME_WEIGHT, "Grey Mountains Weight", 10);
 		greyMtnsGenerate = config.get(CATEGORY_BIOME_GENERATE, "Grey Mountains Generate", true);
 		highlandsbWeight = config.get(CATEGORY_BIOME_WEIGHT, "Highlands Weight", 10);

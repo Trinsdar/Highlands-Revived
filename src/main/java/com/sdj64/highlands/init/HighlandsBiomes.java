@@ -8,6 +8,7 @@ import com.sdj64.highlands.biome.BiomeBadlands;
 import com.sdj64.highlands.biome.BiomeBaldHill;
 import com.sdj64.highlands.biome.BiomeBambooForest;
 import com.sdj64.highlands.biome.BiomeDryForest;
+import com.sdj64.highlands.biome.BiomeGlacier;
 import com.sdj64.highlands.biome.BiomeGreyMountains;
 import com.sdj64.highlands.biome.BiomeHighlands;
 import com.sdj64.highlands.biome.BiomeHighlandsBase;
@@ -47,6 +48,7 @@ public class HighlandsBiomes {
 	public static Biome bambooForest;
 	public static Biome dryForest;
 	public static Biome dunes;
+	public static Biome glacier;
 	public static Biome greyMtns;
 	public static Biome highlandsBiome;
 	public static Biome lowlands;
@@ -148,6 +150,16 @@ public class HighlandsBiomes {
 			if (weight > 0){
 				BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(dunes, weight));
 				BiomeManager.addSpawnBiome(dunes);
+			}
+		}
+		if(Config.glacierGenerate.getBoolean(true))
+		{
+			glacier = registerBiome(event, new BiomeGlacier(), "glacier");
+			BiomeDictionary.addTypes(glacier, Type.SNOWY, Type.COLD, Type.HILLS);
+			weight = Config.glacierWeight.getInt();
+			if (weight > 0){
+				BiomeManager.addBiome(BiomeType.ICY, new BiomeManager.BiomeEntry(glacier, weight));
+				BiomeManager.addSpawnBiome(glacier);
 			}
 		}
 		if(Config.greyMtnsGenerate.getBoolean(true))

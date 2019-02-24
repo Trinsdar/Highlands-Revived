@@ -21,7 +21,7 @@ public class WorldGenHighlandsShrub extends WorldGenMTreeBase
     	world = wor;
     	random = rand;
     	
-        if(!isLegalTreePosition(pos, false, false)){
+        if(!isLegalTreePosition(pos, true, false)){
         	return false;
         }
     	
