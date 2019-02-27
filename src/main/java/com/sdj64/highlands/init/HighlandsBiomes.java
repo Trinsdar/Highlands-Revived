@@ -22,6 +22,7 @@ import com.sdj64.highlands.biome.BiomePoplarHills;
 import com.sdj64.highlands.biome.BiomeRedwoodForest;
 import com.sdj64.highlands.biome.BiomeTropHills;
 import com.sdj64.highlands.biome.BiomeTropicalIslands;
+import com.sdj64.highlands.biome.BiomeTundra;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
@@ -58,12 +59,14 @@ public class HighlandsBiomes {
 	public static Biome poplarHills;
 	public static Biome redwoodForest;
 	public static Biome tropHills;
+	public static Biome tundra;
 
 	//Sub Biomes
 	public static Biome adirondackFoothills;
 	public static Biome alpsFoothills;
 	public static Biome badlandsFoothills;
 	public static Biome baldHill;
+	public static Biome frozenLake;
 	public static Biome greyMtnsFoothills;
 	public static Biome lake;
 	public static Biome tropicalIslands;
@@ -252,6 +255,15 @@ public class HighlandsBiomes {
 				BiomeManager.addSpawnBiome(tropHills);
 			}
 		}
+		if (Config.tundraGenerate.getBoolean(true)){
+			tundra = registerBiome(event, new BiomeTundra(), "tundra");
+			BiomeDictionary.addTypes(tundra, Type.COLD, Type.SNOWY, Type.SPARSE, Type.PLAINS);
+			weight = Config.tundraWeight.getInt();
+			if (weight > 0){
+				BiomeManager.addBiome(BiomeType.ICY, new BiomeManager.BiomeEntry(tundra, weight));
+				BiomeManager.addSpawnBiome(tundra);
+			}
+		}
 
 		//sub-biomes
 		if (Config.adirondackFoothillsGenerate.getBoolean(true)){
@@ -291,6 +303,16 @@ public class HighlandsBiomes {
 				BiomeManager.addSpawnBiome(baldHill);
 			}
 		}
+		if(Config.frozenLakeGenerate.getBoolean(true))
+		{
+			frozenLake = registerBiome(event, new BiomeLake(HighlandsBiomeProperties.FROZEN_LAKE), "frozen_lake");
+			BiomeDictionary.addTypes(frozenLake, Type.WATER, Type.COLD, Type.SNOWY);
+			weight = Config.frozenLakeWeight.getInt();
+			if (weight > 0){
+				BiomeManager.addBiome(BiomeType.ICY, new BiomeManager.BiomeEntry(frozenLake, weight));
+				BiomeManager.addSpawnBiome(frozenLake);
+			}
+		}
 		if (Config.greyMtnsFoothillsGenerate.getBoolean(true)){
 			greyMtnsFoothills = registerBiome(event, new BiomeGreyMountains(HighlandsBiomeProperties.GREY_MOUNTAINS_FOOTHILLS), "grey_mountains_foothills");
 			BiomeDictionary.addTypes(greyMtnsFoothills, Type.DRY, Type.MOUNTAIN, Type.HILLS);
@@ -302,7 +324,7 @@ public class HighlandsBiomes {
 		}
 		if(Config.lakeGenerate.getBoolean(true))
 		{
-			lake = registerBiome(event, new BiomeLake(), "lake");
+			lake = registerBiome(event, new BiomeLake(HighlandsBiomeProperties.LAKE), "lake");
 			BiomeDictionary.addTypes(lake, Type.WATER);
 			weight = Config.lakeWeight.getInt();
 			if (weight > 0){

@@ -9,9 +9,9 @@ import java.util.Random;
 public class BiomeLake extends BiomeHighlandsBase
 {
 
-	public BiomeLake()
+	public BiomeLake(Properties properties)
     {
-		super(HighlandsBiomeProperties.LAKE);
+		super(properties);
 		
         decorator.treesPerChunk = 3;
         decorator.grassPerChunk = 12;

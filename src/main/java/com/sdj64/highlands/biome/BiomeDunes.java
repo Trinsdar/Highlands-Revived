@@ -23,7 +23,6 @@ public class BiomeDunes extends BiomeHighlandsBase
         this.fillerBlock = Blocks.SAND.getDefaultState();
         
         this.plants.add(HighlandsGenerators.duneGrass);
-        this.plants.add(HighlandsGenerators.empty);
     }
 
     @Override

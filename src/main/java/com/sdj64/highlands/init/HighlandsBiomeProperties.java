@@ -14,6 +14,7 @@ public class HighlandsBiomeProperties {
     public static Properties DESERT_MOUNTAINS;
     public static Properties DRY_FOREST;
     public static Properties DUNES;
+    public static Properties FROZEN_LAKE;
     public static Properties GLACIER;
     public static Properties GREY_MOUNTAINS;
     public static Properties GREY_MOUNTAINS_FOOTHILLS;
@@ -49,6 +50,7 @@ public class HighlandsBiomeProperties {
         GREY_MOUNTAINS_FOOTHILLS = new Properties("Grey Mountains Foothills", (1.8F / 2F), (1.0F / 2F), 0.6F, 0.1F, false);
         HIGHLANDS = new Properties("Highlands", 0.7F, 0.4F, 0.6F, 0.2F, false);
         LAKE = new Properties("Lake", -0.7F, 0.01F, 0.8F, 0.8F, false);
+        FROZEN_LAKE = new Properties("Frozen Lake", -0.7F, 0.01F, 0.0F, 0.8F, true);
         LOWLANDS = new Properties("Lowlands", -0.1F, 0.2F, 0.5F, 1.2F, false);
         MEADOW = new Properties("Meadow", 0.15F, 0.15F, 0.7F, 0.8F, false);
         MOJAVE = new Properties("Mojave", 0.2F, 0.4F, 1.6F, 0.1F, false);
@@ -59,6 +61,6 @@ public class HighlandsBiomeProperties {
         SNOW_MOUNTAINS = new Properties("Snow Mountains", 1.5F, 0.8F, 0.0F, 0.5F, true);
         TROPICAL_HILLS = new Properties("Tropical Hills", 0.4F, 0.5F, 0.95F, 0.7F, false);
         TROPICAL_ISLANDS = new Properties("Tropical Islands", -0.2F, 0.2F, 0.95F, 1.2F, false);
-        TUNDRA = new Properties("Tundra", 0.125F, 0.02F, 0.0F, 0.5F, true);
+        TUNDRA = new Properties("Tundra", 0.125F, 0.0005F, 0.0F, 0.5F, true);
     }
 }

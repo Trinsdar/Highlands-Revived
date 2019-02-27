@@ -31,12 +31,14 @@ public class Config
 	public static Property poplarHillsWeight;
     public static Property redwoodForestWeight;
     public static Property tropicalIslandsWeight;
+	public static Property tundraWeight;
 
     // SubBiome Weight Properties
 	public static Property adirondackFoothillsWeight;
 	public static Property alpsFoothillsWeight;
 	public static Property badlandsFoothillsWeight;
 	public static Property baldHillWeight;
+	public static Property frozenLakeWeight;
 	public static Property greyMtnsFoothillsWeight;
 	public static Property lakeWeight;
 	public static Property tropHillsWeight;
@@ -57,13 +59,15 @@ public class Config
 	public static Property pinelandsGenerate;
 	public static Property poplarHillsGenerate;
 	public static Property redwoodForestGenerate;
+	public static Property tropicalIslandsGenerate;
+	public static Property tundraGenerate;
 
 	//SubBiome Generate Properties
-	public static Property tropicalIslandsGenerate;
 	public static Property adirondackFoothillsGenerate;
 	public static Property alpsFoothillsGenerate;
 	public static Property badlandsFoothillsGenerate;
 	public static Property baldHillGenerate;
+	public static Property frozenLakeGenerate;
 	public static Property greyMtnsFoothillsGenerate;
 	public static Property lakeGenerate;
 	public static Property tropHillsGenerate;
@@ -118,6 +122,8 @@ public class Config
 		redwoodForestGenerate = config.get(CATEGORY_BIOME_GENERATE, "Redwood Forest Generate", true);
 		tropicalIslandsWeight = config.get(CATEGORY_BIOME_WEIGHT, "Tropical Islands Weight", 10);
 		tropicalIslandsGenerate = config.get(CATEGORY_BIOME_GENERATE, "Tropical Islands Generate", true);
+		tundraWeight = config.get(CATEGORY_BIOME_WEIGHT, "Tundra Weight", 10);
+		tundraGenerate = config.get(CATEGORY_BIOME_GENERATE, "Tundra Generate", true);
 
 		//SubBiomes
 		adirondackFoothillsWeight = config.get(CATEGORY_SUBBIOME_WEIGHT, "Adirondacks Foothills Weight", 10);
@@ -128,6 +134,8 @@ public class Config
 		badlandsFoothillsGenerate = config.get(CATEGORY_SUBBIOME_GENERATE, "Badlands Foothills Generate", true);
 		baldHillWeight = config.get(CATEGORY_SUBBIOME_WEIGHT, "Bald Hill Weight", 10);
 		baldHillGenerate = config.get(CATEGORY_SUBBIOME_GENERATE, "Bald Hill Generate", true);
+		frozenLakeWeight = config.get(CATEGORY_SUBBIOME_WEIGHT, "Frozen Lake Weight", 10);
+		frozenLakeGenerate = config.get(CATEGORY_SUBBIOME_GENERATE, "Frozen Lake Generate", true);
 		greyMtnsFoothillsWeight = config.get(CATEGORY_SUBBIOME_WEIGHT, "Grey Mountains Foothills Weight", 10);
 		greyMtnsFoothillsGenerate = config.get(CATEGORY_SUBBIOME_GENERATE, "Grey Mountains Foothills Generate", true);
 		lakeWeight = config.get(CATEGORY_SUBBIOME_WEIGHT, "Lake Weight", 10);

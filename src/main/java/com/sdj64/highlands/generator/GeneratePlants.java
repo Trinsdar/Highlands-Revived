@@ -19,8 +19,8 @@ public class GeneratePlants implements IWorldGenerator
 	public void generate(Random random, int chunkX, int chunkZ, World world,
 						 IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
 		if(world.provider.getDimension() == 0){
-			int locX = chunkX*16 + random.nextInt(16);
-			int locZ = chunkZ*16 + random.nextInt(16);
+			int locX = chunkX*16 + random.nextInt(14) + 1;
+			int locZ = chunkZ*16 + random.nextInt(14) + 1;
 			BlockPos pos = new BlockPos(locX, 1, locZ);
 			BlockPos pos2 = world.getTopSolidOrLiquidBlock(pos);
 			

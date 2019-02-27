@@ -16,16 +16,8 @@ public class BiomeBaldHill extends BiomeHighlandsBase
         decorator.grassPerChunk = 4;
         decorator.flowersPerChunk = 3;
         
-        plants.add(HighlandsGenerators.mcBluet);
-        plants.add(HighlandsGenerators.mcAllium);
-        
     }
 
-    @Override
-	public WorldGenAbstractTree getRandomTreeFeature(Random random)
-    {
-		return (random.nextInt(10) == 0 ? this.BIG_TREE_FEATURE : this.TREE_FEATURE);
-    }
 	    
 }
 

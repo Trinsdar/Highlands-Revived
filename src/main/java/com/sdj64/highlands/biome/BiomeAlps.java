@@ -45,20 +45,16 @@ public class BiomeAlps extends BiomeHighlandsBase {
 
 	            if(random.nextInt(21) == 0){
 		            if(random.nextInt(3) == 0){
-		            	System.out.println("Generating fir tree at" + " " + world.getHeight(pos));
-		            	System.out.println("Chunk is " + world.getChunkFromBlockCoords(pos).getPos());
 		            	HighlandsGenerators.firGen.generate(world, random, treepos);
 		            }
 		            else{
-						System.out.println("Generating spruce tree at" + " " + world.getHeight(pos));
-						System.out.println("Chunk is " + world.getChunkFromBlockCoords(pos).getPos());
 		            	new WorldGenTaiga2().generate(world, random, treepos);
 		            }
 	            }
 
 	        }
         }
-        
+
         int i = 3 + random.nextInt(6);
         int j;
         int k;
@@ -73,6 +69,8 @@ public class BiomeAlps extends BiomeHighlandsBase {
 
             if (world.getBlockState(blockpos1).getBlock().isReplaceableOreGen(world.getBlockState(blockpos1), world, blockpos1, net.minecraft.block.state.pattern.BlockMatcher.forBlock(Blocks.STONE)))
             {
+				System.out.println("Generating emerald ore at" + " " + world.getHeight(pos));
+				System.out.println("Chunk is " + world.getChunkFromBlockCoords(pos).getPos());
                 world.setBlockState(blockpos1, Blocks.EMERALD_ORE.getDefaultState(), 2);
             }
         }
