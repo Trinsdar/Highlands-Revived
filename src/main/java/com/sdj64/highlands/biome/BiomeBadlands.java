@@ -57,24 +57,6 @@ public class BiomeBadlands extends BiomeHighlandsBase
         //genStandardOre(6, HighlandsGenerators.STONEInDIRT, 64, 128, world, random, pos);
     	
         super.decorate(world, random, pos);
-        
-        int i = 3 + random.nextInt(6);
-        int j;
-        int k;
-        int l;
-
-        for (j = 0; j < i; ++j)
-        {
-            k = random.nextInt(16);
-            l = random.nextInt(28) + 4;
-            int i1 = random.nextInt(16);
-            BlockPos blockpos1 = pos.add(k, l, i1);
-
-            if (world.getBlockState(blockpos1).getBlock().isReplaceableOreGen(world.getBlockState(blockpos1), world, blockpos1, net.minecraft.block.state.pattern.BlockMatcher.forBlock(Blocks.STONE)))
-            {
-                world.setBlockState(blockpos1, Blocks.EMERALD_ORE.getDefaultState(), 2);
-            }
-        }
     }
 
     @Override
